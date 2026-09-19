@@ -99,11 +99,16 @@ function corpusCounts() {
   for (const p of walk(CORPUS, (f) => f.endsWith('.json') && !f.endsWith('family.json'))) {
     let r; try { r = readJson(p); } catch { continue; }
     if (!r?.family) continue;
-    counts[r.family] ??= { total: 0, bands: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }, shapes: {} };
+    counts[r.family] ??= { total: 0, bands: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }, shapes: {}, cells: {} };
     counts[r.family].total++;
     counts[r.family].bands[r.difficulty.band]++;
     const k = `${r.params.size}:${r.params.box_h}x${r.params.box_w}`;
     counts[r.family].shapes[k] = (counts[r.family].shapes[k] ?? 0) + 1;
+    // The band/shape cell, which is what a plan actually fills. A shape total
+    // hides a starved cell inside a well-stocked shape: 9x9 held 377 records
+    // and ten of them were band 1.
+    const ck = `${k}|${r.difficulty.band}`;
+    counts[r.family].cells[ck] = (counts[r.family].cells[ck] ?? 0) + 1;
   }
   return counts;
 }
@@ -122,7 +127,7 @@ function nextIndex() {
 // Every combination this family can produce, ordered so that whatever the
 // corpus has least of comes first.
 function sudokuCandidates(counts) {
-  const have = counts['sudoku-classic'] ?? { bands: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }, shapes: {} };
+  const have = counts['sudoku-classic'] ?? { bands: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }, shapes: {}, cells: {} };
   const out = [];
   for (const sh of SUDOKU_SHAPES) {
     for (const [band, plenty] of Object.entries(sh.bands)) {
@@ -136,6 +141,7 @@ function sudokuCandidates(counts) {
           symmetry,
           have_band: have.bands[band] ?? 0,
           have_shape: have.shapes[shapeKey] ?? 0,
+          have_cell: have.cells?.[`${shapeKey}|${band}`] ?? 0,
         });
       }
     }
@@ -150,8 +156,14 @@ function sudokuCandidates(counts) {
     byBand.get(c.band).push(c);
   }
   for (const list of byBand.values()) {
-    list.sort((a, b) => a.have_shape - b.have_shape || (a.shape.size - b.shape.size) ||
-      (a.symmetry < b.symmetry ? -1 : 1));
+    // Thinnest CELL first, not thinnest shape. Sorting on the shape total
+    // offered the same exhausted 4x4 band-1 cells every refill, because 4x4
+    // is the smallest shape overall, while 9x9 band 1 -- ten records, the
+    // thinnest cell in the corpus -- sorted last behind its own well-stocked
+    // bands 2 to 5. The shape total stays as the tie-break so a batch still
+    // spreads across shapes when two cells are equally thin.
+    list.sort((a, b) => a.have_cell - b.have_cell || a.have_shape - b.have_shape ||
+      (a.shape.size - b.shape.size) || (a.symmetry < b.symmetry ? -1 : 1));
   }
   const bands = [...byBand.keys()].sort((a, b) =>
     (byBand.get(a)[0].have_band - byBand.get(b)[0].have_band) || (a - b));
@@ -278,7 +290,14 @@ function main() {
     // Sized so that the five plans a batch claims land inside the 200-400
     // accepted-puzzle target in CLAUDE.md, allowing for one of the five being
     // an onboarding task that produces no puzzles of its own.
-    const count = c.plenty === 'scarce' ? 20 : c.shape.size >= 9 ? 60 : 50;
+    //
+    // A scarce band gets the same count as a plentiful one. It used to get 20,
+    // which held band 3 at 9.2% of the corpus against roughly 22.6% for every
+    // other band. Scarcity is already paid for in the attempt budget, which is
+    // 400 per puzzle rather than 60; the count was a second, unmeasured tax on
+    // top of it. Batch 008 measured the real cost of a 60-puzzle band-3 plan at
+    // 9x9: 3,326 attempts, 55 per puzzle, 14% of the budget it was given.
+    const count = c.shape.size >= 9 ? 60 : 50;
     const { name, body } = planBody(c, count, index);
     const cell = cellOf(name);
     if (existing.has(cell) || saturated.has(cell)) continue;
