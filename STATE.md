@@ -500,6 +500,58 @@ id-derived sample. `tools/record.mjs` is not frozen. No `sudoku-classic` record 
 
 ## Batches
 
+### batch/011 — 2026-09-19 — binairo onboarded, and the first non-sudoku puzzles
+
+**203 accepted, 4,402 generator rejections**, from 4,605 attempts. All five bands, four grid sizes,
+one family. Corpus: **2,701 records**, bands `{1:588, 2:590, 3:385, 4:580, 5:558}`.
+
+- **accepted:** binairo 203 (b1 50, b2 50, b3 50, b4 40, b5 13)
+- **rejected:** 4,402 (band-mismatch 4,391, timeout 9, duplicate-hash 2)
+- **families:** binairo only — see below
+- **blocked:** none
+
+| plan | accepted | attempts | wall |
+|---|---:|---:|---:|
+| b1 · 6×6 · diagonal | 50/50 | 52 | <1s |
+| b2 · 8×8 · diagonal | 50/50 | 50 | 1s |
+| b3 · 10×10 · diagonal | 50/50 | 50 | 6s |
+| b4 · 12×12 · diagonal | 40/40 | 62 | 103s |
+| b5 · 12×12 · diagonal | 13/40 | ~4,390 | out of time |
+
+**One family, not three.** `CLAUDE.md` asks every batch to touch at least three families with none
+over 40%. With one non-sudoku family onboarded that is arithmetically impossible, and it stays
+impossible until a third family exists. This is not drift and a future session should not treat it
+as such: the fix is onboarding families, not relaxing the rule. Variety came from grid size
+instead — four sizes in five plans, which `make_plans` did not do until this batch (below).
+
+**learned — an attempt budget is not a budget.** The batch ran twenty-eight minutes at full CPU and
+wrote nothing, which from outside is indistinguishable from a hang. Plan budgets are denominated in
+attempts, and that number was calibrated on sudoku where an attempt costs milliseconds. A binairo
+attempt on a 12×12 costs about a second, so a scarce band's "400 attempts per puzzle" works out at
+over four hours for one plan — and the only clock being checked was the whole run's, so one plan
+could starve every plan behind it. Each plan now also gets a share of the time remaining, divided by
+the plans still to run. The three plans hidden behind the starving one turned out to take one
+second, one second and six seconds.
+
+**learned — `runPlans` always took an `onProgress` hook and nothing ever passed one.** A
+forty-five minute run printed a single line at the start, and records were only written after every
+plan finished, so `corpus/` stayed empty throughout. Both fixed: it reports per plan, and each
+plan's records are written as that plan finishes, so a run cut short keeps what it earned.
+
+**learned — band 5 at 12×12 yields about one puzzle per 325 attempts**, measured over 4,391
+rejections. That is a fact about the family: reaching band 5 means defeating cell-by-cell case
+analysis outright, which on a binairo board is rare. `make_plans` now asks scarce cells for 12
+rather than 40, because asking for 40 guarantees a plan that reports short every time.
+
+**learned — `make_plans` filled one grid size six ways before touching another.** With an empty
+family every cell is equally thin, so its sort fell through to grid size and put 6×6 in twenty of
+the first twenty-five plans. It now weaves shapes the way it already wove bands, and offsets each
+band's rotation so a batch spans several sizes rather than one.
+
+**learned — `schema/family.schema.json` required box dimensions on every manifest shape**, the same
+sudoku assumption already fixed in `puzzle.schema.json`, missed there only because no family without
+boxes had a manifest yet. Widened the same way.
+
 ### batch/010 — 2026-09-19 — the last sudoku batch, and the second audit
 
 **270 accepted, 0 gate rejections, 8,379 generator rejections**, from 8,649 attempts. Five bands,

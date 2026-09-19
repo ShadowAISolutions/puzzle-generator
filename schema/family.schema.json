@@ -20,13 +20,16 @@
     "shapes": {
       "type": "array",
       "items": {
+        "description": "One grid shape the family produces. Only size is required: box_h and box_w describe how a sudoku's boxes tile its grid and mean nothing to a family without boxes, and rows and cols describe a grid that need not be square. This is the widening already applied to a record's params in puzzle.schema.json, for the same reason; it was missed in this file only because no family without boxes had a manifest yet.",
         "type": "object",
         "additionalProperties": false,
-        "required": ["size", "box_h", "box_w"],
+        "required": ["size"],
         "properties": {
           "size": { "type": "integer" },
           "box_h": { "type": "integer" },
-          "box_w": { "type": "integer" }
+          "box_w": { "type": "integer" },
+          "rows": { "type": "integer" },
+          "cols": { "type": "integer" }
         }
       }
     },

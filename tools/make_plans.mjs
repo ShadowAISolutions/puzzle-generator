@@ -107,7 +107,7 @@ const PLANNERS = {
       size: sh.size, box_h: sh.box_h, box_w: sh.box_w,
       symmetry, min_clues: sh.min_clues, band_target: band, dig_passes: 6,
     }),
-    countFor: (sh) => (sh.size >= 9 ? 60 : 50),
+    countFor: (c) => (c.shape.size >= 9 ? 60 : 50),
   },
   binairo: {
     shapes: BINAIRO_SHAPES,
@@ -119,7 +119,11 @@ const PLANNERS = {
     params: (sh, band, symmetry) => ({
       size: sh.size, symmetry, min_clues: sh.min_clues, band_target: band, dig_passes: 6,
     }),
-    countFor: (sh) => (sh.size >= 12 ? 40 : 50),
+    // A scarce cell asks for far fewer. Batch 011 measured band 5 at 12x12 at
+    // roughly one puzzle per 325 attempts, over 4,391 rejections; asking that
+    // cell for 40 guarantees a plan that runs out of time every time and
+    // reports short. Twelve is about what its time share actually buys.
+    countFor: (c) => (c.plenty === 'scarce' ? 12 : c.shape.size >= 12 ? 40 : 50),
   },
 };
 
@@ -419,7 +423,7 @@ function main() {
     // 400 per puzzle rather than 60; the count was a second, unmeasured tax on
     // top of it. Batch 008 measured the real cost of a 60-puzzle band-3 plan at
     // 9x9: 3,326 attempts, 55 per puzzle, 14% of the budget it was given.
-    const count = (c.planner ?? PLANNERS[c.family]).countFor(c.shape);
+    const count = (c.planner ?? PLANNERS[c.family]).countFor(c);
     const { name, body } = planBody(c, count, index);
     const cell = cellOf(name);
     if (existing.has(cell) || saturated.has(cell)) continue;
