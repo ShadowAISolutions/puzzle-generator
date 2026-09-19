@@ -1,0 +1,59 @@
+{
+  "family": "killer-sudoku",
+  "family_version": 1,
+  "frozen": true,
+  "calibrated": "PROVISIONAL",
+  "bands": [
+    { "band": 1, "name": "Gentle", "max_tier": 1 },
+    { "band": 2, "name": "Steady", "max_tier": 2 },
+    { "band": 3, "name": "Medium", "max_tier": 3 },
+    { "band": 4, "name": "Hard", "max_tier": 4 },
+    { "band": 5, "name": "Brutal", "max_tier": 5 }
+  ],
+  "technique_tiers": {
+    "cage_single": 1,
+    "naked_single": 1,
+    "hidden_single": 1,
+    "cage_combination": 1,
+    "cage_innie_single": 2,
+    "locked_candidates_pointing": 2,
+    "locked_candidates_claiming": 2,
+    "naked_pair": 2,
+    "hidden_pair": 2,
+    "cage_hidden_single": 2,
+    "cage_innie_set": 3,
+    "naked_triple": 3,
+    "hidden_triple": 3,
+    "x_wing": 3,
+    "naked_quad": 3,
+    "hidden_quad": 3,
+    "cage_group_sum": 4,
+    "swordfish": 4,
+    "xy_wing": 4,
+    "xyz_wing": 4,
+    "w_wing": 4,
+    "jellyfish": 4,
+    "simple_coloring": 4
+  },
+  "search_entry": "bounded_search",
+  "tier_weights": { "1": 1, "2": 4, "3": 12, "4": 40, "5": 150 },
+  "search_depth_weight": 60,
+  "shapes": [
+    { "size": 4, "box_h": 2, "box_w": 2 },
+    { "size": 6, "box_h": 2, "box_w": 3 },
+    { "size": 6, "box_h": 3, "box_w": 2 },
+    { "size": 9, "box_h": 3, "box_w": 3 }
+  ],
+  "reference_cross_check": {
+    "always_at_or_below_size": 6,
+    "random_fraction_above": 0.05
+  },
+  "budgets": {
+    "count_nodes": 400000,
+    "band_nodes": 200000,
+    "search_nodes": 400000,
+    "reference_nodes": 40000000,
+    "reference_ms": 60000,
+    "ms": 20000
+  }
+}

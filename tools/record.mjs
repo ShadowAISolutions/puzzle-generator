@@ -46,15 +46,20 @@ export function buildRecord({ family, seed, params, batch, now, referenceCheck =
     throw new Error('solver solution differs from the generator source grid');
   }
 
+  const canonical = S.hashOf(gen.puzzle, params);
+  const id = canonical.slice(0, 16);
+
+  // Whether the reference has to confirm this instance is the family's call,
+  // and it is taken here exactly as tools/gate.mjs takes it: same function,
+  // same id-derived sample. If the two disagreed, generation would either
+  // waste a brute force the gate will not ask for or, worse, ship a record the
+  // gate then rejects for a cross-check that was never run.
   let referenceChecked = false;
-  if (referenceCheck) {
+  if (referenceCheck && S.needsReferenceCheck(params, sampleValue(id, 'reference'))) {
     const conf = R.confirmUnique(gen.puzzle, verdict.solutionString, params, { budget: S.makeBudgets(params).referenceBudget() });
     if (!conf.ok) return { record: null, reason: `reference: ${conf.reason}` };
     referenceChecked = true;
   }
-
-  const canonical = S.hashOf(gen.puzzle, params);
-  const id = canonical.slice(0, 16);
 
   const record = {
     id,
