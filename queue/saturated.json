@@ -12,6 +12,12 @@
       "measured": "2026-09-19, batch 006, plan 027-sudoku-classic-b1-42x2-mirror_h-50",
       "corpus_records": 15,
       "evidence": "3,000 attempts, 15 accepted, 2,985 duplicate-hash rejections and zero band-mismatch. Capacity varies sharply by symmetry at this shape: diagonal holds 43, mirror_h only 15, because a horizontal mirror constrains a 4x4 clue pattern much harder."
+    },
+    {
+      "cell": "sudoku-classic-b1-42x2-rot90",
+      "measured": "2026-09-19, batch 007, plan 068-sudoku-classic-b1-42x2-rot90-50",
+      "corpus_records": 5,
+      "evidence": "3,000 attempts, 5 accepted, 2,995 duplicate-hash rejections and zero band-mismatch. This cell has a closed-form ceiling rather than an empirical one: rot90 partitions a 4x4's 16 cells into exactly 4 orbits of 4, so a rot90-symmetric clue pattern is a union of orbits and there are only 2^4 - 1 = 15 non-empty patterns in total. Every accepted record has 8 clues, i.e. exactly 2 of the 4 orbits, and the corpus holds 4 of the 6 possible two-orbit patterns. One orbit (4 clues) cannot force a unique solution and three (12 clues) does not reach band 1, so 8 clues is the only workable size. rot90 is offered at band 1 only, so this is the whole 4x4 rot90 space."
     }
   ]
 }
