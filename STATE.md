@@ -12,6 +12,49 @@ Nothing outstanding.
 
 Decisions that settle an ambiguous choice, so no future session re-litigates them.
 
+### 2026-09-19 — the band-3 9x9 "decline" is not drift, and nothing frozen has moved
+
+The band-3 9x9 acceptance rate read 3.0% at Phase 0, 2.0% in batch 001, 1.5% in batch 002 and 1.2%
+in batch 003, which looks like a trend and was briefly recorded as one. It is not, and no future
+session should chase it as one.
+
+**Nothing frozen has drifted, and this is proved rather than argued.** The gate's `banded` check
+re-derives band, score, `max_search_depth` and the full technique trace from the current solver and
+fails a record whose stored values differ. `node tools/gate.mjs --all --render` passed **760/760**
+this batch. Every Phase 0 and batch 001 record therefore still classifies today exactly as it did
+when it was written, trace included. If `bands.json` or the ladder had moved by one technique, those
+older records would fail. This is the audit step 4 check, available every batch for free, and it is
+stronger than re-running the classifier over a 200-record sample.
+
+**The four figures are four different symmetries.** Every other parameter is identical across them
+(`size` 9, `3x3`, `min_clues` 17, `dig_passes` 6); only `symmetry` changes: `rot180` at Phase 0,
+`diagonal` in 001, `mirror_h` in 002, `mirror_v` in 003. So they were never a time series.
+
+Re-measuring all five symmetries in one run, today, with the same code (a scratch copy, 20
+acceptances each, 7,092 rejections total):
+
+| symmetry | attempts for 20 | acceptance |
+|---|---:|---:|
+| `none` | 622 | 3.2% |
+| `diagonal` | 1,429 | 1.4% |
+| `rot180` | 1,619 | 1.2% |
+| `mirror_h` | 1,739 | 1.2% |
+| `mirror_v` | 1,783 | 1.1% |
+
+What this establishes: **`none` is about 2.5x cheaper than any constrained symmetry, and the four
+constrained symmetries are indistinguishable from each other** at this sample size. A band-3 9x9
+plan on a constrained symmetry costs roughly 1,700 attempts for 20 puzzles, against the 8,000 the
+plan budget allows, so there is about 4.7x headroom and nothing is at risk.
+
+What it does not establish: why Phase 0 recorded 3.0% for `rot180` when `rot180` measures 1.2%
+today. The classifier is proved unchanged, so the honest options are that the Phase 0 figure was
+computed differently from an attempts-to-target rate, or that it was a small sample stated too
+precisely. It was not re-derived, and it should not be treated as a comparable measurement.
+
+**The lesson worth keeping:** a difficulty-acceptance rate is only comparable across batches when
+the plan parameters match, and the queue varies symmetry from plan to plan by design. Compare
+like with like, or compare nothing.
+
 ### 2026-09-19 — the gate was proved live, because it had never rejected anything
 
 Three batches in, the gate's record is **660 accepted, 0 rejected**. Every rejection in batches
@@ -302,14 +345,11 @@ attempts. Generation took 16s. Five bands, three grid shapes, two symmetries, on
   reference-checked. `max_search_depth` is 0 in bands 1 to 4 and reaches 6 in band 5;
   `bounded_search` appears in band 5 and nowhere else. Score ranges by band: 24–28, 46–68, 63–103,
   78–392, 225–530. Clue ranges: 8–12, 17–22, 25–31, 18–26, 18–22.
-- **band 3 at 9×9 fell again: 1.2% acceptance** (20 from 1,715), against 1.5% in batch 002, 2.0% in
-  batch 001 and 3.0% at Phase 0 calibration. Four points, monotonically down, and the drop is now
-  large enough that it is not sampling noise. This is the one number a future session should chase.
-  Nothing frozen has changed — the band classifier is the same code and `bands.json` is unchanged —
-  so the likely cause is in the non-frozen generator's dig-and-fill-back search interacting with
-  the 9×9 shape, or in the plan parameters `tools/make_plans.mjs` emits for band-3 9×9. Chase it
-  before the attempt budget stops covering it; at this rate it will need roughly 2,500 attempts per
-  20 puzzles by batch 005.
+- **band 3 at 9×9 took 1,715 attempts for 20 (1.2%).** An earlier draft of this entry called the
+  series 3.0% → 2.0% → 1.5% → 1.2% a monotonic decline too large to be noise, and filed it as drift
+  to chase. **That was wrong and it is corrected here**, because the four figures are four
+  different symmetries, not four samples of one thing, and because the drift question has a direct
+  test that had already been run. See `## Decisions` above.
 - **variety was thinner than batch 002:** three shapes but only two symmetries (`none` 150,
   `mirror_v` 70), because the queue is consumed in FIFO order and plans 012–016 happened to cluster
   there. Not a defect, but `tools/make_plans.mjs` emits plans grouped by symmetry, so FIFO
