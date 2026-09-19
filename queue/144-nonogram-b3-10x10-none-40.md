@@ -1,10 +1,10 @@
-# 099-binairo-b4-12x12-diagonal-40
+# 144-nonogram-b3-10x10-none-40
 
-Generate **40** binairo puzzles in **band 4 (Hard)** on a
-**12×12** grid with **diagonal** symmetry.
+Generate **40** nonogram puzzles in **band 3 (Medium)** on a
+**10×10** grid with **none** symmetry.
 
-- Dig no further than **0** clues.
-- Band 4 is **plentiful** at this shape, so the attempt budget is **2400**.
+- Dig no further than **undefined** clues.
+- Band 3 is **plentiful** at this shape, so the attempt budget is **2400**.
 - The band written to each record is whatever the solver's trace says. If this plan yields puzzles
   at a different band, the plan was wrong, not the solver: the driver offers them to another plan
   in the batch that wants that band, and discards them otherwise.
@@ -14,16 +14,17 @@ within its attempt budget, or if any accepted puzzle fails `tools/gate.mjs`.
 
 ```json
 {
-  "family": "binairo",
-  "band": 4,
+  "family": "nonogram",
+  "band": 3,
   "count": 40,
   "max_attempts": 2400,
   "params": {
-    "size": 12,
-    "symmetry": "diagonal",
-    "min_clues": 0,
-    "band_target": 4,
-    "dig_passes": 6
+    "rows": 10,
+    "cols": 10,
+    "density": 0.46,
+    "smooth": 1,
+    "band_target": 3,
+    "climb_steps": 300
   }
 }
 ```

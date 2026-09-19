@@ -1,0 +1,17 @@
+{
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "multiple"
+  },
+  "note": "Two rows and two columns each holding one filled cell. The two cells can sit on either diagonal of the square they span, so there are exactly two solutions and nothing distinguishes them.",
+  "params": {
+    "cols": 6,
+    "rows": 6
+  },
+  "puzzle": "1,1,,,,|1,1,,,,",
+  "slug": "multiple-switch-6x6",
+  "source": "constructed"
+}

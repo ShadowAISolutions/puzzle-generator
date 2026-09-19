@@ -1,0 +1,17 @@
+{
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "Every line is satisfiable by itself and the two sides agree on how many cells are filled, yet no grid exists: the first row needs its two cells separated, and the only columns allowed to hold anything are adjacent.",
+  "params": {
+    "cols": 5,
+    "rows": 5
+  },
+  "puzzle": "11,,,,|1,1,,,",
+  "slug": "contradiction-jointly-impossible-5x5",
+  "source": "constructed"
+}

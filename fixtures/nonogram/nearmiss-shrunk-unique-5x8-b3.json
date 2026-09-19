@@ -1,0 +1,21 @@
+{
+  "derived_from": "unique-5x8-b3",
+  "expect": {
+    "band": 3,
+    "reference": "confirmed",
+    "solution": "###.#.#.#..##..###.#.#.##.#.#..#..##..#.",
+    "techniques": [
+      "overlap",
+      "shallow_contradiction"
+    ],
+    "verdict": "unique"
+  },
+  "note": "unique-5x8-b3 with one run shortened by one.",
+  "params": {
+    "cols": 8,
+    "rows": 5
+  },
+  "puzzle": "311,121,2111,1111,21|4,11,12,21,21,1,11,3",
+  "slug": "nearmiss-shrunk-unique-5x8-b3",
+  "source": "generated"
+}

@@ -1,10 +1,12 @@
 // Registry of reference brute-force solvers, one per family.
 import * as sudokuClassic from './sudoku-classic.mjs';
 import * as binairo from './binairo.mjs';
+import * as nonogram from './nonogram.mjs';
 
 export const REFERENCES = {
   'sudoku-classic': sudokuClassic,
   binairo,
+  nonogram,
 };
 
 export function referenceFor(family) {

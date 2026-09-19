@@ -1,0 +1,17 @@
+{
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "A row asking for 4 separate single cells in 5, which needs 7 cells once the gaps between them are counted.",
+  "params": {
+    "cols": 5,
+    "rows": 5
+  },
+  "puzzle": "1111,,,,|1,1,1,1,",
+  "slug": "contradiction-no-room-5x5",
+  "source": "constructed"
+}

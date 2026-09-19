@@ -1,0 +1,19 @@
+{
+  "expect": {
+    "band": 1,
+    "reference": "confirmed",
+    "solution": "########################################",
+    "techniques": [
+      "overlap"
+    ],
+    "verdict": "unique"
+  },
+  "note": "Every row is one run the width of the grid and every column one run its height. Only the completely filled grid matches.",
+  "params": {
+    "cols": 8,
+    "rows": 5
+  },
+  "puzzle": "8,8,8,8,8|5,5,5,5,5,5,5,5",
+  "slug": "degenerate-full-5x8",
+  "source": "constructed"
+}

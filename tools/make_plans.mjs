@@ -95,6 +95,28 @@ function binairoSymmetries(shape, band) {
 // name a shape, and how to turn one into generator params. Everything else --
 // the thinnest-cell ordering, the band interleave, the duplicate check -- is
 // the same for every family and lives below.
+// Nonogram shapes. "density" and "smooth" are the levers that pick which grid
+// the climb starts from, and they vary by shape: a big grid needs a lower fill
+// and more smoothing to keep its clue string inside the schema's 256 characters.
+//
+// Band 5 appears in no cell here. It has never been observed for this family at
+// any supported shape -- a hypothesis on one cell, worked out with full line
+// reasoning, resolves every unique nonogram measured so far -- so queueing a
+// band-5 plan would queue a plan that cannot be met. Band 4 is marked scarce
+// because it is: roughly one climb in thirty at 12x12.
+const NONOGRAM_SHAPES = [
+  { rows: 5, cols: 5, density: 0.5, smooth: 0, bands: { 1: 'plentiful', 2: 'plentiful', 3: 'plentiful' } },
+  { rows: 6, cols: 6, density: 0.5, smooth: 0, bands: { 1: 'plentiful', 2: 'plentiful', 3: 'plentiful' } },
+  { rows: 8, cols: 8, density: 0.48, smooth: 1, bands: { 1: 'plentiful', 2: 'plentiful', 3: 'plentiful' } },
+  { rows: 10, cols: 10, density: 0.46, smooth: 1, bands: { 1: 'plentiful', 2: 'plentiful', 3: 'plentiful', 4: 'scarce' } },
+  { rows: 12, cols: 12, density: 0.45, smooth: 1, bands: { 1: 'plentiful', 2: 'plentiful', 3: 'plentiful', 4: 'scarce' } },
+  { rows: 14, cols: 14, density: 0.44, smooth: 2, bands: { 1: 'plentiful', 2: 'plentiful', 3: 'plentiful', 4: 'scarce' } },
+  { rows: 5, cols: 8, density: 0.48, smooth: 0, bands: { 1: 'plentiful', 2: 'plentiful', 3: 'plentiful' } },
+  { rows: 6, cols: 10, density: 0.47, smooth: 1, bands: { 1: 'plentiful', 2: 'plentiful', 3: 'plentiful' } },
+  { rows: 8, cols: 12, density: 0.46, smooth: 1, bands: { 1: 'plentiful', 2: 'plentiful', 3: 'plentiful' } },
+  { rows: 10, cols: 15, density: 0.45, smooth: 2, bands: { 1: 'plentiful', 2: 'plentiful', 3: 'plentiful' } },
+];
+
 const PLANNERS = {
   'sudoku-classic': {
     shapes: SUDOKU_SHAPES,
@@ -124,6 +146,25 @@ const PLANNERS = {
     // cell for 40 guarantees a plan that runs out of time every time and
     // reports short. Twelve is about what its time share actually buys.
     countFor: (c) => (c.plenty === 'scarce' ? 12 : c.shape.size >= 12 ? 40 : 50),
+  },
+  nonogram: {
+    shapes: NONOGRAM_SHAPES,
+    // A nonogram has no givens to lay out, so there is no symmetry to choose:
+    // its clues are a function of its solution. The single entry keeps the
+    // shared plan machinery, which iterates symmetries, working unchanged.
+    symmetries: () => ['none'],
+    shapeKey: (sh) => `${sh.rows}x${sh.cols}:nonogram`,
+    paramsKey: (p) => `${p.rows}x${p.cols}:nonogram`,
+    slug: (sh) => `${sh.rows}x${sh.cols}`,
+    describe: (sh) => `**${sh.rows}×${sh.cols}** grid`,
+    params: (sh, band) => ({
+      rows: sh.rows, cols: sh.cols, density: sh.density, smooth: sh.smooth,
+      band_target: band, climb_steps: band >= 4 ? 700 : 300,
+    }),
+    // Every accepted nonogram costs a hill climb, and a climb at 14x14 costs
+    // seconds rather than the milliseconds a binairo dig costs. These counts
+    // are what a plan's share of the batch clock actually buys.
+    countFor: (c) => (c.plenty === 'scarce' ? 6 : c.shape.rows * c.shape.cols >= 144 ? 25 : 40),
   },
 };
 

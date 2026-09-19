@@ -1,0 +1,18 @@
+{
+  "derived_from": "unique-5x8-b2",
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "unique-5x8-b2 with one run removed from its clue entirely.",
+  "params": {
+    "cols": 8,
+    "rows": 5
+  },
+  "puzzle": "2,11,11,121,|1,,1,12,21,2,,1",
+  "slug": "nearmiss-dropped-unique-5x8-b2",
+  "source": "generated"
+}

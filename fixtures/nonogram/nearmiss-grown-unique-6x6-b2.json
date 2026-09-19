@@ -1,0 +1,18 @@
+{
+  "derived_from": "unique-6x6-b2",
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "unique-6x6-b2 with one run lengthened by one.",
+  "params": {
+    "cols": 6,
+    "rows": 6
+  },
+  "puzzle": "12,11,4,21,2,21|2,111,31,12,12,3",
+  "slug": "nearmiss-grown-unique-6x6-b2",
+  "source": "generated"
+}

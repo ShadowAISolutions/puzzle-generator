@@ -1,0 +1,19 @@
+{
+  "expect": {
+    "band": 1,
+    "reference": "confirmed",
+    "solution": "...##.......##.######.##.##..#...#.#.###....##..........##....##.##.#.##.####..###.#.#..#####..#..##...#.#.####....#...#####...##..###...#....#.",
+    "techniques": [
+      "overlap"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated 12x12 instance with a unique solution, produced targeting band 1.",
+  "params": {
+    "cols": 12,
+    "rows": 12
+  },
+  "puzzle": "2,262,2111,32,2,2212,431,151,2111,311,421,211|13,323,223,21211,22,2111,111,15,151,311,111,26",
+  "slug": "unique-12x12-b1",
+  "source": "generated"
+}

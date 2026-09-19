@@ -196,7 +196,172 @@ function binairoFixtures({ S, G, R, rng, add }) {
   }
 }
 
-const FAMILY_PLANS = { binairo: binairoFixtures };
+// Fixtures for nonogram.
+//
+// A nonogram has no givens, so the shapes a fixture set needs are different
+// from sudoku's and binairo's. There is nothing to dig out and nothing to put
+// back: every fixture is a clue set, and what varies is whether that clue set
+// describes a grid, describes several, or describes none.
+//
+// The constructed cases below each isolate one way a clue set can fail, so that
+// a solver bug shows up as a named fixture rather than as a number moving. The
+// verdict is never taken from the solver under test: the reference brute force
+// decides every one of them.
+function nonogramFixtures({ S, G, R, rng, add }) {
+  const SHAPES = [
+    { rows: 5, cols: 5 },
+    { rows: 6, cols: 6 },
+    { rows: 5, cols: 8 },
+    { rows: 8, cols: 8 },
+  ];
+  const d36 = (n) => n.toString(36);
+  const join = (rowRuns, colRuns) =>
+    `${rowRuns.map((l) => l.map(d36).join('')).join(',')}|${colRuns.map((l) => l.map(d36).join('')).join(',')}`;
+  const empty = (n) => Array.from({ length: n }, () => []);
+  const fromGrid = (grid, rows, cols) => S.encodeFrom(Int8Array.from(grid), rows, cols);
+  const tag = (sh) => `${sh.rows}x${sh.cols}`;
+
+  // --- degenerate ------------------------------------------------------------
+  for (const sh of SHAPES) {
+    add(`degenerate-empty-${tag(sh)}`, 'constructed',
+      'Every line has no runs at all. The empty grid is the only grid with no filled cells, so this is unique rather than ambiguous -- which is the opposite of what an empty sudoku grid means, and worth having a fixture for.',
+      sh, join(empty(sh.rows), empty(sh.cols)));
+
+    add(`degenerate-full-${tag(sh)}`, 'constructed',
+      'Every row is one run the width of the grid and every column one run its height. Only the completely filled grid matches.',
+      sh, join(Array.from({ length: sh.rows }, () => [sh.cols]), Array.from({ length: sh.cols }, () => [sh.rows])));
+  }
+
+  // --- constructed contradictions -------------------------------------------
+  for (const sh of SHAPES) {
+    const rows = empty(sh.rows), cols = empty(sh.cols);
+
+    add(`contradiction-sum-mismatch-${tag(sh)}`, 'constructed',
+      'The row clues account for one more filled cell than the column clues do. No grid can satisfy both.',
+      sh, join([[2], ...empty(sh.rows - 1)], [[1], ...empty(sh.cols - 1)]));
+
+    add(`contradiction-run-too-long-${tag(sh)}`, 'constructed',
+      `A row asks for a run of ${sh.cols + 1} in a line ${sh.cols} cells wide.`,
+      sh, join([[sh.cols + 1], ...empty(sh.rows - 1)], [[sh.rows], ...empty(sh.cols - 1)]));
+
+    // Runs that each fit but cannot fit together, because consecutive runs need
+    // a gap between them.
+    const tooMany = Array.from({ length: Math.ceil(sh.cols / 2) + 1 }, () => 1);
+    add(`contradiction-no-room-${tag(sh)}`, 'constructed',
+      `A row asking for ${tooMany.length} separate single cells in ${sh.cols}, which needs ${tooMany.length * 2 - 1} cells once the gaps between them are counted.`,
+      sh, join([tooMany, ...empty(sh.rows - 1)], Array.from({ length: sh.cols }, (_, i) => (i < tooMany.length ? [1] : []))));
+
+    // Every line is satisfiable on its own, the two sides agree on the total,
+    // and still no grid exists: the row needs a gap between its two cells and
+    // the columns leave it nowhere to put one.
+    add(`contradiction-jointly-impossible-${tag(sh)}`, 'constructed',
+      'Every line is satisfiable by itself and the two sides agree on how many cells are filled, yet no grid exists: the first row needs its two cells separated, and the only columns allowed to hold anything are adjacent.',
+      sh, join([[1, 1], ...empty(sh.rows - 1)], [[1], [1], ...empty(sh.cols - 2)]));
+
+    void rows; void cols;
+  }
+
+  // --- constructed patterns --------------------------------------------------
+  // Recognisable grids rather than random ones, so that a rendering or encoding
+  // bug is visible to a person looking at the fixture.
+  for (const sh of SHAPES) {
+    const { rows, cols } = sh;
+    const cell = (r, c) => r * cols + c;
+
+    const border = new Array(rows * cols).fill(0);
+    for (let c = 0; c < cols; c++) { border[cell(0, c)] = 1; border[cell(rows - 1, c)] = 1; }
+    for (let r = 0; r < rows; r++) { border[cell(r, 0)] = 1; border[cell(r, cols - 1)] = 1; }
+    add(`pattern-border-${tag(sh)}`, 'constructed', 'The outline of the grid: every edge cell filled, the inside empty.', sh, fromGrid(border, rows, cols));
+
+    const diagonal = new Array(rows * cols).fill(0);
+    for (let r = 0; r < rows; r++) diagonal[cell(r, Math.min(r, cols - 1))] = 1;
+    add(`pattern-diagonal-${tag(sh)}`, 'constructed', 'A single cell on each row, stepping one column to the right each time.', sh, fromGrid(diagonal, rows, cols));
+
+    const cross = new Array(rows * cols).fill(0);
+    const mr = Math.floor(rows / 2), mc = Math.floor(cols / 2);
+    for (let c = 0; c < cols; c++) cross[cell(mr, c)] = 1;
+    for (let r = 0; r < rows; r++) cross[cell(r, mc)] = 1;
+    add(`pattern-cross-${tag(sh)}`, 'constructed', 'The middle row and the middle column, filled.', sh, fromGrid(cross, rows, cols));
+
+    // The worst case for the encoding: every cell alternates, so every line is
+    // the maximum number of runs it can hold.
+    const checker = new Array(rows * cols).fill(0);
+    for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) checker[cell(r, c)] = (r + c) % 2;
+    add(`pattern-checkerboard-${tag(sh)}`, 'constructed',
+      'Alternating cells, which is the longest clue string a grid of this shape can produce and therefore the encoding\'s worst case.',
+      sh, fromGrid(checker, rows, cols));
+  }
+
+  // --- the switching component ----------------------------------------------
+  // The canonical nonogram ambiguity, and the reason uniqueness has to be
+  // checked rather than assumed: two single cells on two rows and two columns
+  // can sit on either diagonal, so this has exactly two solutions.
+  for (const sh of SHAPES) {
+    add(`multiple-switch-${tag(sh)}`, 'constructed',
+      'Two rows and two columns each holding one filled cell. The two cells can sit on either diagonal of the square they span, so there are exactly two solutions and nothing distinguishes them.',
+      sh, join([[1], [1], ...empty(sh.rows - 2)], [[1], [1], ...empty(sh.cols - 2)]));
+  }
+
+  // --- generated unique instances -------------------------------------------
+  // Whatever the generator can actually reach, at every shape and band. A band
+  // it cannot reach is recorded as absent rather than faked; HARDENING says
+  // which those are and why.
+  const uniques = [];
+  for (const sh of [...SHAPES, { rows: 10, cols: 10 }, { rows: 12, cols: 12 }]) {
+    for (const band of [1, 2, 3, 4, 5]) {
+      // Band 4 needs a grid where a hypothesis refuted by overlap alone is not
+      // enough, which is roughly one climb in thirty at 12x12, so it gets a
+      // much larger allowance than the bands that come easily. Band 5 has never
+      // been observed for this family at any supported shape; it is attempted
+      // anyway, cheaply, so that the day one appears there is a fixture for it.
+      const params = { ...sh, density: 0.45, smooth: 1, band_target: band, climb_steps: band >= 4 ? 700 : 300 };
+      const budget = band === 1 ? 3 : band === 4 ? 45 : band === 5 ? 6 : 10;
+      let made = false;
+      for (let attempt = 0; attempt < budget && !made; attempt++) {
+        let g;
+        try { g = G.generate(`fixture-n-${tag(sh)}-b${band}-${attempt}`, params); } catch { continue; }
+        if (!g.puzzle) continue;
+        const slug = `unique-${tag(sh)}-b${band}`;
+        add(slug, 'generated',
+          `A machine-generated ${tag(sh)} instance with a unique solution, produced targeting band ${band}.`,
+          { rows: sh.rows, cols: sh.cols }, g.puzzle);
+        uniques.push({ slug, params: { rows: sh.rows, cols: sh.cols }, puzzle: g.puzzle, solution: g.solution });
+        made = true;
+      }
+      if (!made) console.warn(`  (no band-${band} instance found at ${tag(sh)}; skipping)`);
+    }
+  }
+
+  // --- near misses -----------------------------------------------------------
+  // One run changed in one clue. Unlike a sudoku given, a nonogram clue cannot
+  // be weakened -- two different clues describe disjoint sets of lines -- so
+  // these are not near misses in the sense of "one step from unique". They are
+  // the cases where the solver and the reference have to agree about what a
+  // small change did, whatever that turns out to be.
+  for (const u of uniques.slice(0, 10)) {
+    const [rowsPart, colsPart] = u.puzzle.split('|');
+    const sides = [rowsPart.split(','), colsPart.split(',')];
+    const withRuns = [];
+    for (let s2 = 0; s2 < 2; s2++) for (let i = 0; i < sides[s2].length; i++) if (sides[s2][i].length) withRuns.push([s2, i]);
+    if (!withRuns.length) continue;
+    const mutate = (how) => {
+      const [s2, i] = withRuns[rng.int(withRuns.length)];
+      const copy = [sides[0].slice(), sides[1].slice()];
+      const group = copy[s2][i];
+      const j = rng.int(group.length);
+      const n = parseInt(group[j], 36);
+      copy[s2][i] = how === 'drop'
+        ? group.slice(0, j) + group.slice(j + 1)
+        : group.slice(0, j) + d36(how === 'grow' ? n + 1 : Math.max(1, n - 1)) + group.slice(j + 1);
+      return `${copy[0].join(',')}|${copy[1].join(',')}`;
+    };
+    add(`nearmiss-shrunk-${u.slug}`, 'generated', `${u.slug} with one run shortened by one.`, u.params, mutate('shrink'), { derived_from: u.slug });
+    add(`nearmiss-grown-${u.slug}`, 'generated', `${u.slug} with one run lengthened by one.`, u.params, mutate('grow'), { derived_from: u.slug });
+    add(`nearmiss-dropped-${u.slug}`, 'generated', `${u.slug} with one run removed from its clue entirely.`, u.params, mutate('drop'), { derived_from: u.slug });
+  }
+}
+
+const FAMILY_PLANS = { binairo: binairoFixtures, nonogram: nonogramFixtures };
 
 function main() {
   const family = process.argv[2] ?? 'sudoku-classic';

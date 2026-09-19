@@ -1,0 +1,18 @@
+{
+  "derived_from": "unique-5x5-b2",
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "unique-5x5-b2 with one run shortened by one.",
+  "params": {
+    "cols": 5,
+    "rows": 5
+  },
+  "puzzle": "11,21,3,11,11|11,2,11,3,2",
+  "slug": "nearmiss-shrunk-unique-5x5-b2",
+  "source": "generated"
+}

@@ -4,10 +4,12 @@
 // that statically and CI fails the build if it is ever violated.
 import * as sudokuClassic from './sudoku-classic/index.mjs';
 import * as binairo from './binairo/index.mjs';
+import * as nonogram from './nonogram/index.mjs';
 
 export const SOLVERS = {
   'sudoku-classic': sudokuClassic,
   binairo,
+  nonogram,
 };
 
 export const FAMILIES = Object.keys(SOLVERS).sort();

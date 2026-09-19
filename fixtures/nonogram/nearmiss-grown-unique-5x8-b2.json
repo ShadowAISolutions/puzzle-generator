@@ -1,0 +1,18 @@
+{
+  "derived_from": "unique-5x8-b2",
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "unique-5x8-b2 with one run lengthened by one.",
+  "params": {
+    "cols": 8,
+    "rows": 5
+  },
+  "puzzle": "2,11,12,121,1|1,,1,12,21,2,,1",
+  "slug": "nearmiss-grown-unique-5x8-b2",
+  "source": "generated"
+}

@@ -1,0 +1,17 @@
+{
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "The row clues account for one more filled cell than the column clues do. No grid can satisfy both.",
+  "params": {
+    "cols": 8,
+    "rows": 8
+  },
+  "puzzle": "2,,,,,,,|1,,,,,,,",
+  "slug": "contradiction-sum-mismatch-8x8",
+  "source": "constructed"
+}

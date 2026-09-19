@@ -1,0 +1,19 @@
+{
+  "expect": {
+    "band": 1,
+    "reference": "confirmed",
+    "solution": "........................................",
+    "techniques": [
+      "overlap"
+    ],
+    "verdict": "unique"
+  },
+  "note": "Every line has no runs at all. The empty grid is the only grid with no filled cells, so this is unique rather than ambiguous -- which is the opposite of what an empty sudoku grid means, and worth having a fixture for.",
+  "params": {
+    "cols": 8,
+    "rows": 5
+  },
+  "puzzle": ",,,,|,,,,,,,",
+  "slug": "degenerate-empty-5x8",
+  "source": "constructed"
+}

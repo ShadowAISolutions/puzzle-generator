@@ -1,4 +1,4 @@
-# 098-binairo-b3-10x10-diagonal-50
+# 152-binairo-b3-10x10-diagonal-50
 
 Generate **50** binairo puzzles in **band 3 (Medium)** on a
 **10×10** grid with **diagonal** symmetry.

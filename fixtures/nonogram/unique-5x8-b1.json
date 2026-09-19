@@ -1,0 +1,19 @@
+{
+  "expect": {
+    "band": 1,
+    "reference": "confirmed",
+    "solution": ".......#..##...#####....#.#....#......##",
+    "techniques": [
+      "overlap"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated 5x8 instance with a unique solution, produced targeting band 1.",
+  "params": {
+    "cols": 8,
+    "rows": 5
+  },
+  "puzzle": "1,21,4,111,2|2,1,3,2,,,1,22",
+  "slug": "unique-5x8-b1",
+  "source": "generated"
+}
