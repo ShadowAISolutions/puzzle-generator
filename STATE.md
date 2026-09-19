@@ -12,6 +12,44 @@ Nothing outstanding.
 
 Decisions that settle an ambiguous choice, so no future session re-litigates them.
 
+### 2026-09-19 — the gate was proved live, because it had never rejected anything
+
+Three batches in, the gate's record is **660 accepted, 0 rejected**. Every rejection in batches
+001, 002 and 003 came from the generator's own band check (`band-mismatch`), never from the gate.
+`CLAUDE.md` is explicit that this is the moment to suspect the gate rather than congratulate the
+generator, so it was checked instead of assumed.
+
+Method: a full copy of the repository under the scratchpad, never the corpus itself, with one real
+band-3 9x9 record broken four ways and re-gated. Results, all as they should be:
+
+| break | checks that fired |
+|---|---|
+| remove one given | `unique` ("solver says multiple"), `solvable` |
+| corrupt the stated solution | `solvable`, `cross-checked` (the reference caught it independently), `regenerable` |
+| claim band 4 instead of 3 | `banded`, `corpus-unique`, `regenerable` |
+| `clues` off by one | `schema` |
+
+Seven of the nine checks were observed firing: `schema`, `solvable`, `unique`, `banded`,
+`cross-checked`, `regenerable`, `corpus-unique`. `bounded` and `renderable` were not provoked and
+remain unobserved in production.
+
+So the zero-rejection record is a property of the generator, not a dead gate: the generator
+validates with the same solver before offering a candidate, so the gate is a verification step
+rather than a filter, which is the intended defence in depth.
+
+Two things found on the way, worth keeping:
+
+- **The gate checks the storage path first and returns immediately if it is wrong.** Broken copies
+  placed anywhere but their proper `corpus/<family>/b<band>/<xx>/<id>.json` fail on `schema` alone
+  and the other eight checks never run. A future session testing the gate must place its cases at
+  the path the record's own fields imply, or it will prove nothing and think it proved something.
+- **The band is part of the path**, so a record that lies about its band lands in a different
+  directory and `corpus-unique` fires against the honest copy. Deduplication of genuinely
+  symmetry-equivalent puzzles, though, is enforced by the path and not by that check: two such
+  puzzles share a canonical hash, hence an id, hence a filename, so the second silently overwrites
+  the first rather than being rejected. The guard against that is the accepted count matching the
+  corpus growth, which held for every batch so far (+220 each).
+
 ### 2026-09-19 — the band-3 mechanism was hand-verified, not just self-consistent
 
 An internally consistent band is worthless if the ladder is mislabelled, so one band-3 puzzle was
@@ -240,6 +278,46 @@ id-derived sample. `tools/record.mjs` is not frozen. No `sudoku-classic` record 
 ---
 
 ## Batches
+
+### batch/003 — 2026-09-19
+
+**220 accepted, 0 gate rejections, 2,915 generator rejections**, all `band-mismatch`, from 3,135
+attempts. Generation took 16s. Five bands, three grid shapes, two symmetries, one family. Corpus:
+**760 records**, bands `{1:170, 2:170, 3:75, 4:170, 5:175}`.
+
+| plan | accepted | attempts | rejected |
+|---|---:|---:|---:|
+| b3 · 9×9 (3×3) · mirror_v | 20/20 | 1,715 | 1,695 |
+| b1 · 6×6 (3×2) · none | 50/50 | 50 | 0 |
+| b2 · 8×8 (4×2) · none | 50/50 | 340 | 290 |
+| b4 · 8×8 (4×2) · mirror_v | 50/50 | 521 | 471 |
+| b5 · 8×8 (4×2) · none | 50/50 | 509 | 459 |
+
+- **the gate was proved live this batch**, which is the thing worth reading from it. Three batches
+  of 0 gate rejections is exactly the signal `CLAUDE.md` says to distrust, so the gate was attacked
+  with deliberately broken copies of a real record and seven of its nine checks were watched to
+  fire, `unique` among them. Method and the two traps found are under `## Decisions` above.
+- **health signal.** All 220 ids, canonical hashes and seeds distinct, and all 760 hashes in the
+  corpus are distinct, so nothing has been silently overwritten. All 220 verdicts `unique`, all 220
+  reference-checked. `max_search_depth` is 0 in bands 1 to 4 and reaches 6 in band 5;
+  `bounded_search` appears in band 5 and nowhere else. Score ranges by band: 24–28, 46–68, 63–103,
+  78–392, 225–530. Clue ranges: 8–12, 17–22, 25–31, 18–26, 18–22.
+- **band 3 at 9×9 fell again: 1.2% acceptance** (20 from 1,715), against 1.5% in batch 002, 2.0% in
+  batch 001 and 3.0% at Phase 0 calibration. Four points, monotonically down, and the drop is now
+  large enough that it is not sampling noise. This is the one number a future session should chase.
+  Nothing frozen has changed — the band classifier is the same code and `bands.json` is unchanged —
+  so the likely cause is in the non-frozen generator's dig-and-fill-back search interacting with
+  the 9×9 shape, or in the plan parameters `tools/make_plans.mjs` emits for band-3 9×9. Chase it
+  before the attempt budget stops covering it; at this rate it will need roughly 2,500 attempts per
+  20 puzzles by batch 005.
+- **variety was thinner than batch 002:** three shapes but only two symmetries (`none` 150,
+  `mirror_v` 70), because the queue is consumed in FIFO order and plans 012–016 happened to cluster
+  there. Not a defect, but `tools/make_plans.mjs` emits plans grouped by symmetry, so FIFO
+  claiming will keep producing narrow batches. Interleaving the queue when refilling would fix it.
+- **renderings were opened**, not just gate-passed: a 9×9 3×3, a 6×6 3×2 and an 8×8 4×2 at 360px.
+  Box borders correct for all three shapes, no clue outside the board, stated clue counts matching
+  the boards, and band 5 the only one showing a search depth. Screenshots in `.artifacts/`,
+  uncommitted.
 
 ### batch/002 — 2026-09-19
 
