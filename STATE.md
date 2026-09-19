@@ -551,7 +551,7 @@ id-derived sample. `tools/record.mjs` is not frozen. No `sudoku-classic` record 
 
 ### batch/012 — 2026-09-19 — nonogram onboarded, and the last batch before a re-evaluation
 
-**330 accepted, 2,645 generator rejections**, from 2,975 attempts. Five bands, seven grid shapes,
+**330 accepted, 2,645 generator rejections**, from 2,975 attempts. Five bands, six grid shapes,
 two families. Corpus: **3,031 records**, bands `{1:708, 2:671, 3:505, 4:581, 5:566}`.
 
 - **accepted:** nonogram 322 (b1 120, b2 81, b3 120, b4 1), binairo 8 (all b5)
