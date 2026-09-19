@@ -23,10 +23,16 @@ const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..')
 const QUEUE = path.join(ROOT, 'queue');
 const CORPUS = path.join(ROOT, 'corpus');
 
+// The roster in CLAUDE.md, in "rough order of onboarding" as the mission puts it.
+// Reordered once, and only in that rough order: the three sudoku variants are pulled
+// forward because they have boxes, so `schema/puzzle.schema.json` can express their
+// params as frozen. The sixteen box-less families after them cannot be onboarded until
+// `params` is widened. See PROPOSALS/2026-09-19-family-agnostic-params.md and STATE.md.
 export const ROSTER = [
-  'sudoku-classic', 'nonogram', 'slitherlink', 'kakuro', 'star-battle', 'hitori', 'masyu',
+  'sudoku-classic', 'killer-sudoku', 'thermo-sudoku', 'sandwich-sudoku',
+  'nonogram', 'slitherlink', 'kakuro', 'star-battle', 'hitori', 'masyu',
   'akari', 'nurikabe', 'skyscrapers', 'futoshiki', 'binairo', 'shikaku', 'heyawake', 'yajilin',
-  'tents', 'killer-sudoku', 'thermo-sudoku', 'sandwich-sudoku', 'norinori',
+  'tents', 'norinori',
 ];
 
 // shape -> bands that shape can actually produce, and how plentiful each is.
@@ -228,17 +234,19 @@ function main() {
   let index = nextIndex();
   const written = [];
 
-  // At least one onboarding task while the roster is incomplete.
+  // At least one onboarding task while the roster is incomplete. A family whose
+  // onboarding plan is already queued, in progress or blocked is skipped, so a
+  // family that cannot be onboarded yet does not stop the next one from being
+  // offered. Without this the whole roster stalls behind one blocked family.
   const missing = ROSTER.filter((f) => !FAMILIES.includes(f));
-  if (missing.length) {
-    const target = missing[0];
+  const queued = (f) => [...existing].some((n) => n.includes(`onboard-${f}`));
+  const target = missing.find((f) => !queued(f));
+  if (target) {
     const o = onboardingBody(target, index);
-    if (![...existing].some((n) => n.includes(`onboard-${target}`))) {
-      fs.writeFileSync(path.join(QUEUE, `${o.name}.md`), o.body);
-      existing.add(`${o.name}.md`);
-      written.push(o.name);
-      index++;
-    }
+    fs.writeFileSync(path.join(QUEUE, `${o.name}.md`), o.body);
+    existing.add(`${o.name}.md`);
+    written.push(o.name);
+    index++;
   }
 
   const candidates = sudokuCandidates(counts);
@@ -262,4 +270,4 @@ function main() {
   for (const n of written) console.log(`  ${n}`);
 }
 
-main();
+if (import.meta.url === `file://${process.argv[1]}`) main();

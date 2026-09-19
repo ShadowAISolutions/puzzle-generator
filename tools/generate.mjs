@@ -55,6 +55,7 @@ export function runPlans(plans, { batch, now, wallClockMs = 45 * 60 * 1000, onPr
   const rejects = {};
   for (const p of plans) {
     accepted.set(p.name, []);
+    if (p.kind === 'onboarding' || p.count === 0) continue;
     if (!wanted.has(p.band)) wanted.set(p.band, []);
     wanted.get(p.band).push(p);
   }
@@ -74,6 +75,14 @@ export function runPlans(plans, { batch, now, wallClockMs = 45 * 60 * 1000, onPr
   };
 
   for (const plan of plans) {
+    // An onboarding plan produces no puzzles of its own: it exists to hold the
+    // FAMILY ONBOARDING CONTRACT open until the family's solver, fixtures,
+    // hardening report, bands and player are committed. Asking for a solver
+    // that does not exist yet would take the whole batch down with it.
+    if (plan.kind === 'onboarding' || plan.count === 0) {
+      plan.result = { attempts: 0, accepted: 0, target: 0, rejects: {}, exhausted: false, out_of_time: false, kind: 'onboarding' };
+      continue;
+    }
     const S = solverFor(plan.family);
     const attemptsAllowed = plan.max_attempts ?? Math.max(400, plan.count * 80);
     let attempts = 0;

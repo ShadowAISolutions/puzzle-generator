@@ -146,9 +146,70 @@ dozens of entries and buys nothing a reader or the gate needs: the gate recomput
 from a fresh solve anyway, and `score` already carries how much of each tier was needed. So the
 field stores the distinct rules in order of first application, and the gate compares that.
 
+### 2026-09-19 — a family whose params the frozen schema cannot express goes to `queue/blocked/`
+
+`schema/puzzle.schema.json` requires every record's `params` to carry `size`, `box_h` and `box_w`.
+Those three describe how a sudoku's boxes tile its grid. A nonogram has no boxes, so there is no
+honest value to put in the two box fields, and inventing one would break rule 1 of the UNIT
+CONTRACT: a record is data, never prose. The schema is frozen, so it was **not** changed. The
+argument for changing it is written up in `PROPOSALS/2026-09-19-family-agnostic-params.md`, the
+plan moved to `queue/blocked/001-onboard-nonogram.md` with its obstacle beside it, and the roster
+in `tools/make_plans.mjs` now onboards `killer-sudoku` next, because a killer sudoku has boxes and
+its params are honest under the schema as frozen.
+
+Sixteen of the twenty rostered families have no boxes and are blocked the same way. Onboarding is
+not stuck: `killer-sudoku`, `thermo-sudoku` and `sandwich-sudoku` are sudoku variants on a boxed
+grid, so all three fit, which is three families and several batches of work. But the corpus cannot
+reach the variety the mission asks for until the repo owner instructs a live session to widen
+`params`, and three sudoku variants are not the defence against a sudoku-shaped corpus that
+`## FAMILIES AND VARIETY` asks for.
+
+Two supporting fixes went in with this, both to `tools/make_plans.mjs`, which is not frozen. The
+onboarding emitter used to offer `ROSTER`'s first missing family and give up if that family's plan
+was already written, so one blocked family stalled the entire roster; it now offers the first
+missing family that is not already queued, in progress or blocked. And `main()` ran on import,
+so importing the module to read `ROSTER` silently refilled the queue; it is now behind the usual
+`import.meta.url` guard.
+
 ---
 
 ## Batches
+
+### batch/001 — 2026-09-19
+
+The first generated batch. **220 accepted, 0 gate rejections, 4,960 generator rejections**, all of
+them `band-mismatch`, from 5,180 attempts. One family, five bands, four grid shapes, three
+symmetries.
+
+| plan | accepted | attempts | rejected |
+|---|---:|---:|---:|
+| b1 · 6×6 (3×2) · mirror_h | 50/50 | 50 | 0 |
+| b2 · 8×8 (4×2) · mirror_h | 50/50 | 1,145 | 1,095 |
+| b3 · 9×9 (3×3) · diagonal | 20/20 | 1,008 | 988 |
+| b4 · 6×6 (3×2) · none | 50/50 | 1,201 | 1,151 |
+| b5 · 8×8 (4×2) · mirror_h | 50/50 | 1,776 | 1,726 |
+
+Every plan hit its target. Corpus after the merge: **320 records**, bands `{1:70, 2:70, 3:35,
+4:70, 5:75}` across six shapes and five symmetries.
+
+- **one family, not three.** The batch target asks for at least three families. The roster is one
+  family deep because Phase 0 only onboards `sudoku-classic`, and the plan that would have started
+  the second family is blocked on the frozen schema, above. Batch 002 onboards `killer-sudoku`.
+- **health signal.** All 220 canonical hashes and all 220 seeds are distinct, so nothing is a
+  duplicate under the family's full symmetry group. The technique sets escalate exactly as the
+  frozen ladder predicts: band 1 used singles and nothing else, band 2 first reached tier 2, band 3
+  first reached tier 3, band 4 first reached tier 4, and `bounded_search` appears in band 5 and in
+  no other band. Score ranges by band: 20–26, 42–70, 65–115, 64–208, 218–408. Bands 3 and 4 overlap
+  in score and that is correct — the band is the tier ceiling, not the score.
+- **why the band-1 plan rejected nothing.** 50 accepted in 50 attempts looks like a collapsed gate
+  and is not. The generator's fill-back stage stops when the target band is reached and refuses to
+  stop early only when `band_target > 1`; for band 1 that guard is vacuous, so fill-back always
+  converges. The 50 records were checked independently: every one carries only tier-1 techniques,
+  so they are genuinely band 1. A zero rejection rate on a band-1 plan is expected. A zero
+  rejection rate on any other plan is not, and a future session should treat one as a defect.
+- **the band-3 attempt cost is as calibrated.** 988 rejections for 20 puzzles is 2.0% acceptance,
+  against the 3% measured during Phase 0. The 400× attempt budget `tools/make_plans.mjs` sets for
+  band-3 plans is right.
 
 ### phase0 — 2026-09-19
 
