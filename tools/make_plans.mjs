@@ -23,10 +23,16 @@ const ROOT = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..')
 const QUEUE = path.join(ROOT, 'queue');
 const CORPUS = path.join(ROOT, 'corpus');
 
+// The roster in CLAUDE.md, in "rough order of onboarding" as the mission puts it.
+// Reordered once, and only in that rough order: the three sudoku variants are pulled
+// forward because they have boxes, so `schema/puzzle.schema.json` can express their
+// params as frozen. The sixteen box-less families after them cannot be onboarded until
+// `params` is widened. See PROPOSALS/2026-09-19-family-agnostic-params.md and STATE.md.
 export const ROSTER = [
-  'sudoku-classic', 'nonogram', 'slitherlink', 'kakuro', 'star-battle', 'hitori', 'masyu',
+  'sudoku-classic', 'killer-sudoku', 'thermo-sudoku', 'sandwich-sudoku',
+  'nonogram', 'slitherlink', 'kakuro', 'star-battle', 'hitori', 'masyu',
   'akari', 'nurikabe', 'skyscrapers', 'futoshiki', 'binairo', 'shikaku', 'heyawake', 'yajilin',
-  'tents', 'killer-sudoku', 'thermo-sudoku', 'sandwich-sudoku', 'norinori',
+  'tents', 'norinori',
 ];
 
 // shape -> bands that shape can actually produce, and how plentiful each is.
@@ -40,8 +46,25 @@ const SUDOKU_SHAPES = [
   { size: 9, box_h: 3, box_w: 3, min_clues: 17, bands: { 1: 'plentiful', 2: 'plentiful', 3: 'scarce', 4: 'plentiful', 5: 'plentiful' } },
 ];
 
-const SYMMETRIES = ['none', 'rot180', 'mirror_h', 'mirror_v'];
-const SQUARE_ONLY_SYMMETRIES = ['rot90', 'diagonal'];
+// Symmetry constrains reachability as much as grid shape does, because digging
+// removes a whole orbit at a time: a rot180 orbit is two cells, a rot90 orbit
+// is four, and a puzzle that has to give up four clues at once cannot be pushed
+// as far. Measured: 6x6 mirror_h at band 4 produced nothing in 120 attempts,
+// while 6x6 'none' at band 4 is plentiful. So the harder bands are only offered
+// the lighter symmetries, and only on the larger grids.
+const SYMMETRY_ORBIT = { none: 1, rot180: 2, mirror_h: 2, mirror_v: 2, diagonal: 2, rot90: 4 };
+
+function symmetriesFor(shape, band) {
+  const all = shape.box_h === shape.box_w
+    ? ['none', 'rot180', 'mirror_h', 'mirror_v', 'diagonal', 'rot90']
+    : ['none', 'rot180', 'mirror_h', 'mirror_v'];
+  return all.filter((sym) => {
+    const orbit = SYMMETRY_ORBIT[sym];
+    if (orbit === 1) return true;
+    if (orbit === 4) return band === 1;      // rot90 only ever reaches band 1
+    return band <= 3 || shape.size >= 8;     // orbit 2: band 4-5 needs room to dig
+  });
+}
 
 function existingPlanNames() {
   const names = new Set();
@@ -82,9 +105,8 @@ function sudokuCandidates(counts) {
   const have = counts['sudoku-classic'] ?? { bands: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }, shapes: {} };
   const out = [];
   for (const sh of SUDOKU_SHAPES) {
-    const syms = sh.box_h === sh.box_w ? SYMMETRIES.concat(SQUARE_ONLY_SYMMETRIES) : SYMMETRIES;
     for (const [band, plenty] of Object.entries(sh.bands)) {
-      for (const symmetry of syms) {
+      for (const symmetry of symmetriesFor(sh, Number(band))) {
         const shapeKey = `${sh.size}:${sh.box_h}x${sh.box_w}`;
         out.push({
           family: 'sudoku-classic',
@@ -212,17 +234,19 @@ function main() {
   let index = nextIndex();
   const written = [];
 
-  // At least one onboarding task while the roster is incomplete.
+  // At least one onboarding task while the roster is incomplete. A family whose
+  // onboarding plan is already queued, in progress or blocked is skipped, so a
+  // family that cannot be onboarded yet does not stop the next one from being
+  // offered. Without this the whole roster stalls behind one blocked family.
   const missing = ROSTER.filter((f) => !FAMILIES.includes(f));
-  if (missing.length) {
-    const target = missing[0];
+  const queued = (f) => [...existing].some((n) => n.includes(`onboard-${f}`));
+  const target = missing.find((f) => !queued(f));
+  if (target) {
     const o = onboardingBody(target, index);
-    if (![...existing].some((n) => n.includes(`onboard-${target}`))) {
-      fs.writeFileSync(path.join(QUEUE, `${o.name}.md`), o.body);
-      existing.add(`${o.name}.md`);
-      written.push(o.name);
-      index++;
-    }
+    fs.writeFileSync(path.join(QUEUE, `${o.name}.md`), o.body);
+    existing.add(`${o.name}.md`);
+    written.push(o.name);
+    index++;
   }
 
   const candidates = sudokuCandidates(counts);
@@ -230,7 +254,10 @@ function main() {
   while (written.length < want && ci < candidates.length * 4) {
     const c = candidates[ci % candidates.length];
     ci++;
-    const count = c.plenty === 'scarce' ? 15 : c.shape.size >= 9 ? 40 : 30;
+    // Sized so that the five plans a batch claims land inside the 200-400
+    // accepted-puzzle target in CLAUDE.md, allowing for one of the five being
+    // an onboarding task that produces no puzzles of its own.
+    const count = c.plenty === 'scarce' ? 20 : c.shape.size >= 9 ? 60 : 50;
     const { name, body } = planBody(c, count, index);
     if (existing.has(`${name}.md`)) continue;
     fs.writeFileSync(path.join(QUEUE, `${name}.md`), body);
@@ -243,4 +270,4 @@ function main() {
   for (const n of written) console.log(`  ${n}`);
 }
 
-main();
+if (import.meta.url === `file://${process.argv[1]}`) main();
