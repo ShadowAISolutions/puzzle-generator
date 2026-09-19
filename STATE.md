@@ -71,10 +71,22 @@ band-3 9x9 record broken four ways and re-gated. Results, all as they should be:
 | corrupt the stated solution | `solvable`, `cross-checked` (the reference caught it independently), `regenerable` |
 | claim band 4 instead of 3 | `banded`, `corpus-unique`, `regenerable` |
 | `clues` off by one | `schema` |
+| a player whose board overflows a 360px phone | `renderable` |
 
-Seven of the nine checks were observed firing: `schema`, `solvable`, `unique`, `banded`,
-`cross-checked`, `regenerable`, `corpus-unique`. `bounded` and `renderable` were not provoked and
-remain unobserved in production.
+**Eight of the nine checks were observed firing:** `schema`, `solvable`, `unique`, `banded`,
+`cross-checked`, `regenerable`, `corpus-unique`, `renderable`.
+
+`renderable` is worth its own line, because operating rule 3 says a gate cannot see a board printed
+off the edge of the screen. It can. Widening the board to 900px in a scratch copy of the player
+failed the record with `selftest failed: the board fits a 360px viewport board is 900px wide` and
+`the page does not scroll sideways page scrolls to 630px in a 360px viewport`. So the player's own
+selftests cover exactly the failure rule 3 warns about, and the gate refuses a record whose player
+cannot draw it on a phone. Opening the screenshots is still worth doing for the things no assertion
+names — crowding, contrast, a grid that is technically inside the viewport and still unpleasant.
+
+`bounded` is the one check still unobserved in production. It fires only on `BudgetExceeded`, which
+no valid record has yet provoked; the hardening suite exercises that path instead. Provoking it by
+shrinking a budget in a scratch copy would prove nothing, so it was not done.
 
 So the zero-rejection record is a property of the generator, not a dead gate: the generator
 validates with the same solver before offering a candidate, so the gate is a verification step
