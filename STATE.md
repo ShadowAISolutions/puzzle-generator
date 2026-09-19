@@ -4,7 +4,32 @@
 
 *(Anything here must be read before the next puzzle is generated. Empty is the normal state.)*
 
-Nothing outstanding.
+**1. One working branch, `batch/current`. Do not create `batch/<NNN>`.**
+`CLAUDE.md` step 4 still says to open a new branch per batch. Do not follow that line. This sandbox
+cannot delete a remote branch, so a branch per batch accumulates forever; by batch 005 the
+repository carried seven branches and the owner asked for it to stop. Instead:
+
+```
+git fetch origin main && git checkout -B batch/current origin/main      # step 4
+git push -u origin batch/current --force-with-lease                     # step 7
+```
+
+The force is safe and necessary: everything the branch held before is already merged into `main`.
+The owner has been asked to apply the matching edit to `CLAUDE.md`, which a session cannot edit
+itself. Until that lands, this correction governs.
+
+**2. Never commit a symlink.**
+A `node_modules` symlink reached `main` in batch 002 and broke the GitHub Pages build on three
+consecutive merges. `.gitignore` said `node_modules/`, and a trailing slash matches only
+directories, so the symlink was not ignored. It pointed at an absolute sandbox path that does not
+exist on the Pages builder, and Jekyll aborted trying to resolve it. Before pushing:
+
+```
+git ls-files -s | awk '$1=="120000"'    # must print nothing
+```
+
+`.gitignore` now says `node_modules` without the slash, and `.nojekyll` at the repository root
+stops Pages running Jekyll over the corpus at all. Fixed in batch 005.
 
 ---
 
@@ -54,6 +79,39 @@ precisely. It was not re-derived, and it should not be treated as a comparable m
 **The lesson worth keeping:** a difficulty-acceptance rate is only comparable across batches when
 the plan parameters match, and the queue varies symmetry from plan to plan by design. Compare
 like with like, or compare nothing.
+
+### 2026-09-19 — one reusable branch, on the owner's instruction
+
+Shadow asked, in the thread, for the branch proliferation to stop and for the failing deployment
+emails to stop, and to "adjust to make it work" rather than only clean up once. Both are settled
+here so no future session re-litigates them.
+
+**Branches.** The loop now resets a single `batch/current` instead of cutting `batch/<NNN>`. The
+sandbox cannot delete a remote branch: `git push --delete` is refused locally, and the GitHub tools
+available here expose no delete-ref call. So a branch per batch was a one-way ratchet. Seven
+branches existed when this was raised: `main`, `preflight/write-test`,
+`claude/project-thread-m3ash8` and `batch/001` to `batch/004`, the last five all merged and dead.
+Deleting those five needs the owner, and he was asked.
+
+`CLAUDE.md` still carries the old instruction, because a session cannot edit its own instruction
+file — the attempt was refused as self-modification, which is correct. The exact replacement text
+was given to the owner. `## Standing corrections` at the top of this file governs until he applies
+it.
+
+**The Pages failure was ours, not GitHub's.** Runs 1 and 2 succeeded; 3, 4 and 5 failed, and the
+first failure is exactly the batch/002 merge commit `dc5d546`. That commit added `node_modules` as
+a tracked symlink, mode `120000`, pointing at `/home/claude/puzzle-generator/node_modules`. The
+Pages builder has no such path, so Jekyll's `symlink_outside_site_source?` raised
+`Errno::ENOENT` on `rb_check_realpath_internal` and the build died in 32 seconds.
+
+It slipped in because the worktree used for batch 002 onward symlinks `node_modules` to the main
+checkout, and `.gitignore` matched `node_modules/` — with a trailing slash, which git applies to
+directories only. A symlink is a file, so it was never ignored.
+
+Three fixes, all in batch 005: the symlink is untracked, `.gitignore` drops the trailing slash so
+it matches a symlink too, and `.nojekyll` is added so Pages serves the static site directly instead
+of running Jekyll across 1,188 corpus records. Only that one entry was ever affected — a sweep for
+other tracked symlinks and for any tracked file containing the sandbox path came back empty.
 
 ### 2026-09-19 — the gate was proved live, because it had never rejected anything
 
@@ -333,6 +391,39 @@ id-derived sample. `tools/record.mjs` is not frozen. No `sudoku-classic` record 
 ---
 
 ## Batches
+
+### batch/005 — 2026-09-19
+
+**208 accepted, 0 gate rejections, 6,469 generator rejections**, from 6,677 attempts. Five bands,
+three grid shapes, three symmetries, one family. Corpus: **1,188 records**,
+bands `{1:258, 2:270, 3:115, 4:270, 5:275}`. `gate --all --render` passed 1,188/1,188.
+**Audit batch:** see `AUDIT/005.md`.
+
+| plan | accepted | attempts | rejected |
+|---|---:|---:|---:|
+| b3 · 9×9 (3×3) · rot180 | 20/20 | 1,398 | 1,378 band-mismatch |
+| b1 · 4×4 (2×2) · diagonal | **38/50** | 3,000 | 2,962 duplicate-hash |
+| b2 · 8×8 (2×4) · mirror_h | 50/50 | 1,016 | 966 band-mismatch |
+| b4 · 8×8 (4×2) · rot180 | 50/50 | 531 | 481 band-mismatch |
+| b5 · 8×8 (2×4) · mirror_h | 50/50 | 732 | 682 band-mismatch |
+
+- **the first cell filled up.** Band-1 4×4 with diagonal symmetry accepted 38 of a target 50 and
+  exhausted its budget, rejecting 2,962 candidates as `duplicate-hash` and **not one** as
+  band-mismatch. A 4×4 grid holds few puzzles that are distinct under the family's symmetry group,
+  and the corpus now holds them: 43 records. This is the dedup working, not a defect. The plan is
+  not blocked — its own failure threshold is fewer than 10 accepted — so it is completed and
+  deleted, and the cell is recorded in `queue/saturated.json`, which the refiller now skips.
+- **the queue refiller was checking duplicates on the wrong key.** It compared whole filenames, and
+  a freshly numbered plan never collides with an existing one, so the check was a no-op and
+  `CLAUDE.md`'s "Check for duplicate plans before writing" was not being honoured. The queue held
+  **54 plans covering 40 cells**, including a second plan for the 4×4 diagonal cell that had just
+  exhausted. A plan is now keyed by its cell — family, band, shape, symmetry — with the sequence
+  number and count stripped. Fourteen duplicates removed; the refiller was re-run and produced 51
+  plans over 51 cells with the saturated cell skipped.
+- **health signal.** All 208 ids, hashes and seeds distinct; all 1,188 hashes in the corpus
+  distinct. All `unique`, all reference-checked. Audit reclassified 200 records with zero drift.
+- **GitHub Pages had been failing since batch 002 and it was our doing.** Root cause, the fix and
+  the sweep are under `## Decisions`. Not a corpus problem: no record was affected.
 
 ### batch/004 — 2026-09-19
 
