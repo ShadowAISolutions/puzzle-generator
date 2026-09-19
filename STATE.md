@@ -392,6 +392,44 @@ id-derived sample. `tools/record.mjs` is not frozen. No `sudoku-classic` record 
 
 ## Batches
 
+### batch/006 — 2026-09-19
+
+**235 accepted, 0 gate rejections, 7,726 generator rejections**, from 7,961 attempts. Five bands,
+four grid shapes, four symmetries, one family. Corpus: **1,423 records**,
+bands `{1:323, 2:320, 3:135, 4:320, 5:325}`. `gate --all --render` passed 1,423/1,423.
+First batch pushed from the reusable `batch/current` branch.
+
+| plan | accepted | attempts | rejected |
+|---|---:|---:|---:|
+| b1 · 4×4 (2×2) · mirror_h | **15/50** | 3,000 | 2,985 duplicate-hash |
+| b2 · 8×8 (2×4) · mirror_v | 50/50 | 1,044 | 994 band-mismatch |
+| b3 · 9×9 (3×3) · diagonal | 20/20 | 836 | 816 band-mismatch |
+| b4 · 6×6 (2×3) · none | 50/50 | 1,158 | 1,108 band-mismatch |
+| b5 · 8×8 (2×4) · mirror_v | 50/50 | 1,873 | 1,823 band-mismatch |
+| b1 · 8×8 (2×4) · mirror_h *(top-up)* | 50/50 | 50 | 0 |
+
+- **the plans were chosen by band, not by queue order.** The first five in the queue were two
+  band-1 plans and no band 3, which breaks the all-five-bands rule. The queue holds only five
+  band-3 plans against eleven of every other band, so band 3 has to be picked deliberately. A
+  future session should expect to do the same rather than claiming blind FIFO.
+- **a second 4×4 cell filled up, and capacity varies sharply by symmetry.** Band-1 4×4 `mirror_h`
+  yielded 15 from 3,000 attempts, all rejections `duplicate-hash` and none band-mismatch, against
+  `diagonal`'s 43. A horizontal mirror constrains a 4×4 clue pattern much harder. Recorded in
+  `queue/saturated.json`; the refiller skips both now. Four 4×4 band-1 cells remain unmeasured
+  (`mirror_v`, `none`, `rot180`, `rot90`) and each costs about five seconds to discover, which is
+  cheap enough to leave to the normal loop.
+- **the batch was topped up to clear the 200 minimum.** The short plan left it at 185, so plan 089
+  (band 1, 8×8) was claimed as a sixth. It accepted 50 from 50 attempts, which is the expected
+  band-1 behaviour explained under `### batch/001`, not a collapsed gate.
+- **health signal.** All 235 ids, hashes and seeds distinct; all 1,423 in the corpus distinct. All
+  `unique`, all reference-checked. `bounded_search` in band 5 alone, depth 4. Score ranges by band:
+  8–46, 42–68, 62–115, 64–306, 218–482.
+- **band 1 now spans 4 to 26 clues and scores 8 to 46**, much wider than earlier batches, because
+  it mixes 4×4 and 8×8. That is variety working, but it means a band-1 score no longer implies a
+  shape; the audit should not read the widening as drift.
+- **GitHub Pages deployed successfully** for the first time since batch 002, confirming the
+  symlink was the whole cause. Verified by reading the run, not assumed.
+
 ### batch/005 — 2026-09-19
 
 **208 accepted, 0 gate rejections, 6,469 generator rejections**, from 6,677 attempts. Five bands,
