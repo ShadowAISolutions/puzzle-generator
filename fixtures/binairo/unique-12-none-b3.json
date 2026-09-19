@@ -1,0 +1,20 @@
+{
+  "expect": {
+    "band": 3,
+    "reference": "confirmed",
+    "solution": "110110100100001101010110101010101001010011010011010101010110101010101100101101001001010011010110001100101011110010110100101001011001010100101011",
+    "techniques": [
+      "local_triples",
+      "line_enumerate",
+      "line_counts"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated 12x12 instance with a unique solution, produced targeting band 3 with none givens.",
+  "params": {
+    "size": 12
+  },
+  "puzzle": "1..11........0.....1.....0..1.1.........1...0.....0......1..1.......11.....1..........0.1....11......0......1.0...1..1..1................0......",
+  "slug": "unique-12-none-b3",
+  "source": "generated"
+}

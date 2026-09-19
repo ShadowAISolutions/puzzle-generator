@@ -1,0 +1,20 @@
+{
+  "expect": {
+    "band": 3,
+    "reference": "confirmed",
+    "solution": "0010110110110010010111010010100010110011001101010111010011000010101011110011001010110011000101011001",
+    "techniques": [
+      "local_triples",
+      "line_counts",
+      "line_enumerate"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated 10x10 instance with a unique solution, produced targeting band 3 with none givens.",
+  "params": {
+    "size": 10
+  },
+  "puzzle": "...........1...0.........0..1..0.....0.1..11............1..0.0..1..0..1...1...1..........0.....11...",
+  "slug": "unique-10-none-b3",
+  "source": "generated"
+}

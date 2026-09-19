@@ -1,0 +1,17 @@
+{
+  "derived_from": "unique-8-rot180-b3",
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "multiple"
+  },
+  "note": "unique-8-rot180-b3 with a third of its givens removed, well past the point where the solution stops being forced.",
+  "params": {
+    "size": 8
+  },
+  "puzzle": ".....0....1......0.....1.1..........1...11....1.....11....0.....",
+  "slug": "multiple-unique-8-rot180-b3",
+  "source": "generated"
+}

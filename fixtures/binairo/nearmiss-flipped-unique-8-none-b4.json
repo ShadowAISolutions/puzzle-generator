@@ -1,0 +1,22 @@
+{
+  "derived_from": "unique-8-none-b4",
+  "expect": {
+    "band": 4,
+    "reference": "confirmed",
+    "solution": "1010101010010110011010011100100100110110001100111100110001010101",
+    "techniques": [
+      "local_triples",
+      "line_counts",
+      "line_enumerate",
+      "cell_contradiction"
+    ],
+    "verdict": "unique"
+  },
+  "note": "unique-8-none-b4 with one given flipped to the other symbol.",
+  "params": {
+    "size": 8
+  },
+  "puzzle": "..1.1..........0.11.1.0......00...11.....01...........0.0.....0.",
+  "slug": "nearmiss-flipped-unique-8-none-b4",
+  "source": "generated"
+}

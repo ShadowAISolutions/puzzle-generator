@@ -1,0 +1,21 @@
+{
+  "expect": {
+    "band": 4,
+    "reference": "confirmed",
+    "solution": "110100011001100110101010010101001011",
+    "techniques": [
+      "local_triples",
+      "line_counts",
+      "line_enumerate",
+      "cell_contradiction"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated 6x6 instance with a unique solution, produced targeting band 4 with none givens.",
+  "params": {
+    "size": 6
+  },
+  "puzzle": ".1..0.....0....1.........1..0.0.....",
+  "slug": "unique-6-none-b4",
+  "source": "generated"
+}

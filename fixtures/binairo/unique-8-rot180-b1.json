@@ -1,0 +1,18 @@
+{
+  "expect": {
+    "band": 1,
+    "reference": "confirmed",
+    "solution": "1100110001001011001100111101010000101011001011011101001010110100",
+    "techniques": [
+      "local_triples"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated 8x8 instance with a unique solution, produced targeting band 1 with rot180 givens.",
+  "params": {
+    "size": 8
+  },
+  "puzzle": "11..11.00.0...1100.1..111..1..0000..1..100..1.0111...0.01.11..00",
+  "slug": "unique-8-rot180-b1",
+  "source": "generated"
+}

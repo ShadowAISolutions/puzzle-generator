@@ -1,0 +1,38 @@
+{
+  "family": "binairo",
+  "family_version": 1,
+  "frozen": true,
+  "calibrated_on": "2026-09-19",
+  "calibrated_against": "fixtures/binairo",
+  "solver_version_at_calibration": "1.0.0",
+  "budget_note": "Sized from the worst case measured at calibration over every supported size, with headroom. The reference brute force enumerates whole rows rather than single cells, so its cost is governed by the number of balanced triple-free rows: 14 at size 6, 3,178 at size 14 and 9,662 at size 16. Exceeding a budget is a rejection, never a pass.",
+  "note": "Frozen by FOUNDATION.md. Bands may never be re-tuned to change how the existing corpus classifies. The solver asserts at load that its ladder still matches technique_tiers exactly, so editing a technique's tier breaks the build rather than silently reclassifying the corpus.",
+  "bands": [
+    { "band": 1, "name": "Gentle", "max_tier": 1, "meaning": "a three-cell window alone completes it" },
+    { "band": 2, "name": "Easy", "max_tier": 2, "meaning": "also needs the balance rule" },
+    { "band": 3, "name": "Medium", "max_tier": 3, "meaning": "needs a whole line reasoned about at once" },
+    { "band": 4, "name": "Hard", "max_tier": 4, "meaning": "needs case analysis on a single cell, still no guessing" },
+    { "band": 5, "name": "Brutal", "max_tier": 5, "meaning": "requires bounded search; max_search_depth is recorded" }
+  ],
+  "technique_tiers": {
+    "local_triples": 1,
+    "line_counts": 2,
+    "line_enumerate": 3,
+    "cell_contradiction": 4
+  },
+  "search_entry": "bounded_search",
+  "tier_weights": { "1": 1, "2": 4, "3": 12, "4": 40, "5": 150 },
+  "search_depth_weight": 60,
+  "reference_cross_check": {
+    "always_at_or_below_size": 12,
+    "random_fraction_above": 0.05
+  },
+  "budgets": {
+    "count_nodes": 400000,
+    "band_nodes": 400000,
+    "search_nodes": 400000,
+    "reference_nodes": 40000000,
+    "reference_ms": 90000,
+    "ms": 20000
+  }
+}

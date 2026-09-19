@@ -66,6 +66,63 @@ function symmetriesFor(shape, band) {
   });
 }
 
+// Binairo grids are square and always even-sided, so every symmetry of the
+// square is available at every size. Bands were measured on 2026-09-19 by
+// generating against each target in turn while building the fixture set.
+// Bands 1 to 4 came out readily at every size. Band 5 appeared only at 12x12,
+// and not at 6, 8 or 10 in any attempt: reaching it means defeating
+// cell-by-cell case analysis, which on a small board finishes almost anything
+// that has one solution at all. It is listed only where it was actually seen,
+// and marked scarce there rather than promised.
+const BINAIRO_SHAPES = [
+  { size: 6, min_clues: 0, bands: { 1: 'plentiful', 2: 'plentiful', 3: 'plentiful', 4: 'plentiful' } },
+  { size: 8, min_clues: 0, bands: { 1: 'plentiful', 2: 'plentiful', 3: 'plentiful', 4: 'plentiful' } },
+  { size: 10, min_clues: 0, bands: { 1: 'plentiful', 2: 'plentiful', 3: 'plentiful', 4: 'plentiful' } },
+  { size: 12, min_clues: 0, bands: { 1: 'plentiful', 2: 'plentiful', 3: 'plentiful', 4: 'plentiful', 5: 'scarce' } },
+  { size: 14, min_clues: 0, bands: { 1: 'plentiful', 2: 'plentiful', 3: 'plentiful', 4: 'plentiful' } },
+];
+
+function binairoSymmetries(shape, band) {
+  return ['none', 'rot180', 'mirror_h', 'mirror_v', 'diagonal', 'rot90'].filter((sym) => {
+    const orbit = SYMMETRY_ORBIT[sym];
+    if (orbit === 1) return true;
+    if (orbit === 4) return band <= 2 || shape.size >= 10;
+    return true;
+  });
+}
+
+// What a planner has to know about a family: the shapes it can produce, how to
+// name a shape, and how to turn one into generator params. Everything else --
+// the thinnest-cell ordering, the band interleave, the duplicate check -- is
+// the same for every family and lives below.
+const PLANNERS = {
+  'sudoku-classic': {
+    shapes: SUDOKU_SHAPES,
+    symmetries: symmetriesFor,
+    shapeKey: (sh) => `${sh.size}:${sh.box_h}x${sh.box_w}`,
+    paramsKey: (p) => `${p.size}:${p.box_h}x${p.box_w}`,
+    slug: (sh) => `${sh.size}${sh.box_h}x${sh.box_w}`,
+    describe: (sh) => `**${sh.size}×${sh.size}** grid with **${sh.box_h}×${sh.box_w}** boxes`,
+    params: (sh, band, symmetry) => ({
+      size: sh.size, box_h: sh.box_h, box_w: sh.box_w,
+      symmetry, min_clues: sh.min_clues, band_target: band, dig_passes: 6,
+    }),
+    countFor: (sh) => (sh.size >= 9 ? 60 : 50),
+  },
+  binairo: {
+    shapes: BINAIRO_SHAPES,
+    symmetries: binairoSymmetries,
+    shapeKey: (sh) => `${sh.size}:binairo`,
+    paramsKey: (p) => `${p.size}:binairo`,
+    slug: (sh) => `${sh.size}x${sh.size}`,
+    describe: (sh) => `**${sh.size}×${sh.size}** grid`,
+    params: (sh, band, symmetry) => ({
+      size: sh.size, symmetry, min_clues: sh.min_clues, band_target: band, dig_passes: 6,
+    }),
+    countFor: (sh) => (sh.size >= 12 ? 40 : 50),
+  },
+};
+
 // A plan's identity is the cell it fills -- family, band, shape, symmetry --
 // not its filename. The sequence number and the requested count are bookkeeping.
 // Comparing whole filenames made the duplicate check a no-op, because a freshly
@@ -102,7 +159,8 @@ function corpusCounts() {
     counts[r.family] ??= { total: 0, bands: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }, shapes: {}, cells: {} };
     counts[r.family].total++;
     counts[r.family].bands[r.difficulty.band]++;
-    const k = `${r.params.size}:${r.params.box_h}x${r.params.box_w}`;
+    const planner = PLANNERS[r.family];
+    const k = planner ? planner.paramsKey(r.params) : `${r.params.size}:unknown`;
     counts[r.family].shapes[k] = (counts[r.family].shapes[k] ?? 0) + 1;
     // The band/shape cell, which is what a plan actually fills. A shape total
     // hides a starved cell inside a well-stocked shape: 9x9 held 377 records
@@ -126,15 +184,18 @@ function nextIndex() {
 
 // Every combination this family can produce, ordered so that whatever the
 // corpus has least of comes first.
-function sudokuCandidates(counts) {
-  const have = counts['sudoku-classic'] ?? { bands: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }, shapes: {}, cells: {} };
+function candidatesFor(family, counts) {
+  const planner = PLANNERS[family];
+  if (!planner) return [];
+  const have = counts[family] ?? { bands: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }, shapes: {}, cells: {} };
   const out = [];
-  for (const sh of SUDOKU_SHAPES) {
+  for (const sh of planner.shapes) {
     for (const [band, plenty] of Object.entries(sh.bands)) {
-      for (const symmetry of symmetriesFor(sh, Number(band))) {
-        const shapeKey = `${sh.size}:${sh.box_h}x${sh.box_w}`;
+      for (const symmetry of planner.symmetries(sh, Number(band))) {
+        const shapeKey = planner.shapeKey(sh);
         out.push({
-          family: 'sudoku-classic',
+          family,
+          planner,
           band: Number(band),
           plenty,
           shape: sh,
@@ -181,6 +242,7 @@ function sudokuCandidates(counts) {
 
 function planBody(c, count, index) {
   const sh = c.shape;
+  const planner = c.planner ?? PLANNERS[c.family];
   const scarce = c.plenty === 'scarce';
   const maxAttempts = scarce ? count * 400 : count * 60;
   const spec = {
@@ -188,22 +250,14 @@ function planBody(c, count, index) {
     band: c.band,
     count,
     max_attempts: maxAttempts,
-    params: {
-      size: sh.size,
-      box_h: sh.box_h,
-      box_w: sh.box_w,
-      symmetry: c.symmetry,
-      min_clues: sh.min_clues,
-      band_target: c.band,
-      dig_passes: 6,
-    },
+    params: planner.params(sh, c.band, c.symmetry),
   };
-  const name = `${String(index).padStart(3, '0')}-${c.family}-b${c.band}-${sh.size}${sh.box_h}x${sh.box_w}-${c.symmetry}-${count}`;
+  const name = `${String(index).padStart(3, '0')}-${c.family}-b${c.band}-${planner.slug(sh)}-${c.symmetry}-${count}`;
   const bandNames = { 1: 'Gentle', 2: 'Easy', 3: 'Medium', 4: 'Hard', 5: 'Brutal' };
   const body = `# ${name}
 
 Generate **${count}** ${c.family} puzzles in **band ${c.band} (${bandNames[c.band]})** on a
-**${sh.size}×${sh.size}** grid with **${sh.box_h}×${sh.box_w}** boxes and **${c.symmetry}** symmetry.
+${planner.describe(sh)} with **${c.symmetry}** symmetry.
 
 - Dig no further than **${sh.min_clues}** clues.
 - Band ${c.band} is **${c.plenty}** at this shape, so the attempt budget is **${maxAttempts}**.
@@ -282,7 +336,31 @@ function main() {
     index++;
   }
 
-  const candidates = sudokuCandidates(counts);
+  // Families that may be planned for. A family needs a planner here and an
+  // onboarded solver, and sudoku-classic is excluded whatever else is true:
+  // the owner's instruction on 2026-09-19 was "no more sudoku pls, different
+  // families moving forward". Its 2,498 existing records stay exactly as they
+  // are -- the instruction is about what gets generated next, not about what
+  // has already been validated. See STATE.md under ## Standing corrections.
+  const EXCLUDED = new Set(['sudoku-classic']);
+  const plannable = Object.keys(PLANNERS).filter((f) => FAMILIES.includes(f) && !EXCLUDED.has(f));
+
+  // Round-robin across families, so a refill never hands the next batch five
+  // plans from one family. CLAUDE.md caps a family at 40% of a batch, and with
+  // one family onboarded that cap cannot be met; the interleave is what makes
+  // it start being met the moment a second family exists.
+  const perFamily = plannable.map((f) => candidatesFor(f, counts));
+  const candidates = [];
+  for (let round = 0; ; round++) {
+    let emitted = false;
+    for (const list of perFamily) {
+      if (round < list.length) { candidates.push(list[round]); emitted = true; }
+    }
+    if (!emitted) break;
+  }
+  if (!candidates.length) {
+    console.log('no plannable family: every onboarded family is excluded, or none has a planner');
+  }
   let ci = 0;
   while (written.length < want && ci < candidates.length * 4) {
     const c = candidates[ci % candidates.length];
@@ -297,7 +375,7 @@ function main() {
     // 400 per puzzle rather than 60; the count was a second, unmeasured tax on
     // top of it. Batch 008 measured the real cost of a 60-puzzle band-3 plan at
     // 9x9: 3,326 attempts, 55 per puzzle, 14% of the budget it was given.
-    const count = c.shape.size >= 9 ? 60 : 50;
+    const count = (c.planner ?? PLANNERS[c.family]).countFor(c.shape);
     const { name, body } = planBody(c, count, index);
     const cell = cellOf(name);
     if (existing.has(cell) || saturated.has(cell)) continue;

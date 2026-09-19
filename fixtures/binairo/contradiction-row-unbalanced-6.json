@@ -1,0 +1,16 @@
+{
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "A row holding 4 zeros, one more than half of 6, with no three adjacent. Only the balance rule is broken.",
+  "params": {
+    "size": 6
+  },
+  "puzzle": "0.0.00..............................",
+  "slug": "contradiction-row-unbalanced-6",
+  "source": "constructed"
+}

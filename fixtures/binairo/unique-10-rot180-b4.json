@@ -1,0 +1,21 @@
+{
+  "expect": {
+    "band": 4,
+    "reference": "confirmed",
+    "solution": "0010011011110011010000110011011100101010010011011010110010011101100100001011001101010010111011010100",
+    "techniques": [
+      "local_triples",
+      "line_counts",
+      "line_enumerate",
+      "cell_contradiction"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated 10x10 instance with a unique solution, produced targeting band 4 with rot180 givens.",
+  "params": {
+    "size": 10
+  },
+  "puzzle": "...0.....1..00....0.......1.....00.0..10.100............100.11..1.01.....0.......1....10..1.....0...",
+  "slug": "unique-10-rot180-b4",
+  "source": "generated"
+}

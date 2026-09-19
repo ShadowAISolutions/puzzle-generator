@@ -1,0 +1,16 @@
+{
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "Three of the same symbol side by side in a row. No completion can exist.",
+  "params": {
+    "size": 10
+  },
+  "puzzle": "000.................................................................................................",
+  "slug": "contradiction-row-triple-10",
+  "source": "constructed"
+}

@@ -1,0 +1,17 @@
+{
+  "derived_from": "unique-8-rot180-b2",
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "unique-8-rot180-b2 with one given flipped to the other symbol.",
+  "params": {
+    "size": 8
+  },
+  "puzzle": "0....1..1..1.1.11.01.01.....0.0..1.0.....00.00.11.1.1..0..0....0",
+  "slug": "nearmiss-flipped-unique-8-rot180-b2",
+  "source": "generated"
+}

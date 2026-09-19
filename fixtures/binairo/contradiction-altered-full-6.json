@@ -1,0 +1,16 @@
+{
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "A complete valid board with one cell flipped, which unbalances both its row and its column.",
+  "params": {
+    "size": 6
+  },
+  "puzzle": "111001011010100110101001010110100101",
+  "slug": "contradiction-altered-full-6",
+  "source": "constructed"
+}

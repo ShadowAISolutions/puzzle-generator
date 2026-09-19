@@ -1,0 +1,17 @@
+{
+  "derived_from": "unique-8-none-b3",
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "multiple"
+  },
+  "note": "unique-8-none-b3 with one given flipped to the other symbol.",
+  "params": {
+    "size": 8
+  },
+  "puzzle": ".11..0............1...1.....00.......0.....0..............0.....",
+  "slug": "nearmiss-flipped-unique-8-none-b3",
+  "source": "generated"
+}

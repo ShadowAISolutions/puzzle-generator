@@ -1,0 +1,20 @@
+{
+  "derived_from": "unique-8-rot180-b1",
+  "expect": {
+    "band": 2,
+    "reference": "confirmed",
+    "solution": "1100110001001011001100111101010000101011001011011101001010110100",
+    "techniques": [
+      "local_triples",
+      "line_counts"
+    ],
+    "verdict": "unique"
+  },
+  "note": "unique-8-rot180-b1 with one given removed. Removing a given can only ever widen the solution set.",
+  "params": {
+    "size": 8
+  },
+  "puzzle": "11..11.00.0...1100.1..1.1..1..0000..1..100..1.0111...0.01.11..00",
+  "slug": "nearmiss-removed-unique-8-rot180-b1",
+  "source": "generated"
+}

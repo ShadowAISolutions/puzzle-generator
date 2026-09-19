@@ -66,6 +66,138 @@ function format(cells, size) {
   return s;
 }
 
+// --- binairo -----------------------------------------------------------------
+
+// The shared machinery -- the reference as the oracle, the expected band
+// frozen at calibration, the deterministic rng -- is family-agnostic. What
+// makes a good degenerate case, a good contradiction and a good near miss is
+// not: it depends entirely on the rules, so each family describes its own set.
+//
+// Binairo has three rules and therefore three ways to be impossible, and all
+// three are tested separately. The third is the one worth having: a grid whose
+// every row is individually legal but where two of them are identical is
+// unsolvable for a reason no amount of local reasoning can see.
+function binairoFixtures({ S, G, R, rng, add }) {
+  const SIZES = [6, 8, 10];
+  const blank = (n) => '.'.repeat(n * n);
+  const put = (n, cells) => {
+    const g = new Array(n * n).fill('.');
+    for (const [i, v] of cells) g[i] = v;
+    return g.join('');
+  };
+
+  for (const n of SIZES) {
+    add(`degenerate-empty-${n}`, 'constructed',
+      'An empty grid. Every valid board is a solution, so the verdict must be multiple.',
+      { size: n }, blank(n));
+  }
+
+  const fullGrids = {};
+  for (const n of SIZES) {
+    const gen = G.generate(`fixture-full-${n}`, { size: n, symmetry: 'none', min_clues: n * n, band_target: 1, dig_passes: 1 });
+    fullGrids[n] = gen.solution;
+    add(`degenerate-full-${n}`, 'constructed',
+      'A completely filled valid board: the maximum given count. Nothing is left to deduce.',
+      { size: n }, gen.solution);
+  }
+
+  for (const n of SIZES) {
+    add(`contradiction-row-triple-${n}`, 'constructed',
+      'Three of the same symbol side by side in a row. No completion can exist.',
+      { size: n }, put(n, [[0, '0'], [1, '0'], [2, '0']]));
+
+    add(`contradiction-column-triple-${n}`, 'constructed',
+      'Three of the same symbol stacked in a column.',
+      { size: n }, put(n, [[0, '0'], [n, '0'], [2 * n, '0']]));
+
+    // One more than half a line can hold, spread out so no three ever touch:
+    // the balance rule is broken and nothing else is.
+    const spread = [];
+    for (let c = 0; c < n; c += 2) spread.push([c, '0']);
+    spread.push([n - 1, '0']);
+    add(`contradiction-row-unbalanced-${n}`, 'constructed',
+      `A row holding ${n / 2 + 1} zeros, one more than half of ${n}, with no three adjacent. Only the balance rule is broken.`,
+      { size: n }, put(n, spread));
+
+    // Two complete identical rows. Each is legal on its own and no column holds
+    // three alike, so only the distinctness rule rules this out.
+    const row0 = fullGrids[n].slice(0, n);
+    add(`contradiction-duplicate-rows-${n}`, 'constructed',
+      'Two complete identical rows. Each row is legal by itself and no column holds three alike, so only the rule against repeating a line makes this impossible.',
+      { size: n }, row0 + row0 + '.'.repeat(n * (n - 2)));
+
+    const flipped = fullGrids[n].split('');
+    flipped[0] = flipped[0] === '0' ? '1' : '0';
+    add(`contradiction-altered-full-${n}`, 'constructed',
+      'A complete valid board with one cell flipped, which unbalances both its row and its column.',
+      { size: n }, flipped.join(''));
+  }
+
+  // --- unique instances across sizes and bands -------------------------------
+  // Band 5 is deliberately only attempted where it exists and is affordable.
+  // A band-5 binairo needs cell-by-cell case analysis to fail outright, which
+  // it almost never does on a small board, and each attempt digs a whole grid;
+  // asking for one at 14x14 spends minutes per fixture to fail. Measured on
+  // 2026-09-19: no band 5 below 10x10 at all.
+  const uniques = [];
+  for (const n of [6, 8, 10, 12, 14]) {
+    for (const band of [1, 2, 3, 4, 5]) {
+      if (band === 5 && (n < 10 || n > 12)) continue;
+      for (const symmetry of ['none', 'rot180']) {
+        const params = { size: n, symmetry, min_clues: 0, band_target: band, dig_passes: 6 };
+        const budget = band === 5 ? 12 : n >= 12 ? 20 : 40;
+        let made = false;
+        for (let attempt = 0; attempt < budget && !made; attempt++) {
+          let g;
+          try { g = G.generate(`fixture-u-${n}-${symmetry}-b${band}-${attempt}`, params); }
+          catch { continue; }
+          if (!g.puzzle) continue;
+          const slug = `unique-${n}-${symmetry}-b${band}`;
+          add(slug, 'generated',
+            `A machine-generated ${n}x${n} instance with a unique solution, produced targeting band ${band} with ${symmetry} givens.`,
+            { size: n }, g.puzzle);
+          uniques.push({ slug, params: { size: n }, puzzle: g.puzzle, solution: g.solution });
+          made = true;
+        }
+        if (!made) console.warn(`  (no band-${band} ${symmetry} instance found at ${n}x${n}; skipping)`);
+      }
+    }
+  }
+
+  // --- near misses -----------------------------------------------------------
+  // A unique instance with one given removed, and with one given flipped. The
+  // reference decides what each actually turns out to be.
+  for (const u of uniques.filter((x) => x.params.size >= 8).slice(0, 8)) {
+    const given = [];
+    for (let i = 0; i < u.puzzle.length; i++) if (u.puzzle[i] !== '.') given.push(i);
+    if (!given.length) continue;
+    const at = given[rng.int(given.length)];
+    add(`nearmiss-removed-${u.slug}`, 'generated',
+      `${u.slug} with one given removed. Removing a given can only ever widen the solution set.`,
+      u.params, u.puzzle.slice(0, at) + '.' + u.puzzle.slice(at + 1), { derived_from: u.slug });
+
+    const at2 = given[rng.int(given.length)];
+    const flip = u.puzzle[at2] === '0' ? '1' : '0';
+    add(`nearmiss-flipped-${u.slug}`, 'generated',
+      `${u.slug} with one given flipped to the other symbol.`,
+      u.params, u.puzzle.slice(0, at2) + flip + u.puzzle.slice(at2 + 1), { derived_from: u.slug });
+  }
+
+  // --- multiple-solution instances -------------------------------------------
+  for (const u of uniques.filter((x) => x.params.size >= 8).slice(0, 6)) {
+    const cells = u.puzzle.split('');
+    const given = [];
+    for (let i = 0; i < cells.length; i++) if (cells[i] !== '.') given.push(i);
+    const drop = rng.shuffle(given.slice()).slice(0, Math.max(2, Math.floor(given.length * 0.35)));
+    for (const i of drop) cells[i] = '.';
+    add(`multiple-${u.slug}`, 'generated',
+      `${u.slug} with a third of its givens removed, well past the point where the solution stops being forced.`,
+      u.params, cells.join(''), { derived_from: u.slug });
+  }
+}
+
+const FAMILY_PLANS = { binairo: binairoFixtures };
+
 function main() {
   const family = process.argv[2] ?? 'sudoku-classic';
   const S = solverFor(family);
@@ -115,6 +247,12 @@ function main() {
       ...extra,
     });
   };
+
+  if (FAMILY_PLANS[family]) {
+    FAMILY_PLANS[family]({ S, G, R, rng, add });
+  } else if (family !== 'sudoku-classic') {
+    throw new Error(`no fixture plan for family ${family}; known: sudoku-classic, ${Object.keys(FAMILY_PLANS).join(', ')}`);
+  } else {
 
   // --- degenerate shapes ----------------------------------------------------
   for (const shape of [{ size: 4, box_h: 2, box_w: 2 }, { size: 6, box_h: 2, box_w: 3 }, { size: 9, box_h: 3, box_w: 3 }]) {
@@ -216,6 +354,8 @@ function main() {
   // --- published ------------------------------------------------------------
   for (const p of PUBLISHED) {
     add(`published-${p.slug}`, 'published', p.note, p.params, p.puzzle);
+  }
+
   }
 
   // --- write ----------------------------------------------------------------

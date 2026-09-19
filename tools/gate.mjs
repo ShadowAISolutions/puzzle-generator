@@ -166,9 +166,17 @@ async function gateRecord(file, ctx) {
   try { G.validateParams(record.params); } catch (e) { versionProblems.push(`params: ${e.message}`); }
   if (!add('schema', versionProblems.length === 0, versionProblems.join('; '))) return { rel, checks };
 
-  const size = record.params.size;
-  if (record.puzzle.length !== size * size) { add('schema', false, 'puzzle length does not match size'); return { rel, checks }; }
-  if (record.solution.includes('.')) { add('schema', false, 'solution has an empty cell'); return { rel, checks }; }
+  // Does the encoding match the shape the params declare? What that means is
+  // the family's own business -- a sudoku's puzzle is size*size cells, a
+  // nonogram's is a clue list whose length has nothing to do with its grid --
+  // so the family answers it and the gate only records the verdict. A family
+  // that does not implement validateEncoding fails here rather than passing.
+  try {
+    S.validateEncoding(record.puzzle, record.solution, record.params);
+  } catch (e) {
+    add('schema', false, e.message);
+    return { rel, checks };
+  }
   if (S.clues(record.puzzle) !== record.clues) { add('schema', false, `clues says ${record.clues}, puzzle has ${S.clues(record.puzzle)}`); return { rel, checks }; }
 
   // 2, 3, 5, 9 -- one fresh solve covers solvability, uniqueness, the band and

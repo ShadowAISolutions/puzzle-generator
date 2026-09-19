@@ -1,0 +1,16 @@
+{
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "Three of the same symbol stacked in a column.",
+  "params": {
+    "size": 10
+  },
+  "puzzle": "0.........0.........0...............................................................................",
+  "slug": "contradiction-column-triple-10",
+  "source": "constructed"
+}

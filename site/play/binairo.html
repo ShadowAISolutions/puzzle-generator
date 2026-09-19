@@ -1,0 +1,428 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Play — Binairo</title>
+<meta name="description" content="Play a machine-generated binairo whose unique solution has been proven by exhaustive counting.">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #fbfaf8;
+    --panel: #ffffff;
+    --ink: #1c1b19;
+    --ink-soft: #5c584f;
+    --line: #d8d3c8;
+    --line-strong: #46433c;
+    --given: #1c1b19;
+    --entry: #2f6f57;
+    --wrong: #a3301f;
+    --accent: #2f6f57;
+    --given-bg: #f1ede4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #171614;
+      --panel: #201f1c;
+      --ink: #f2efe8;
+      --ink-soft: #a9a396;
+      --line: #3a3733;
+      --line-strong: #8d8579;
+      --given: #f2efe8;
+      --entry: #6fc49d;
+      --wrong: #e0705c;
+      --accent: #6fc49d;
+      --given-bg: #2a2825;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    padding: 16px;
+  }
+  .wrap { max-width: 44rem; margin: 0 auto; }
+  header h1 { font-size: 1.5rem; margin: 0 0 .25rem; letter-spacing: -.01em; }
+  .sub { margin: 0 0 1rem; color: var(--ink-soft); }
+  .meta {
+    display: flex; flex-wrap: wrap; gap: .4rem .75rem;
+    font-size: .8125rem; color: var(--ink-soft);
+    margin-bottom: .75rem;
+  }
+  .meta span { white-space: nowrap; }
+  .meta b { color: var(--ink); font-weight: 600; }
+  .boardwrap { display: flex; justify-content: center; }
+  table.board {
+    border-collapse: collapse;
+    background: var(--panel);
+    border: 2px solid var(--line-strong);
+    table-layout: fixed;
+    width: 100%;
+    max-width: 30rem;
+  }
+  table.board td { padding: 0; border: 1px solid var(--line); }
+  button.cell {
+    display: block; width: 100%; aspect-ratio: 1 / 1;
+    margin: 0; padding: 0; border: 0; background: transparent;
+    color: var(--entry); cursor: pointer;
+    font: inherit; font-weight: 600;
+    font-size: clamp(.55rem, 2.6vw, 1.05rem);
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  button.cell.given { color: var(--given); background: var(--given-bg); cursor: default; font-weight: 700; }
+  button.cell.wrong { color: var(--wrong); }
+  button.cell:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+  .acts { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0 .5rem; }
+  .act {
+    font: inherit; padding: .5rem .85rem; border-radius: .4rem;
+    border: 1px solid var(--line-strong); background: var(--panel); color: var(--ink);
+    cursor: pointer;
+  }
+  .act.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .status { min-height: 1.5rem; margin: .25rem 0 1rem; font-weight: 600; }
+  .guarantee {
+    border-top: 1px solid var(--line); margin-top: 1.5rem; padding-top: 1rem;
+    color: var(--ink-soft); font-size: .9375rem;
+  }
+  .guarantee h2 { font-size: 1rem; color: var(--ink); margin: 0 0 .5rem; }
+  .guarantee p { margin: 0 0 .6rem; }
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Binairo</h1>
+    <p class="sub">Never three alike in a row. Half of each symbol in every line. No two lines the same.</p>
+  </header>
+
+  <div class="meta" id="meta"></div>
+
+  <div class="boardwrap">
+    <table class="board" id="board" role="grid" aria-labelledby="boardlabel"></table>
+  </div>
+  <p id="boardlabel" class="visually-hidden">Binairo grid. Use the arrow keys to move, 0 and 1 to fill a cell, and backspace to clear it.</p>
+
+  <div class="acts">
+    <button class="act primary" id="check" type="button">Check my solution</button>
+    <button class="act" id="clear" type="button">Clear entries</button>
+    <button class="act" id="reveal" type="button">Reveal solution</button>
+  </div>
+
+  <p class="status" id="status" role="status" aria-live="polite"></p>
+
+  <section class="guarantee">
+    <h2>The guarantee</h2>
+    <p>This puzzle is machine-generated. An <strong>independent solver</strong>, which shares no code with the
+      generator that made it, proved that it has <strong>exactly one solution</strong> by counting solutions
+      exhaustively and stopping at two. A separate brute-force reference confirmed that verdict.</p>
+    <p>Its difficulty band is <strong>measured</strong>, not asserted: it is the highest technique tier the
+      easiest complete solution path needs. Bands 1 to 4 are solvable by pure deduction with no guessing.
+      Band 5 is the only band where bounded search is required, and it is always flagged.</p>
+    <p>Your solution is checked here in your browser, against the record. Nothing is sent anywhere.</p>
+  </section>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var EMPTY = 0, ZERO = 1, ONE = 2;
+  var state = { record: null, size: 0, givens: null, entries: null, showErrors: false, cursor: 0 };
+  var el = {
+    board: document.getElementById('board'),
+    meta: document.getElementById('meta'),
+    status: document.getElementById('status'),
+    check: document.getElementById('check'),
+    clear: document.getElementById('clear'),
+    reveal: document.getElementById('reveal')
+  };
+
+  function say(text, tone) {
+    el.status.textContent = text;
+    el.status.style.color = tone === 'bad' ? 'var(--wrong)' : tone === 'good' ? 'var(--accent)' : 'var(--ink-soft)';
+  }
+
+  function parse(str, size) {
+    var g = new Array(size * size);
+    for (var i = 0; i < str.length; i++) {
+      var ch = str.charAt(i);
+      g[i] = ch === '0' ? ZERO : ch === '1' ? ONE : EMPTY;
+    }
+    return g;
+  }
+
+  function glyph(v) { return v === ZERO ? '0' : v === ONE ? '1' : ''; }
+
+  // The rules, written here from scratch. The point of a self-test is to
+  // disagree with the solver when the solver is wrong, which it cannot do if
+  // it asks the solver.
+  function satisfiesRules(g, size) {
+    var half = size / 2, seenRow = {}, seenCol = {};
+    for (var pass = 0; pass < 2; pass++) {
+      for (var n = 0; n < size; n++) {
+        var line = [], z = 0, o = 0, key = '';
+        for (var i = 0; i < size; i++) {
+          var v = pass === 0 ? g[n * size + i] : g[i * size + n];
+          if (v === EMPTY) return false;
+          line.push(v);
+          key += glyph(v);
+          if (v === ZERO) z++; else o++;
+          if (i >= 2 && line[i] === line[i - 1] && line[i] === line[i - 2]) return false;
+        }
+        if (z !== half || o !== half) return false;
+        var bag = pass === 0 ? seenRow : seenCol;
+        if (bag[key]) return false;
+        bag[key] = true;
+      }
+    }
+    return true;
+  }
+
+  function render() {
+    var size = state.size;
+    var rows = [];
+    for (var r = 0; r < size; r++) {
+      var tds = [];
+      for (var c = 0; c < size; c++) {
+        var i = r * size + c;
+        var given = state.givens[i] !== EMPTY;
+        tds.push(
+          '<td><button class="cell' + (given ? ' given' : '') + '" type="button"' +
+          ' data-i="' + i + '" role="gridcell"' +
+          ' aria-label="row ' + (r + 1) + ' column ' + (c + 1) + '"' +
+          (given ? ' tabindex="-1" aria-disabled="true"' : '') +
+          '></button></td>'
+        );
+      }
+      rows.push('<tr>' + tds.join('') + '</tr>');
+    }
+    el.board.innerHTML = rows.join('');
+    paint();
+  }
+
+  function paint() {
+    var buttons = el.board.querySelectorAll('button.cell');
+    for (var k = 0; k < buttons.length; k++) {
+      var b = buttons[k];
+      var i = Number(b.getAttribute('data-i'));
+      var given = state.givens[i] !== EMPTY;
+      var v = given ? state.givens[i] : state.entries[i];
+      b.textContent = glyph(v);
+      var wrong = false;
+      if (state.showErrors && !given && v !== EMPTY && state.record) {
+        wrong = glyph(v) !== state.record.solution.charAt(i);
+      }
+      b.classList.toggle('wrong', wrong);
+    }
+  }
+
+  function checkSolution() {
+    var size = state.size, g = new Array(size * size), filled = 0;
+    for (var i = 0; i < g.length; i++) {
+      g[i] = state.givens[i] !== EMPTY ? state.givens[i] : state.entries[i];
+      if (g[i] !== EMPTY) filled++;
+    }
+    if (filled < g.length) return { solved: false, reason: 'incomplete', left: g.length - filled };
+    if (!satisfiesRules(g, size)) return { solved: false, reason: 'rules' };
+    for (var j = 0; j < g.length; j++) {
+      if (glyph(g[j]) !== state.record.solution.charAt(j)) return { solved: false, reason: 'differs' };
+    }
+    return { solved: true };
+  }
+
+  function cycle(i) {
+    if (state.givens[i] !== EMPTY) return;
+    state.entries[i] = state.entries[i] === EMPTY ? ZERO : state.entries[i] === ZERO ? ONE : EMPTY;
+    paint();
+  }
+
+  function loadRecord(record) {
+    if (!record || typeof record !== 'object') throw new Error('no record');
+    var size = record.params && record.params.size;
+    if (!size || record.puzzle.length !== size * size) throw new Error('record shape does not match its params');
+    state.record = record;
+    state.size = size;
+    state.givens = parse(record.puzzle, size);
+    state.entries = new Array(size * size).fill(EMPTY);
+    state.showErrors = false;
+    state.cursor = 0;
+    var d = record.difficulty || {};
+    el.meta.innerHTML =
+      '<span>Size <b>' + size + '×' + size + '</b></span>' +
+      '<span>Band <b>' + (d.band != null ? d.band : '?') + '</b></span>' +
+      '<span>Givens <b>' + record.clues + '</b></span>' +
+      '<span>Id <b>' + String(record.id || '').slice(0, 8) + '</b></span>';
+    render();
+    say('Click a cell to cycle it between 0, 1 and empty.');
+  }
+
+  window.__LOAD_RECORD = loadRecord;
+
+  el.board.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('button.cell') : null;
+    if (!b) return;
+    var i = Number(b.getAttribute('data-i'));
+    state.cursor = i;
+    cycle(i);
+  });
+
+  el.board.addEventListener('keydown', function (e) {
+    var b = e.target.closest ? e.target.closest('button.cell') : null;
+    if (!b || !state.size) return;
+    var i = Number(b.getAttribute('data-i')), size = state.size;
+    var r = Math.floor(i / size), c = i % size, moved = -1;
+    if (e.key === 'ArrowLeft' && c > 0) moved = i - 1;
+    else if (e.key === 'ArrowRight' && c < size - 1) moved = i + 1;
+    else if (e.key === 'ArrowUp' && r > 0) moved = i - size;
+    else if (e.key === 'ArrowDown' && r < size - 1) moved = i + size;
+    else if (e.key === '0' || e.key === '1') {
+      if (state.givens[i] === EMPTY) { state.entries[i] = e.key === '0' ? ZERO : ONE; paint(); }
+      e.preventDefault();
+      return;
+    } else if (e.key === 'Backspace' || e.key === 'Delete') {
+      if (state.givens[i] === EMPTY) { state.entries[i] = EMPTY; paint(); }
+      e.preventDefault();
+      return;
+    }
+    if (moved >= 0) {
+      var next = el.board.querySelector('button.cell[data-i="' + moved + '"]');
+      if (next) next.focus();
+      e.preventDefault();
+    }
+  });
+
+  el.check.addEventListener('click', function () {
+    if (!state.record) return;
+    var r = checkSolution();
+    state.showErrors = true;
+    paint();
+    if (r.solved) say('Solved. Every rule holds and it matches the proven solution.', 'good');
+    else if (r.reason === 'incomplete') say(r.left + ' cell' + (r.left === 1 ? '' : 's') + ' still empty.', 'bad');
+    else if (r.reason === 'rules') say('Not yet — a row or column breaks one of the three rules.', 'bad');
+    else say('Every rule holds, but this is not the proven solution.', 'bad');
+  });
+
+  el.clear.addEventListener('click', function () {
+    if (!state.record) return;
+    state.entries = new Array(state.size * state.size).fill(EMPTY);
+    state.showErrors = false;
+    paint();
+    say('Entries cleared.');
+  });
+
+  el.reveal.addEventListener('click', function () {
+    if (!state.record) return;
+    var want = parse(state.record.solution, state.size);
+    for (var i = 0; i < want.length; i++) if (state.givens[i] === EMPTY) state.entries[i] = want[i];
+    state.showErrors = false;
+    paint();
+    say('Solution revealed.');
+  });
+
+  function corpusPath(id, family, band) {
+    return '../../corpus/' + family + '/b' + band + '/' + id.slice(0, 2) + '/' + id + '.json';
+  }
+
+  function boot() {
+    var q = new URLSearchParams(location.search);
+    var id = q.get('id');
+    var band = q.get('band');
+    var family = q.get('family') || 'binairo';
+    if (!id) { say('Open this page from the corpus index, or add ?id= to the address.'); return; }
+    if (!/^[0-9a-f]{16}$/.test(id)) { say('That is not a puzzle id.'); return; }
+    var tries = band ? [band] : ['1', '2', '3', '4', '5'];
+    (function attempt(k) {
+      if (k >= tries.length) { say('Could not find puzzle ' + id + '.'); return; }
+      fetch(corpusPath(id, family, tries[k]))
+        .then(function (r) { if (!r.ok) throw new Error('not found'); return r.json(); })
+        .then(function (rec) { loadRecord(rec); })
+        .catch(function () { attempt(k + 1); });
+    })(0);
+  }
+
+  // --- self-tests the gate runs ---------------------------------------------
+
+  window.__SELFTEST = function () {
+    var out = [];
+    function t(name, fn) {
+      try { var d = fn(); out.push({ name: name, pass: d === true || d === undefined, detail: d === true || d === undefined ? '' : String(d) }); }
+      catch (e) { out.push({ name: name, pass: false, detail: e.message }); }
+    }
+    t('a record is loaded', function () { return state.record ? true : 'no record loaded'; });
+    t('the grid renders one cell per square', function () {
+      var n = state.size * state.size;
+      var got = el.board.querySelectorAll('button.cell').length;
+      return got === n ? true : 'rendered ' + got + ' cells, expected ' + n;
+    });
+    t('every given is on the board, and nothing else is', function () {
+      var buttons = el.board.querySelectorAll('button.cell');
+      for (var k = 0; k < buttons.length; k++) {
+        var i = Number(buttons[k].getAttribute('data-i'));
+        var ch = state.record.puzzle.charAt(i);
+        var shown = buttons[k].textContent;
+        var isGiven = buttons[k].classList.contains('given');
+        if (ch === '.') { if (isGiven) return 'cell ' + i + ' is marked given but the record has it empty'; }
+        else if (!isGiven || shown !== ch) return 'cell ' + i + ' shows "' + shown + '", record says "' + ch + '"';
+      }
+      return true;
+    });
+    t('the record solution obeys the rules of binairo', function () {
+      return satisfiesRules(parse(state.record.solution, state.size), state.size) ? true : 'solution breaks a rule';
+    });
+    t('the record solution agrees with every given', function () {
+      for (var i = 0; i < state.record.puzzle.length; i++) {
+        var ch = state.record.puzzle.charAt(i);
+        if (ch !== '.' && state.record.solution.charAt(i) !== ch) {
+          return 'cell ' + i + ' given "' + ch + '" but solution has "' + state.record.solution.charAt(i) + '"';
+        }
+      }
+      return true;
+    });
+    t('the checker accepts the true solution', function () {
+      var keep = state.entries.slice(), keepErr = state.showErrors;
+      var want = parse(state.record.solution, state.size);
+      for (var i = 0; i < want.length; i++) if (state.givens[i] === EMPTY) state.entries[i] = want[i];
+      var r = checkSolution();
+      state.entries = keep; state.showErrors = keepErr; paint();
+      return r.solved ? true : 'checker rejected the proven solution';
+    });
+    t('the checker rejects a wrong entry', function () {
+      var keep = state.entries.slice(), keepErr = state.showErrors;
+      var want = parse(state.record.solution, state.size);
+      var target = -1;
+      for (var i = 0; i < want.length; i++) if (state.givens[i] === EMPTY) { target = i; break; }
+      if (target === -1) { state.entries = keep; return 'puzzle has no empty cell to test with'; }
+      for (var j = 0; j < want.length; j++) if (state.givens[j] === EMPTY) state.entries[j] = want[j];
+      state.entries[target] = want[target] === ZERO ? ONE : ZERO;
+      var r = checkSolution();
+      state.entries = keep; state.showErrors = keepErr; paint();
+      return r.solved === false ? true : 'checker accepted a board with a wrong cell';
+    });
+    t('the board fits the narrowest supported screen', function () {
+      var w = el.board.getBoundingClientRect().width;
+      if (w <= 0) return 'board has no width';
+      if (w > document.documentElement.clientWidth) return 'board is ' + Math.round(w) + 'px wide, viewport is ' + document.documentElement.clientWidth + 'px';
+      if (document.documentElement.scrollWidth > document.documentElement.clientWidth) return 'the page scrolls sideways';
+      return true;
+    });
+    t('every cell is large enough to read and to tap', function () {
+      var b = el.board.querySelector('button.cell');
+      if (!b) return 'no cells';
+      var r = b.getBoundingClientRect();
+      return r.width >= 14 && r.height >= 14 ? true : 'cells are ' + Math.round(r.width) + 'x' + Math.round(r.height) + 'px';
+    });
+    return out;
+  };
+
+  boot();
+})();
+</script>
+</body>
+</html>

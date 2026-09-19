@@ -1,0 +1,18 @@
+{
+  "expect": {
+    "band": 1,
+    "reference": "confirmed",
+    "solution": "1100110010110110010000110110011010011010110010010100110010110101010110101011010000101010110101001101",
+    "techniques": [
+      "local_triples"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated 10x10 instance with a unique solution, produced targeting band 1 with rot180 givens.",
+  "params": {
+    "size": 10
+  },
+  "puzzle": "1.00..00.01..11.0.00...1.1..0.101...1..0.1...0...10...0...1.0..1...110.0..1.0...00.0.01..10.01..11.1",
+  "slug": "unique-10-rot180-b1",
+  "source": "generated"
+}
