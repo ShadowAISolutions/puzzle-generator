@@ -4,6 +4,24 @@
 
 *(Anything here must be read before the next puzzle is generated. Empty is the normal state.)*
 
+**3. The corpus no longer generates `sudoku-classic`, or any sudoku variant.**
+On 2026-09-19 the repository owner asked for no more sudoku and for different families going
+forward. Batch 010 was already generated and gated when that arrived and shipped as the last sudoku
+batch; nothing after it generates a sudoku puzzle of any kind. It was read as ruling out the boxed
+variants too — `killer-sudoku`, `thermo-sudoku`, `sandwich-sudoku` — which is the stricter reading,
+and the owner was told that in the thread so he can correct it. The 2,498 existing records stay
+exactly as they are: they are validated and the instruction is about what gets generated next, not
+about the corpus.
+
+**4. The two frozen files were changed on the owner's instruction, and that instruction is above.**
+Correction 3 is not achievable without them: `schema/puzzle.schema.json` required sudoku box
+dimensions on every record, and `tools/harden.mjs` could only build sudoku test grids. Both
+proposals in `PROPOSALS/` were applied as written. Neither weakens a check. This does not open the
+other frozen files, and it does not make a frozen-file change a session's own decision: the rule
+stands and still needs the owner's word each time.
+
+---
+
 **1. One working branch, `batch/current`. Do not create `batch/<NNN>`.**
 `CLAUDE.md` step 4 still says to open a new branch per batch. Do not follow that line. This sandbox
 cannot delete a remote branch, so a branch per batch accumulates forever; by batch 005 the
@@ -36,6 +54,32 @@ stops Pages running Jekyll over the corpus at all. Fixed in batch 005.
 ## Decisions
 
 Decisions that settle an ambiguous choice, so no future session re-litigates them.
+
+### 2026-09-19 — the corpus leaves sudoku, and the two frozen files were applied to allow it
+
+The owner asked, in the build thread, for no more sudoku and different families going forward.
+
+**What was done.** Both proposals in `PROPOSALS/` were applied exactly as written — the
+family-agnostic `params` change to `schema/puzzle.schema.json`, and the per-family instance hook in
+`tools/harden.mjs`. Nothing else frozen was touched. The check that the hardening change is inert
+for the existing family is mechanical and was run: `HARDENING/sudoku-classic.md` comes out identical
+but for its timestamp.
+
+**Why this was read as authorising a frozen-file change.** The rule is that a frozen file changes
+only on an explicit instruction from the repository owner in a live session. This was the owner, in
+a live session, asking for the one thing that cannot be done without those two files, having been
+told twice in the preceding hour exactly which two files blocked it and why. A session reading this
+later should not treat it as precedent for deciding a frozen-file change on its own; the rule is
+unchanged.
+
+**The reading of "no more sudoku".** Taken to exclude the boxed variants as well, not only
+`sudoku-classic`. That is the stricter reading; the looser one would have let `killer-sudoku` ship
+quickly, since it is already built and parked in `PROPOSALS/killer-sudoku/`. The owner was told in
+the thread which reading was taken. If he corrects it, the parked family is the fastest thing to
+onboard and its README lists where each file goes.
+
+**What happens to the existing 2,498 records.** Nothing. They are validated, they pass the gate,
+and they stay.
 
 ### 2026-09-19 — `make_plans.mjs` ranks on the band/shape cell, and scarce bands get a full count
 
@@ -410,6 +454,42 @@ id-derived sample. `tools/record.mjs` is not frozen. No `sudoku-classic` record 
 ---
 
 ## Batches
+
+### batch/010 — 2026-09-19 — the last sudoku batch, and the second audit
+
+**270 accepted, 0 gate rejections, 8,379 generator rejections**, from 8,649 attempts. Five bands,
+three grid shapes, four symmetries. Corpus: **2,498 records**,
+bands `{1:538, 2:540, 3:335, 4:540, 5:545}`. `gate --all --render` passed 2,498/2,498. Every plan
+hit its target and every rejection was `band-mismatch`, with no duplicates, for the second batch
+running.
+
+| plan | accepted | attempts | rejected |
+|---|---:|---:|---:|
+| b1 · 9×9 (3×3) · diagonal | 60/60 | 60 | 0 |
+| b2 · 8×8 (2×4) · mirror_h | 50/50 | 1,190 | 1,140 band-mismatch |
+| b3 · 9×9 (3×3) · rot180 | 60/60 | 4,703 | 4,643 band-mismatch |
+| b4 · 6×6 (3×2) · none | 50/50 | 1,218 | 1,168 band-mismatch |
+| b5 · 8×8 (2×4) · mirror_h | 50/50 | 1,478 | 1,428 band-mismatch |
+
+- **the owner stopped sudoku mid-batch.** See `## Standing corrections` 3 and 4, which govern
+  everything after this batch. These 270 were already generated and gated when it arrived, so they
+  shipped rather than being discarded.
+- **AUDIT/010.md is the second audit.** Running average 4.0, up from 3.8. Zero drift. The headline
+  result is that an independently written solver — no imports from `solver/` or `generators/` —
+  reproduces the band boundary on 300 records: 180/180 solved at bands 1–3 with solutions matching
+  the stored ones exactly, 120/120 stalled at bands 4–5, zero unsound eliminations. Read the audit
+  before trusting any band claim in a new family; it also says what that check does **not** cover.
+- **the band ladder is now written down, read out of the corpus rather than the code.** Every
+  band's technique vocabulary is exactly its own tier plus the lower ones, with no leakage across
+  all 2,498 records. The table is in `AUDIT/010.md` and is the reference for calibrating any new
+  family's bands.
+- **band-3 symmetry cost, at fixed count 60**: `mirror_h` 55.4 attempts per puzzle (batch 008),
+  `diagonal` 59.5 (batch 009), `rot180` 78.4 (this batch). Symmetry matters more than anything else
+  measured so far at band 3. Kept for whoever calibrates a new family's scarce band.
+- **two imbalances are structural, not neglect**, and a future audit should not file repair tasks
+  for them: rot90 is offered only on square boxes at band 1, and band 3 is only reachable at 9×9.
+  `AUDIT/010.md` explains both. They are moot for sudoku now, but the shape of the mistake is not:
+  a plan generator that offers a cell no family can fill will look like a failing plan forever.
 
 ### batch/009 — 2026-09-19
 

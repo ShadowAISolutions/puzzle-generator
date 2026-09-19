@@ -1,0 +1,187 @@
+{
+  "band_distribution_recomputed": {
+    "1": 41,
+    "2": 56,
+    "3": 31,
+    "4": 32,
+    "5": 40
+  },
+  "band_distribution_recorded": {
+    "1": 41,
+    "2": 56,
+    "3": 31,
+    "4": 32,
+    "5": 40
+  },
+  "band_drift": [],
+  "batch": "010",
+  "clue_range": [
+    4,
+    34
+  ],
+  "corpus_by_band": {
+    "1": 538,
+    "2": 540,
+    "3": 335,
+    "4": 540,
+    "5": 545
+  },
+  "corpus_by_family": {
+    "sudoku-classic": 2498
+  },
+  "corpus_by_shape": {
+    "4x4 2x2": 63,
+    "6x6 2x3": 212,
+    "6x6 3x2": 300,
+    "8x8 2x4": 470,
+    "8x8 4x2": 656,
+    "9x9 3x3": 797
+  },
+  "corpus_family_share_percent": {
+    "sudoku-classic": 100
+  },
+  "corpus_size": 2498,
+  "duplicate_hashes": 0,
+  "generated_at": "2026-09-19T18:04:42.000Z",
+  "previous_audit_band_distribution": {
+    "1": 37,
+    "2": 48,
+    "3": 22,
+    "4": 43,
+    "5": 50
+  },
+  "problems": [],
+  "reclassified": 200,
+  "sample": [
+    {
+      "band_now": 1,
+      "band_recorded": 1,
+      "family": "sudoku-classic",
+      "id": "8980d80f1b16a6c6",
+      "path": "corpus/sudoku-classic/b1/89/8980d80f1b16a6c6.json",
+      "reference": "confirmed",
+      "score_now": 24,
+      "score_recorded": 24,
+      "screenshot": null,
+      "stored_where_it_belongs": true,
+      "verdict_now": "unique"
+    },
+    {
+      "band_now": 2,
+      "band_recorded": 2,
+      "family": "sudoku-classic",
+      "id": "fc80b3e5facbc0b4",
+      "path": "corpus/sudoku-classic/b2/fc/fc80b3e5facbc0b4.json",
+      "reference": "confirmed",
+      "score_now": 44,
+      "score_recorded": 44,
+      "screenshot": null,
+      "stored_where_it_belongs": true,
+      "verdict_now": "unique"
+    },
+    {
+      "band_now": 3,
+      "band_recorded": 3,
+      "family": "sudoku-classic",
+      "id": "730cb4a05310d034",
+      "path": "corpus/sudoku-classic/b3/73/730cb4a05310d034.json",
+      "reference": "confirmed",
+      "score_now": 66,
+      "score_recorded": 66,
+      "screenshot": null,
+      "stored_where_it_belongs": true,
+      "verdict_now": "unique"
+    },
+    {
+      "band_now": 5,
+      "band_recorded": 5,
+      "family": "sudoku-classic",
+      "id": "40bb5ed65de110c6",
+      "path": "corpus/sudoku-classic/b5/40/40bb5ed65de110c6.json",
+      "reference": "confirmed",
+      "score_now": 345,
+      "score_recorded": 345,
+      "screenshot": null,
+      "stored_where_it_belongs": true,
+      "verdict_now": "unique"
+    },
+    {
+      "band_now": 4,
+      "band_recorded": 4,
+      "family": "sudoku-classic",
+      "id": "2cf35b91ad095c3c",
+      "path": "corpus/sudoku-classic/b4/2c/2cf35b91ad095c3c.json",
+      "reference": "confirmed",
+      "score_now": 107,
+      "score_recorded": 107,
+      "screenshot": null,
+      "stored_where_it_belongs": true,
+      "verdict_now": "unique"
+    },
+    {
+      "band_now": 1,
+      "band_recorded": 1,
+      "family": "sudoku-classic",
+      "id": "0a7a602b552ef947",
+      "path": "corpus/sudoku-classic/b1/0a/0a7a602b552ef947.json",
+      "reference": "confirmed",
+      "score_now": 10,
+      "score_recorded": 10,
+      "screenshot": ".artifacts/sudoku-classic/b1/0a7a602b552ef947.png",
+      "stored_where_it_belongs": true,
+      "verdict_now": "unique"
+    },
+    {
+      "band_now": 4,
+      "band_recorded": 4,
+      "family": "sudoku-classic",
+      "id": "21ecdadc751a47c6",
+      "path": "corpus/sudoku-classic/b4/21/21ecdadc751a47c6.json",
+      "reference": "confirmed",
+      "score_now": 119,
+      "score_recorded": 119,
+      "screenshot": null,
+      "stored_where_it_belongs": true,
+      "verdict_now": "unique"
+    },
+    {
+      "band_now": 5,
+      "band_recorded": 5,
+      "family": "sudoku-classic",
+      "id": "3254a06132905ef1",
+      "path": "corpus/sudoku-classic/b5/32/3254a06132905ef1.json",
+      "reference": "confirmed",
+      "score_now": 260,
+      "score_recorded": 260,
+      "screenshot": null,
+      "stored_where_it_belongs": true,
+      "verdict_now": "unique"
+    },
+    {
+      "band_now": 1,
+      "band_recorded": 1,
+      "family": "sudoku-classic",
+      "id": "7654c6653b71a11c",
+      "path": "corpus/sudoku-classic/b1/76/7654c6653b71a11c.json",
+      "reference": "confirmed",
+      "score_now": 24,
+      "score_recorded": 24,
+      "screenshot": null,
+      "stored_where_it_belongs": true,
+      "verdict_now": "unique"
+    },
+    {
+      "band_now": 5,
+      "band_recorded": 5,
+      "family": "sudoku-classic",
+      "id": "a3a97872f7dac33a",
+      "path": "corpus/sudoku-classic/b5/a3/a3a97872f7dac33a.json",
+      "reference": "confirmed",
+      "score_now": 347,
+      "score_recorded": 347,
+      "screenshot": null,
+      "stored_where_it_belongs": true,
+      "verdict_now": "unique"
+    }
+  ]
+}
