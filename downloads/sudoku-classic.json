@@ -1,0 +1,924 @@
+{
+  "by_band": {
+    "1": 20,
+    "2": 20,
+    "3": 15,
+    "4": 20,
+    "5": 25
+  },
+  "clue_range": [
+    6,
+    33
+  ],
+  "count": 100,
+  "family": "sudoku-classic",
+  "puzzles": [
+    {
+      "band": 2,
+      "box": "2x4",
+      "clues": 24,
+      "depth": 0,
+      "id": "0186947024e91bcf",
+      "score": 44,
+      "size": 8
+    },
+    {
+      "band": 1,
+      "box": "2x2",
+      "clues": 6,
+      "depth": 0,
+      "id": "0a7a602b552ef947",
+      "score": 10,
+      "size": 4
+    },
+    {
+      "band": 3,
+      "box": "3x3",
+      "clues": 30,
+      "depth": 0,
+      "id": "0dc92ca0833503d2",
+      "score": 67,
+      "size": 9
+    },
+    {
+      "band": 4,
+      "box": "4x2",
+      "clues": 20,
+      "depth": 0,
+      "id": "1090c8b17dacb07d",
+      "score": 212,
+      "size": 8
+    },
+    {
+      "band": 5,
+      "box": "2x4",
+      "clues": 20,
+      "depth": 1,
+      "id": "13d626a3d679a0d3",
+      "score": 270,
+      "size": 8
+    },
+    {
+      "band": 3,
+      "box": "3x3",
+      "clues": 26,
+      "depth": 0,
+      "id": "157a4aa228ed3632",
+      "score": 91,
+      "size": 9
+    },
+    {
+      "band": 4,
+      "box": "2x3",
+      "clues": 11,
+      "depth": 0,
+      "id": "161769c8130e158d",
+      "score": 113,
+      "size": 6
+    },
+    {
+      "band": 1,
+      "box": "2x3",
+      "clues": 10,
+      "depth": 0,
+      "id": "1708f627a8fb24a3",
+      "score": 26,
+      "size": 6
+    },
+    {
+      "band": 4,
+      "box": "3x3",
+      "clues": 32,
+      "depth": 0,
+      "id": "17cc3fdbc3a2af53",
+      "score": 101,
+      "size": 9
+    },
+    {
+      "band": 5,
+      "box": "2x4",
+      "clues": 19,
+      "depth": 2,
+      "id": "1819d4f1345d3a8f",
+      "score": 325,
+      "size": 8
+    },
+    {
+      "band": 4,
+      "box": "2x3",
+      "clues": 9,
+      "depth": 0,
+      "id": "1a8fcf1510da1ae2",
+      "score": 71,
+      "size": 6
+    },
+    {
+      "band": 4,
+      "box": "3x3",
+      "clues": 28,
+      "depth": 0,
+      "id": "1aa7fd7fc766c418",
+      "score": 137,
+      "size": 9
+    },
+    {
+      "band": 4,
+      "box": "2x3",
+      "clues": 10,
+      "depth": 0,
+      "id": "1ae9834b53e07fc2",
+      "score": 162,
+      "size": 6
+    },
+    {
+      "band": 2,
+      "box": "3x3",
+      "clues": 25,
+      "depth": 0,
+      "id": "1af3489d449df2fd",
+      "score": 80,
+      "size": 9
+    },
+    {
+      "band": 2,
+      "box": "3x3",
+      "clues": 23,
+      "depth": 0,
+      "id": "1be167bf1fa7b08d",
+      "score": 66,
+      "size": 9
+    },
+    {
+      "band": 3,
+      "box": "3x3",
+      "clues": 23,
+      "depth": 0,
+      "id": "1c6dd8d23383e7a5",
+      "score": 126,
+      "size": 9
+    },
+    {
+      "band": 1,
+      "box": "3x3",
+      "clues": 33,
+      "depth": 0,
+      "id": "1d84dad31aecf5da",
+      "score": 48,
+      "size": 9
+    },
+    {
+      "band": 3,
+      "box": "3x3",
+      "clues": 25,
+      "depth": 0,
+      "id": "1f0b13761b381b62",
+      "score": 72,
+      "size": 9
+    },
+    {
+      "band": 5,
+      "box": "3x3",
+      "clues": 26,
+      "depth": 1,
+      "id": "1f46cde459997fde",
+      "score": 248,
+      "size": 9
+    },
+    {
+      "band": 1,
+      "box": "2x2",
+      "clues": 6,
+      "depth": 0,
+      "id": "1fb83b03ceb0f89f",
+      "score": 10,
+      "size": 4
+    },
+    {
+      "band": 3,
+      "box": "3x3",
+      "clues": 28,
+      "depth": 0,
+      "id": "205112187c408f10",
+      "score": 73,
+      "size": 9
+    },
+    {
+      "band": 4,
+      "box": "3x3",
+      "clues": 26,
+      "depth": 0,
+      "id": "21ecdadc751a47c6",
+      "score": 119,
+      "size": 9
+    },
+    {
+      "band": 2,
+      "box": "3x3",
+      "clues": 27,
+      "depth": 0,
+      "id": "23245ef949163872",
+      "score": 62,
+      "size": 9
+    },
+    {
+      "band": 2,
+      "box": "2x4",
+      "clues": 18,
+      "depth": 0,
+      "id": "23d5d633ac41d58e",
+      "score": 58,
+      "size": 8
+    },
+    {
+      "band": 4,
+      "box": "4x2",
+      "clues": 20,
+      "depth": 0,
+      "id": "260cf4d56d1a93fc",
+      "score": 92,
+      "size": 8
+    },
+    {
+      "band": 1,
+      "box": "3x3",
+      "clues": 32,
+      "depth": 0,
+      "id": "262499c4133cad5a",
+      "score": 49,
+      "size": 9
+    },
+    {
+      "band": 4,
+      "box": "3x3",
+      "clues": 27,
+      "depth": 0,
+      "id": "28a0282e4e431eae",
+      "score": 106,
+      "size": 9
+    },
+    {
+      "band": 1,
+      "box": "2x2",
+      "clues": 6,
+      "depth": 0,
+      "id": "2903472d883f170b",
+      "score": 10,
+      "size": 4
+    },
+    {
+      "band": 5,
+      "box": "3x3",
+      "clues": 27,
+      "depth": 2,
+      "id": "2ed50406ba4ab636",
+      "score": 349,
+      "size": 9
+    },
+    {
+      "band": 1,
+      "box": "2x3",
+      "clues": 12,
+      "depth": 0,
+      "id": "3739a24f61e0eaba",
+      "score": 24,
+      "size": 6
+    },
+    {
+      "band": 5,
+      "box": "3x3",
+      "clues": 29,
+      "depth": 2,
+      "id": "375ca43227c6009f",
+      "score": 278,
+      "size": 9
+    },
+    {
+      "band": 5,
+      "box": "2x4",
+      "clues": 18,
+      "depth": 4,
+      "id": "3a737f761e89c7a3",
+      "score": 488,
+      "size": 8
+    },
+    {
+      "band": 4,
+      "box": "3x3",
+      "clues": 28,
+      "depth": 0,
+      "id": "3ca4e56985100824",
+      "score": 125,
+      "size": 9
+    },
+    {
+      "band": 4,
+      "box": "2x3",
+      "clues": 10,
+      "depth": 0,
+      "id": "3dcf318ede42610b",
+      "score": 70,
+      "size": 6
+    },
+    {
+      "band": 2,
+      "box": "3x3",
+      "clues": 26,
+      "depth": 0,
+      "id": "3e190b30e8d6b4fb",
+      "score": 67,
+      "size": 9
+    },
+    {
+      "band": 4,
+      "box": "2x3",
+      "clues": 11,
+      "depth": 0,
+      "id": "3ed6f7b845bc3e73",
+      "score": 65,
+      "size": 6
+    },
+    {
+      "band": 1,
+      "box": "2x2",
+      "clues": 6,
+      "depth": 0,
+      "id": "40239e61ee287705",
+      "score": 10,
+      "size": 4
+    },
+    {
+      "band": 5,
+      "box": "3x3",
+      "clues": 24,
+      "depth": 3,
+      "id": "40bc451c55d5b050",
+      "score": 367,
+      "size": 9
+    },
+    {
+      "band": 2,
+      "box": "3x3",
+      "clues": 24,
+      "depth": 0,
+      "id": "41a5ca0f20674054",
+      "score": 77,
+      "size": 9
+    },
+    {
+      "band": 1,
+      "box": "3x3",
+      "clues": 27,
+      "depth": 0,
+      "id": "4365ee669d7fed0f",
+      "score": 54,
+      "size": 9
+    },
+    {
+      "band": 1,
+      "box": "3x3",
+      "clues": 25,
+      "depth": 0,
+      "id": "4b6ef343306e5c65",
+      "score": 56,
+      "size": 9
+    },
+    {
+      "band": 3,
+      "box": "3x3",
+      "clues": 25,
+      "depth": 0,
+      "id": "4df3de784a98f70e",
+      "score": 76,
+      "size": 9
+    },
+    {
+      "band": 2,
+      "box": "3x3",
+      "clues": 22,
+      "depth": 0,
+      "id": "52d1e5d67585a218",
+      "score": 79,
+      "size": 9
+    },
+    {
+      "band": 3,
+      "box": "3x3",
+      "clues": 28,
+      "depth": 0,
+      "id": "56aa69dfddadee9c",
+      "score": 81,
+      "size": 9
+    },
+    {
+      "band": 5,
+      "box": "2x4",
+      "clues": 19,
+      "depth": 1,
+      "id": "5af64e07520a3e70",
+      "score": 254,
+      "size": 8
+    },
+    {
+      "band": 5,
+      "box": "3x3",
+      "clues": 26,
+      "depth": 2,
+      "id": "5baefd1011205d3f",
+      "score": 299,
+      "size": 9
+    },
+    {
+      "band": 4,
+      "box": "3x3",
+      "clues": 27,
+      "depth": 0,
+      "id": "5c0bb144110aea07",
+      "score": 114,
+      "size": 9
+    },
+    {
+      "band": 2,
+      "box": "3x3",
+      "clues": 24,
+      "depth": 0,
+      "id": "61dd447e455b392e",
+      "score": 69,
+      "size": 9
+    },
+    {
+      "band": 3,
+      "box": "3x3",
+      "clues": 24,
+      "depth": 0,
+      "id": "6316cedb5ce18170",
+      "score": 109,
+      "size": 9
+    },
+    {
+      "band": 1,
+      "box": "3x3",
+      "clues": 30,
+      "depth": 0,
+      "id": "64e00c2ea27acee3",
+      "score": 51,
+      "size": 9
+    },
+    {
+      "band": 3,
+      "box": "3x3",
+      "clues": 26,
+      "depth": 0,
+      "id": "65115503a11250da",
+      "score": 87,
+      "size": 9
+    },
+    {
+      "band": 5,
+      "box": "3x3",
+      "clues": 26,
+      "depth": 1,
+      "id": "684fb280257cb9bf",
+      "score": 278,
+      "size": 9
+    },
+    {
+      "band": 2,
+      "box": "2x4",
+      "clues": 20,
+      "depth": 0,
+      "id": "6a83055bfd3143fd",
+      "score": 48,
+      "size": 8
+    },
+    {
+      "band": 5,
+      "box": "3x3",
+      "clues": 23,
+      "depth": 1,
+      "id": "6cefff6f46fff03f",
+      "score": 335,
+      "size": 9
+    },
+    {
+      "band": 1,
+      "box": "3x3",
+      "clues": 28,
+      "depth": 0,
+      "id": "6ed8db71f1e0879b",
+      "score": 53,
+      "size": 9
+    },
+    {
+      "band": 5,
+      "box": "3x3",
+      "clues": 24,
+      "depth": 2,
+      "id": "6ef48cea658d1135",
+      "score": 405,
+      "size": 9
+    },
+    {
+      "band": 3,
+      "box": "3x3",
+      "clues": 31,
+      "depth": 0,
+      "id": "730cb4a05310d034",
+      "score": 66,
+      "size": 9
+    },
+    {
+      "band": 2,
+      "box": "3x3",
+      "clues": 24,
+      "depth": 0,
+      "id": "73c20dd621be3fa8",
+      "score": 65,
+      "size": 9
+    },
+    {
+      "band": 5,
+      "box": "3x3",
+      "clues": 28,
+      "depth": 1,
+      "id": "76377f5a5493e4f9",
+      "score": 347,
+      "size": 9
+    },
+    {
+      "band": 1,
+      "box": "2x2",
+      "clues": 6,
+      "depth": 0,
+      "id": "7f70663bafa67712",
+      "score": 10,
+      "size": 4
+    },
+    {
+      "band": 5,
+      "box": "3x3",
+      "clues": 23,
+      "depth": 2,
+      "id": "803557aadb2a66aa",
+      "score": 305,
+      "size": 9
+    },
+    {
+      "band": 2,
+      "box": "2x4",
+      "clues": 24,
+      "depth": 0,
+      "id": "8653be2ad8c6394b",
+      "score": 52,
+      "size": 8
+    },
+    {
+      "band": 4,
+      "box": "4x2",
+      "clues": 20,
+      "depth": 0,
+      "id": "867edad7c8fe299c",
+      "score": 172,
+      "size": 8
+    },
+    {
+      "band": 5,
+      "box": "3x3",
+      "clues": 28,
+      "depth": 1,
+      "id": "878722224b9f214d",
+      "score": 249,
+      "size": 9
+    },
+    {
+      "band": 1,
+      "box": "3x3",
+      "clues": 26,
+      "depth": 0,
+      "id": "8876c7e001c6095c",
+      "score": 55,
+      "size": 9
+    },
+    {
+      "band": 5,
+      "box": "3x3",
+      "clues": 23,
+      "depth": 1,
+      "id": "8c40c6e6d448a737",
+      "score": 295,
+      "size": 9
+    },
+    {
+      "band": 5,
+      "box": "2x4",
+      "clues": 20,
+      "depth": 3,
+      "id": "8d82856f13eec4e1",
+      "score": 357,
+      "size": 8
+    },
+    {
+      "band": 1,
+      "box": "3x3",
+      "clues": 29,
+      "depth": 0,
+      "id": "8f12e2b6155c58fe",
+      "score": 52,
+      "size": 9
+    },
+    {
+      "band": 3,
+      "box": "3x3",
+      "clues": 25,
+      "depth": 0,
+      "id": "8f2d5df756bb5385",
+      "score": 84,
+      "size": 9
+    },
+    {
+      "band": 5,
+      "box": "3x3",
+      "clues": 24,
+      "depth": 2,
+      "id": "8faffa8a120a5465",
+      "score": 442,
+      "size": 9
+    },
+    {
+      "band": 3,
+      "box": "3x3",
+      "clues": 24,
+      "depth": 0,
+      "id": "98390db77bc37f43",
+      "score": 89,
+      "size": 9
+    },
+    {
+      "band": 5,
+      "box": "2x4",
+      "clues": 18,
+      "depth": 1,
+      "id": "a52d7c9787bfe9a3",
+      "score": 275,
+      "size": 8
+    },
+    {
+      "band": 5,
+      "box": "2x4",
+      "clues": 20,
+      "depth": 2,
+      "id": "a88356c0a2b9679f",
+      "score": 283,
+      "size": 8
+    },
+    {
+      "band": 5,
+      "box": "3x3",
+      "clues": 28,
+      "depth": 2,
+      "id": "ac481479bb3ac246",
+      "score": 332,
+      "size": 9
+    },
+    {
+      "band": 2,
+      "box": "3x3",
+      "clues": 25,
+      "depth": 0,
+      "id": "afe19ff001526223",
+      "score": 64,
+      "size": 9
+    },
+    {
+      "band": 2,
+      "box": "2x4",
+      "clues": 24,
+      "depth": 0,
+      "id": "b466b90f7790b698",
+      "score": 52,
+      "size": 8
+    },
+    {
+      "band": 4,
+      "box": "2x3",
+      "clues": 10,
+      "depth": 0,
+      "id": "b693efb29bcfad10",
+      "score": 118,
+      "size": 6
+    },
+    {
+      "band": 2,
+      "box": "2x4",
+      "clues": 20,
+      "depth": 0,
+      "id": "baa605c64143dd0c",
+      "score": 52,
+      "size": 8
+    },
+    {
+      "band": 4,
+      "box": "4x2",
+      "clues": 21,
+      "depth": 0,
+      "id": "bbfa0a7e44095faf",
+      "score": 127,
+      "size": 8
+    },
+    {
+      "band": 4,
+      "box": "3x3",
+      "clues": 30,
+      "depth": 0,
+      "id": "c0a7c8391ff605b0",
+      "score": 167,
+      "size": 9
+    },
+    {
+      "band": 4,
+      "box": "4x2",
+      "clues": 21,
+      "depth": 0,
+      "id": "c149ce16f1184b69",
+      "score": 223,
+      "size": 8
+    },
+    {
+      "band": 2,
+      "box": "3x3",
+      "clues": 24,
+      "depth": 0,
+      "id": "c16013bc7b2abf1f",
+      "score": 65,
+      "size": 9
+    },
+    {
+      "band": 1,
+      "box": "2x3",
+      "clues": 14,
+      "depth": 0,
+      "id": "c6481d521fc56e8d",
+      "score": 22,
+      "size": 6
+    },
+    {
+      "band": 2,
+      "box": "2x4",
+      "clues": 20,
+      "depth": 0,
+      "id": "c6bc38823603a578",
+      "score": 48,
+      "size": 8
+    },
+    {
+      "band": 3,
+      "box": "3x3",
+      "clues": 22,
+      "depth": 0,
+      "id": "c954cc4558f7d97d",
+      "score": 75,
+      "size": 9
+    },
+    {
+      "band": 5,
+      "box": "2x4",
+      "clues": 22,
+      "depth": 1,
+      "id": "cfa9977c9a0efd41",
+      "score": 233,
+      "size": 8
+    },
+    {
+      "band": 5,
+      "box": "2x4",
+      "clues": 19,
+      "depth": 1,
+      "id": "d39020cc3c5ab604",
+      "score": 240,
+      "size": 8
+    },
+    {
+      "band": 4,
+      "box": "4x2",
+      "clues": 19,
+      "depth": 0,
+      "id": "d4941afb65a7a273",
+      "score": 141,
+      "size": 8
+    },
+    {
+      "band": 5,
+      "box": "2x4",
+      "clues": 19,
+      "depth": 1,
+      "id": "d4d9a675fe728171",
+      "score": 244,
+      "size": 8
+    },
+    {
+      "band": 1,
+      "box": "3x3",
+      "clues": 32,
+      "depth": 0,
+      "id": "dae393657adde6f8",
+      "score": 49,
+      "size": 9
+    },
+    {
+      "band": 5,
+      "box": "3x3",
+      "clues": 25,
+      "depth": 3,
+      "id": "dc2d1312c3a1aeab",
+      "score": 367,
+      "size": 9
+    },
+    {
+      "band": 4,
+      "box": "2x3",
+      "clues": 11,
+      "depth": 0,
+      "id": "ddfaee04df7b4dba",
+      "score": 69,
+      "size": 6
+    },
+    {
+      "band": 2,
+      "box": "2x4",
+      "clues": 24,
+      "depth": 0,
+      "id": "e61827ab760e2099",
+      "score": 56,
+      "size": 8
+    },
+    {
+      "band": 1,
+      "box": "2x3",
+      "clues": 10,
+      "depth": 0,
+      "id": "e907f63974daf75f",
+      "score": 26,
+      "size": 6
+    },
+    {
+      "band": 1,
+      "box": "2x3",
+      "clues": 14,
+      "depth": 0,
+      "id": "ecea51fc254572f5",
+      "score": 22,
+      "size": 6
+    },
+    {
+      "band": 1,
+      "box": "3x3",
+      "clues": 26,
+      "depth": 0,
+      "id": "ee70de9b1588ac8b",
+      "score": 55,
+      "size": 9
+    },
+    {
+      "band": 3,
+      "box": "3x3",
+      "clues": 28,
+      "depth": 0,
+      "id": "f6e673e9bc60c9aa",
+      "score": 97,
+      "size": 9
+    },
+    {
+      "band": 3,
+      "box": "3x3",
+      "clues": 26,
+      "depth": 0,
+      "id": "f716f09978cf668c",
+      "score": 111,
+      "size": 9
+    },
+    {
+      "band": 2,
+      "box": "2x4",
+      "clues": 22,
+      "depth": 0,
+      "id": "f8f591a66d086529",
+      "score": 50,
+      "size": 8
+    },
+    {
+      "band": 2,
+      "box": "2x4",
+      "clues": 24,
+      "depth": 0,
+      "id": "fb53eaa6256013d4",
+      "score": 44,
+      "size": 8
+    }
+  ],
+  "shapes": {
+    "4x4 (2x2)": 5,
+    "6x6 (2x3)": 12,
+    "8x8 (2x4)": 20,
+    "8x8 (4x2)": 6,
+    "9x9 (3x3)": 57
+  }
+}

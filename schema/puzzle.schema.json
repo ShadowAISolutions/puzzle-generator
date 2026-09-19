@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/ShadowAISolutions/puzzle-generator/schema/puzzle.schema.json",
+  "title": "Puzzle record",
+  "description": "One validated puzzle. Every field is machine-generated; none is hand-written. Stored at corpus/<family>/b<band>/<xx>/<id>.json, where <xx> is the first two hex characters of the id.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id", "family", "family_version", "generator_version", "solver_version",
+    "seed", "params", "puzzle", "solution", "clues", "uniqueness", "difficulty",
+    "canonical_hash", "created_at", "batch"
+  ],
+  "properties": {
+    "id": {
+      "description": "First 16 hex characters of canonical_hash.",
+      "type": "string",
+      "pattern": "^[0-9a-f]{16}$"
+    },
+    "family": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "family_version": { "type": "integer", "minimum": 1 },
+    "generator_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "solver_version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "seed": {
+      "description": "With generator_version and params, reproduces this record exactly.",
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128
+    },
+    "params": {
+      "description": "Everything the generator needs besides the seed. Validated by the family's own generator, not by this schema.",
+      "type": "object",
+      "required": ["size", "box_h", "box_w"],
+      "properties": {
+        "size": { "type": "integer", "minimum": 4, "maximum": 16 },
+        "box_h": { "type": "integer", "minimum": 2, "maximum": 4 },
+        "box_w": { "type": "integer", "minimum": 2, "maximum": 4 }
+      }
+    },
+    "puzzle": {
+      "description": "The givens in the family's canonical encoding.",
+      "type": "string",
+      "minLength": 16,
+      "maxLength": 256
+    },
+    "solution": {
+      "description": "The unique solution, same encoding, no empty cells.",
+      "type": "string",
+      "minLength": 16,
+      "maxLength": 256
+    },
+    "clues": { "type": "integer", "minimum": 0 },
+    "uniqueness": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["verdict", "method", "nodes_searched", "reference_checked"],
+      "properties": {
+        "verdict": { "const": "unique" },
+        "method": { "type": "string", "minLength": 1 },
+        "nodes_searched": { "type": "integer", "minimum": 0 },
+        "reference_checked": {
+          "description": "True when the reference brute force independently confirmed no second solution exists.",
+          "type": "boolean"
+        }
+      }
+    },
+    "difficulty": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["band", "score", "techniques", "max_search_depth"],
+      "properties": {
+        "band": { "type": "integer", "minimum": 1, "maximum": 5 },
+        "score": { "type": "number", "minimum": 0 },
+        "techniques": {
+          "description": "Distinct deduction rules the solver used, in order of first application.",
+          "type": "array",
+          "items": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+          "minItems": 1
+        },
+        "max_search_depth": {
+          "description": "Deepest guess nesting the search entered. Zero for bands 1 to 4, which need no search.",
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "canonical_hash": {
+      "description": "SHA-256 of the givens reduced under the family's full symmetry group.",
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "batch": { "type": "string", "pattern": "^[0-9]{3}$|^phase0$" }
+  }
+}

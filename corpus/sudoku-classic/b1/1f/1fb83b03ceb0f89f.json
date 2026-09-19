@@ -1,0 +1,37 @@
+{
+  "batch": "phase0",
+  "canonical_hash": "1fb83b03ceb0f89f2b760ce6e58965a40b12ebf60792d0b28c2bd86ebaf44459",
+  "clues": 6,
+  "created_at": "2026-09-19T15:42:52.169Z",
+  "difficulty": {
+    "band": 1,
+    "max_search_depth": 0,
+    "score": 10,
+    "techniques": [
+      "naked_single"
+    ]
+  },
+  "family": "sudoku-classic",
+  "family_version": 1,
+  "generator_version": "1.0.0",
+  "id": "1fb83b03ceb0f89f",
+  "params": {
+    "band_target": 1,
+    "box_h": 2,
+    "box_w": 2,
+    "dig_passes": 6,
+    "min_clues": 4,
+    "size": 4,
+    "symmetry": "diagonal"
+  },
+  "puzzle": ".4..1..3...4.32.",
+  "seed": "phase0|p001-sudoku-classic-b1-42x2-diagonal-5|1",
+  "solution": "3412124321344321",
+  "solver_version": "1.0.0",
+  "uniqueness": {
+    "method": "exhaustive-count-to-2",
+    "nodes_searched": 2,
+    "reference_checked": true,
+    "verdict": "unique"
+  }
+}

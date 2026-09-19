@@ -1,0 +1,19 @@
+{
+  "derived_from": "unique-8-2x4-b1",
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "multiple"
+  },
+  "note": "unique-8-2x4-b1 with a quarter of its givens removed, well past the point where the solution stops being forced.",
+  "params": {
+    "box_h": 2,
+    "box_w": 4,
+    "size": 8
+  },
+  "puzzle": "..1.....6.....73.....325.......6.........38......1..8.6....8....",
+  "slug": "multiple-unique-8-2x4-b1",
+  "source": "generated"
+}

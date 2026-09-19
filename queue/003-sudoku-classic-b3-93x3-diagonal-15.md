@@ -1,0 +1,31 @@
+# 003-sudoku-classic-b3-93x3-diagonal-15
+
+Generate **15** sudoku-classic puzzles in **band 3 (Medium)** on a
+**9×9** grid with **3×3** boxes and **diagonal** symmetry.
+
+- Dig no further than **17** clues.
+- Band 3 is **scarce** at this shape, so the attempt budget is **6000**.
+- The band written to each record is whatever the solver's trace says. If this plan yields puzzles
+  at a different band, the plan was wrong, not the solver: the driver offers them to another plan
+  in the batch that wants that band, and discards them otherwise.
+
+**This plan has failed if** it accepts fewer than 7 puzzles
+within its attempt budget, or if any accepted puzzle fails `tools/gate.mjs`.
+
+```json
+{
+  "family": "sudoku-classic",
+  "band": 3,
+  "count": 15,
+  "max_attempts": 6000,
+  "params": {
+    "size": 9,
+    "box_h": 3,
+    "box_w": 3,
+    "symmetry": "diagonal",
+    "min_clues": 17,
+    "band_target": 3,
+    "dig_passes": 6
+  }
+}
+```

@@ -1,0 +1,18 @@
+{
+  "expect": {
+    "band": 1,
+    "reference": "confirmed",
+    "solution": "3241142341322314",
+    "techniques": [],
+    "verdict": "unique"
+  },
+  "note": "A completely filled valid grid: the maximum clue count. Nothing is left to deduce.",
+  "params": {
+    "box_h": 2,
+    "box_w": 2,
+    "size": 4
+  },
+  "puzzle": "3241142341322314",
+  "slug": "degenerate-full-4",
+  "source": "constructed"
+}

@@ -1,0 +1,21 @@
+{
+  "expect": {
+    "band": 1,
+    "reference": "confirmed",
+    "solution": "987654321246173985351928746128537694634892157795461832519286473472319568863745219",
+    "techniques": [
+      "hidden_single",
+      "naked_single"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A grid constructed to be slow for naive row-major backtracking, commonly quoted as an anti-brute-force case.",
+  "params": {
+    "box_h": 3,
+    "box_w": 3,
+    "size": 9
+  },
+  "puzzle": "..............3.85..1.2.......5.7.....4...1...9.......5......73..2.1........4...9",
+  "slug": "published-near-worst-case-backtracking",
+  "source": "published"
+}

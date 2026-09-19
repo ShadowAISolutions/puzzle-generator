@@ -1,0 +1,21 @@
+{
+  "expect": {
+    "band": 1,
+    "reference": "confirmed",
+    "solution": "693784512487512936125963874932651487568247391741398625319475268856129743274836159",
+    "techniques": [
+      "naked_single",
+      "hidden_single"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A seventeen-clue grid; seventeen is the proven minimum for a 9x9 with a unique solution.",
+  "params": {
+    "box_h": 3,
+    "box_w": 3,
+    "size": 9
+  },
+  "puzzle": ".......1.4.........2...........5.4.7..8...3....1.9....3..4..2...5.1........8.6...",
+  "slug": "published-seventeen-clue",
+  "source": "published"
+}

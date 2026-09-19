@@ -1,0 +1,21 @@
+{
+  "expect": {
+    "band": 1,
+    "reference": "confirmed",
+    "solution": "5713628468245173867143253542781614572638238615474135876272683451",
+    "techniques": [
+      "naked_single",
+      "hidden_single"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated instance with a unique solution, 8x8 boxes 2x4, produced targeting band 1.",
+  "params": {
+    "box_h": 2,
+    "box_w": 4,
+    "size": 8
+  },
+  "puzzle": "..1.....6.....73.....325..4....6....2....38.1....1..8.6....8.4..",
+  "slug": "unique-8-2x4-b1",
+  "source": "generated"
+}

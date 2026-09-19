@@ -1,0 +1,18 @@
+{
+  "expect": {
+    "band": 1,
+    "reference": "confirmed",
+    "solution": "914782536587436129362915478459361782831257964726849351198673245675124893243598617",
+    "techniques": [],
+    "verdict": "unique"
+  },
+  "note": "A completely filled valid grid: the maximum clue count. Nothing is left to deduce.",
+  "params": {
+    "box_h": 3,
+    "box_w": 3,
+    "size": 9
+  },
+  "puzzle": "914782536587436129362915478459361782831257964726849351198673245675124893243598617",
+  "slug": "degenerate-full-9",
+  "source": "constructed"
+}

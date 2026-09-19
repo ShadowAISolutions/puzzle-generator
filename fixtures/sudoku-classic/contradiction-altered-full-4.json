@@ -1,0 +1,18 @@
+{
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "A complete valid grid with one cell overwritten, so the grid contradicts itself.",
+  "params": {
+    "box_h": 2,
+    "box_w": 2,
+    "size": 4
+  },
+  "puzzle": "1241142341322314",
+  "slug": "contradiction-altered-full-4",
+  "source": "constructed"
+}

@@ -1,0 +1,19 @@
+{
+  "derived_from": "unique-6-2x3-b5",
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "unique-6-2x3-b5 with one given changed to a different symbol.",
+  "params": {
+    "box_h": 2,
+    "box_w": 3,
+    "size": 6
+  },
+  "puzzle": "....3..6.......2..3...1.4..5...3...4",
+  "slug": "nearmiss-altered-unique-6-2x3-b5",
+  "source": "generated"
+}

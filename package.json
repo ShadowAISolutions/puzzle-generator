@@ -1,0 +1,20 @@
+{
+  "name": "puzzle-corpus",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A machine-generated corpus of logic puzzles, every one validated by an independent solver.",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "gate": "node tools/gate.mjs",
+    "harden": "node tools/harden.mjs",
+    "index": "node tools/build_index.mjs",
+    "check-imports": "node tools/check_imports.mjs",
+    "schema": "node tools/validate_schema.mjs"
+  },
+  "devDependencies": {
+    "ajv": "8.17.1",
+    "ajv-formats": "3.0.1",
+    "playwright": "1.49.1"
+  }
+}

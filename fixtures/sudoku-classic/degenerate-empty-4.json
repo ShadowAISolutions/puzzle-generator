@@ -1,0 +1,18 @@
+{
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "multiple"
+  },
+  "note": "An empty grid. Every valid completion is a solution, so the verdict must be multiple.",
+  "params": {
+    "box_h": 2,
+    "box_w": 2,
+    "size": 4
+  },
+  "puzzle": "................",
+  "slug": "degenerate-empty-4",
+  "source": "constructed"
+}

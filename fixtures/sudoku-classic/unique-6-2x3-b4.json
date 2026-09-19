@@ -1,0 +1,22 @@
+{
+  "expect": {
+    "band": 4,
+    "reference": "confirmed",
+    "solution": "142356635241426135513462264513351624",
+    "techniques": [
+      "hidden_single",
+      "naked_single",
+      "w_wing"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated instance with a unique solution, 6x6 boxes 2x3, produced targeting band 4.",
+  "params": {
+    "box_h": 2,
+    "box_w": 3,
+    "size": 6
+  },
+  "puzzle": "14....6..2....6...5....2...51...1...",
+  "slug": "unique-6-2x3-b4",
+  "source": "generated"
+}
