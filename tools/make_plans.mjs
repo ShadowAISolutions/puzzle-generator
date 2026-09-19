@@ -226,6 +226,40 @@ function candidatesFor(family, counts) {
     list.sort((a, b) => a.have_cell - b.have_cell || a.have_shape - b.have_shape ||
       (a.shape.size - b.shape.size) || (a.symmetry < b.symmetry ? -1 : 1));
   }
+
+  // Then weave the shapes together inside each band, for the same reason the
+  // bands are woven together below: a batch claims consecutive plans. On an
+  // empty family every cell is equally thin, so the sort above falls through
+  // to grid size and hands out all six symmetries of the smallest grid before
+  // reaching the next size at all. Binairo's first refill produced 6x6 plans
+  // for twenty of its first twenty-five. That is the corpus CLAUDE.md warns
+  // about -- one puzzle repeated ten thousand times -- arriving by accident on
+  // day one. Weaving costs nothing when the cells are unequal, because the
+  // thinnest cell still sorts first within its shape.
+  for (const [band, list] of byBand) {
+    const byShape = new Map();
+    for (const c of list) {
+      const k = c.planner.shapeKey(c.shape);
+      if (!byShape.has(k)) byShape.set(k, []);
+      byShape.get(k).push(c);
+    }
+    // Each band starts the rotation at a different shape. Without the offset
+    // every band's first plan is the smallest grid, and since a batch takes
+    // one plan per band, its five plans come out as four 6x6s and whatever
+    // shape band 5 happens to live on. With it, a batch spans five grid sizes.
+    const buckets = [...byShape.values()];
+    const start = (Number(band) - 1) % Math.max(1, buckets.length);
+    const rotated = buckets.slice(start).concat(buckets.slice(0, start));
+    const woven = [];
+    for (let round = 0; ; round++) {
+      let emitted = false;
+      for (const bucket of rotated) {
+        if (round < bucket.length) { woven.push(bucket[round]); emitted = true; }
+      }
+      if (!emitted) break;
+    }
+    byBand.set(band, woven);
+  }
   const bands = [...byBand.keys()].sort((a, b) =>
     (byBand.get(a)[0].have_band - byBand.get(b)[0].have_band) || (a - b));
   const woven = [];
@@ -315,6 +349,17 @@ the hardening report is not green.
 function main() {
   const want = Number(process.argv[2] ?? 40);
   fs.mkdirSync(QUEUE, { recursive: true });
+  // Families that may be planned for, and families that may be offered for
+  // onboarding. The owner's instruction on 2026-09-19 was "no more sudoku pls,
+  // different families moving forward", read as covering the boxed variants
+  // too, which is the stricter reading and the one the owner was told of in
+  // the build thread. The 2,498 sudoku records already in the corpus stay
+  // exactly as they are: the instruction is about what gets generated next,
+  // not about what has already been validated. See STATE.md, ## Standing
+  // corrections. Nothing else is excluded, so a family is skipped here only
+  // by an explicit owner instruction, never by a session's own judgement.
+  const EXCLUDED = new Set(['sudoku-classic', 'killer-sudoku', 'thermo-sudoku', 'sandwich-sudoku']);
+
   const existing = existingPlanCells();
   const saturated = saturatedCells();
   const counts = corpusCounts();
@@ -325,7 +370,7 @@ function main() {
   // onboarding plan is already queued, in progress or blocked is skipped, so a
   // family that cannot be onboarded yet does not stop the next one from being
   // offered. Without this the whole roster stalls behind one blocked family.
-  const missing = ROSTER.filter((f) => !FAMILIES.includes(f));
+  const missing = ROSTER.filter((f) => !FAMILIES.includes(f) && !EXCLUDED.has(f));
   const queued = (f) => [...existing].some((n) => n.includes(`onboard-${f}`));
   const target = missing.find((f) => !queued(f));
   if (target) {
@@ -342,7 +387,6 @@ function main() {
   // families moving forward". Its 2,498 existing records stay exactly as they
   // are -- the instruction is about what gets generated next, not about what
   // has already been validated. See STATE.md under ## Standing corrections.
-  const EXCLUDED = new Set(['sudoku-classic']);
   const plannable = Object.keys(PLANNERS).filter((f) => FAMILIES.includes(f) && !EXCLUDED.has(f));
 
   // Round-robin across families, so a refill never hands the next batch five
