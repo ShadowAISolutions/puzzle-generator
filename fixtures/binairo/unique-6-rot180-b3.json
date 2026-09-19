@@ -1,0 +1,20 @@
+{
+  "expect": {
+    "band": 3,
+    "reference": "confirmed",
+    "solution": "110010010011101100001011110100001101",
+    "techniques": [
+      "local_triples",
+      "line_counts",
+      "line_enumerate"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated 6x6 instance with a unique solution, produced targeting band 3 with rot180 givens.",
+  "params": {
+    "size": 6
+  },
+  "puzzle": "..0....1..11............11..0....1..",
+  "slug": "unique-6-rot180-b3",
+  "source": "generated"
+}

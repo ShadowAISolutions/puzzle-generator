@@ -1,0 +1,20 @@
+{
+  "expect": {
+    "band": 3,
+    "reference": "confirmed",
+    "solution": "110010011010100101100110011001001101",
+    "techniques": [
+      "local_triples",
+      "line_counts",
+      "line_enumerate"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated 6x6 instance with a unique solution, produced targeting band 3 with none givens.",
+  "params": {
+    "size": 6
+  },
+  "puzzle": "..00..........01....0....1...1.....1",
+  "slug": "unique-6-none-b3",
+  "source": "generated"
+}

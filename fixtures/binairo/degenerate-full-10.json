@@ -1,0 +1,16 @@
+{
+  "expect": {
+    "band": 1,
+    "reference": "confirmed",
+    "solution": "0110010110001001101110011010011100100110001101100110011010100110100101001101011011001010011101010100",
+    "techniques": [],
+    "verdict": "unique"
+  },
+  "note": "A completely filled valid board: the maximum given count. Nothing is left to deduce.",
+  "params": {
+    "size": 10
+  },
+  "puzzle": "0110010110001001101110011010011100100110001101100110011010100110100101001101011011001010011101010100",
+  "slug": "degenerate-full-10",
+  "source": "constructed"
+}

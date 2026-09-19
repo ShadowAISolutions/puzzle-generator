@@ -1,0 +1,21 @@
+{
+  "expect": {
+    "band": 4,
+    "reference": "confirmed",
+    "solution": "1011010010110010010101010110101011001100010011001111010101000010101011001011011011010010010010101101",
+    "techniques": [
+      "local_triples",
+      "line_enumerate",
+      "line_counts",
+      "cell_contradiction"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated 10x10 instance with a unique solution, produced targeting band 4 with none givens.",
+  "params": {
+    "size": 10
+  },
+  "puzzle": "..11...0.......00..1....0...1....1..........1.00.1...1......00....1....0...1..1........0..00...0....",
+  "slug": "unique-10-none-b4",
+  "source": "generated"
+}

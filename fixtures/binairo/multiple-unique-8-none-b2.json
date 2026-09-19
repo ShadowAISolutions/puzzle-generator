@@ -1,0 +1,17 @@
+{
+  "derived_from": "unique-8-none-b2",
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "multiple"
+  },
+  "note": "unique-8-none-b2 with a third of its givens removed, well past the point where the solution stops being forced.",
+  "params": {
+    "size": 8
+  },
+  "puzzle": ".....0.0...........0.....0...0........1.....1..0..0.1.....0...1.",
+  "slug": "multiple-unique-8-none-b2",
+  "source": "generated"
+}

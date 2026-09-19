@@ -1,0 +1,21 @@
+{
+  "expect": {
+    "band": 4,
+    "reference": "confirmed",
+    "solution": "1001101010010110011010011100100100110110001010111101010001100101",
+    "techniques": [
+      "local_triples",
+      "line_counts",
+      "line_enumerate",
+      "cell_contradiction"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated 8x8 instance with a unique solution, produced targeting band 4 with none givens.",
+  "params": {
+    "size": 8
+  },
+  "puzzle": "..0.1..........0.11.1.0......00...11.....01...........0.0.....0.",
+  "slug": "unique-8-none-b4",
+  "source": "generated"
+}

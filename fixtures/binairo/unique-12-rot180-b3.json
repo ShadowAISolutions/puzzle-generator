@@ -1,0 +1,20 @@
+{
+  "expect": {
+    "band": 3,
+    "reference": "confirmed",
+    "solution": "001100110101010011001011110100101100101100110100001011001011110010011010100101100101001001101011010110010110101001101001110110010010011011010100",
+    "techniques": [
+      "local_triples",
+      "line_counts",
+      "line_enumerate"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated 12x12 instance with a unique solution, produced targeting band 3 with rot180 givens.",
+  "params": {
+    "size": 12
+  },
+  "puzzle": "0..........1.1.....0..1.....00..1..0..1..01....0....1.....111...10...0....0...10...100.....0....0....00..1..1..0..10.....1..1.....1.0..........0",
+  "slug": "unique-12-rot180-b3",
+  "source": "generated"
+}

@@ -1,0 +1,20 @@
+{
+  "derived_from": "unique-8-none-b1",
+  "expect": {
+    "band": 3,
+    "reference": "confirmed",
+    "solution": "1010011001101100010110011001001110101100011010010101001110010110",
+    "techniques": [
+      "local_triples",
+      "line_enumerate"
+    ],
+    "verdict": "unique"
+  },
+  "note": "unique-8-none-b1 with one given removed. Removing a given can only ever widen the solution set.",
+  "params": {
+    "size": 8
+  },
+  "puzzle": "...0.....11.1....1....0...0....1....1....11..0..0.....11..0...1.",
+  "slug": "nearmiss-removed-unique-8-none-b1",
+  "source": "generated"
+}

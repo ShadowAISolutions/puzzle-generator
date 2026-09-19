@@ -1,0 +1,77 @@
+{
+  "bands": [
+    {
+      "band": 1,
+      "max_tier": 1,
+      "meaning": "a three-cell window alone completes it",
+      "name": "Gentle"
+    },
+    {
+      "band": 2,
+      "max_tier": 2,
+      "meaning": "also needs the balance rule",
+      "name": "Easy"
+    },
+    {
+      "band": 3,
+      "max_tier": 3,
+      "meaning": "needs a whole line reasoned about at once",
+      "name": "Medium"
+    },
+    {
+      "band": 4,
+      "max_tier": 4,
+      "meaning": "needs case analysis on a single cell, still no guessing",
+      "name": "Hard"
+    },
+    {
+      "band": 5,
+      "max_tier": 5,
+      "meaning": "requires bounded search; max_search_depth is recorded",
+      "name": "Brutal"
+    }
+  ],
+  "canonical_encoding": "A single string of size*size characters read left to right, top to bottom, drawn from \"0\", \"1\" and \".\" for an empty cell. The grid is always square and its size is always even.",
+  "display_name": "Binairo",
+  "family": "binairo",
+  "family_version": 1,
+  "hardening_report": "HARDENING/binairo.md",
+  "player": "site/play/binairo.html",
+  "rules_summary": "Fill every cell with a 0 or a 1 so that no three neighbours in a row or column are the same symbol, every row and every column holds as many 0s as 1s, and no two rows and no two columns are identical. A puzzle is presented as its givens; the rest of the cells are yours to fill.",
+  "search_depth_weight": 60,
+  "shapes": [
+    {
+      "size": 6
+    },
+    {
+      "size": 8
+    },
+    {
+      "size": 10
+    },
+    {
+      "size": 12
+    },
+    {
+      "size": 14
+    },
+    {
+      "size": 16
+    }
+  ],
+  "solver_version": "1.0.0",
+  "symmetry_group": "The eight symmetries of the square -- four rotations and four reflections -- each with or without exchanging the two symbols, sixteen in all. Permuting rows or columns is deliberately not included: it preserves every row but breaks the columns. The canonical form is the lexicographically smallest encoding over the whole group.",
+  "technique_ladder": {
+    "cell_contradiction": 4,
+    "line_counts": 2,
+    "line_enumerate": 3,
+    "local_triples": 1
+  },
+  "tier_weights": {
+    "1": 1,
+    "2": 4,
+    "3": 12,
+    "4": 40,
+    "5": 150
+  }
+}

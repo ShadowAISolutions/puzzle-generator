@@ -1,0 +1,22 @@
+{
+  "expect": {
+    "band": 5,
+    "reference": "confirmed",
+    "solution": "110011010100001100101011110100110010001011010101011001101100100110110010001101011001010011001101110100100110101010011001001101001011110010100110",
+    "techniques": [
+      "local_triples",
+      "line_counts",
+      "line_enumerate",
+      "cell_contradiction",
+      "bounded_search"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated 12x12 instance with a unique solution, produced targeting band 5 with rot180 givens.",
+  "params": {
+    "size": 12
+  },
+  "puzzle": "11.01...0.......0.1.1.11.....0....10....1.........10..1.11............................00.1..11.........0....10....0.....00.1.1.0.......0...00.10",
+  "slug": "unique-12-rot180-b5",
+  "source": "generated"
+}

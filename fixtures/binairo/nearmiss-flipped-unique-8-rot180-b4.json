@@ -1,0 +1,21 @@
+{
+  "derived_from": "unique-8-rot180-b4",
+  "expect": {
+    "band": 3,
+    "reference": "confirmed",
+    "solution": "1100100100110011010101101010100111001100001101100101100110100110",
+    "techniques": [
+      "local_triples",
+      "line_counts",
+      "line_enumerate"
+    ],
+    "verdict": "unique"
+  },
+  "note": "unique-8-rot180-b4 with one given flipped to the other symbol.",
+  "params": {
+    "size": 8
+  },
+  "puzzle": ".1...0..0.....1.0.....10.0............0.00.....0.1.....1..1...1.",
+  "slug": "nearmiss-flipped-unique-8-rot180-b4",
+  "source": "generated"
+}

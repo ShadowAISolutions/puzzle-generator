@@ -1,0 +1,16 @@
+{
+  "expect": {
+    "band": null,
+    "reference": "budget-exceeded",
+    "solution": null,
+    "techniques": null,
+    "verdict": null
+  },
+  "note": "A machine-generated 14x14 instance with a unique solution, produced targeting band 3 with none givens.",
+  "params": {
+    "size": 14
+  },
+  "puzzle": ".......00.1.0.............0.0..1.00...........................1.....00......1........1.......11....1.11.11...1.....11........0........1.0......0.0.......0..............0.11.....0...0.0.........1..",
+  "slug": "unique-14-none-b3",
+  "source": "generated"
+}

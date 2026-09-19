@@ -70,6 +70,15 @@ export function validateShape(params) {
 
 export { validateShape as validateParams };
 
+// The encoding check the gate used to make inline. Word for word the same two
+// rules and the same two messages; it lives here now because what counts as a
+// well-shaped puzzle string is a fact about the family, not about the gate.
+export function validateEncoding(puzzle, solution, params) {
+  const size = params.size;
+  if (puzzle.length !== size * size) throw new Error('puzzle length does not match size');
+  if (solution.includes('.')) throw new Error('solution has an empty cell');
+}
+
 export function makeBudgets(params) {
   const b = BANDS.budgets;
   const scale = params && params.size > 9 ? 2 : 1;

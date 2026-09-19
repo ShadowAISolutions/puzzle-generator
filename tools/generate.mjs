@@ -48,7 +48,7 @@ function existingHashes() {
 
 function bump(counts, key) { counts[key] = (counts[key] ?? 0) + 1; }
 
-export function runPlans(plans, { batch, now, wallClockMs = 45 * 60 * 1000, onProgress } = {}) {
+export function runPlans(plans, { batch, now, wallClockMs = 45 * 60 * 1000, onProgress, onPlanDone } = {}) {
   const seen = existingHashes();
   const wanted = new Map(); // band -> [plan, ...] still short
   const accepted = new Map(); // plan name -> [records]
@@ -62,6 +62,7 @@ export function runPlans(plans, { batch, now, wallClockMs = 45 * 60 * 1000, onPr
 
   const started = Date.now();
   const outOfTime = () => Date.now() - started > wallClockMs;
+  let plansRun = 0;
 
   // A puzzle that comes out at a band some other plan still wants goes there
   // rather than being thrown away.
@@ -85,11 +86,30 @@ export function runPlans(plans, { batch, now, wallClockMs = 45 * 60 * 1000, onPr
     }
     const S = solverFor(plan.family);
     const attemptsAllowed = plan.max_attempts ?? Math.max(400, plan.count * 80);
+
+    // A plan also gets a share of the clock, not only a count of attempts.
+    //
+    // An attempt budget alone is not a budget. It was calibrated on sudoku,
+    // where an attempt costs milliseconds; a binairo attempt on a 12x12 costs
+    // about a second, so the same "400 attempts per puzzle" a scarce band is
+    // given works out at over four hours for one plan. Batch 011 spent its
+    // entire wall clock inside its first plans and wrote nothing at all,
+    // because the only clock being checked was the whole run's: one plan could
+    // starve every plan behind it and there was no rule saying it could not.
+    //
+    // The share is of the time *remaining*, divided by the plans still to run,
+    // so a plan that finishes early hands the rest back instead of leaving it
+    // unused.
+    const left = plans.length - plansRun;
+    const planDeadline = Date.now() + Math.max(30_000, (wallClockMs - (Date.now() - started)) / Math.max(1, left));
+    const outOfPlanTime = () => Date.now() > planDeadline;
+    plansRun++;
+
     let attempts = 0;
     let consecutiveFailures = 0;
     const planRejects = {};
 
-    while (accepted.get(plan.name).length < plan.count && attempts < attemptsAllowed && !outOfTime()) {
+    while (accepted.get(plan.name).length < plan.count && attempts < attemptsAllowed && !outOfTime() && !outOfPlanTime()) {
       const seed = `${batch}|${plan.name}|${attempts}`;
       attempts++;
       let built;
@@ -121,8 +141,9 @@ export function runPlans(plans, { batch, now, wallClockMs = 45 * 60 * 1000, onPr
       target: plan.count,
       rejects: planRejects,
       exhausted: attempts >= attemptsAllowed,
-      out_of_time: outOfTime(),
+      out_of_time: outOfTime() || outOfPlanTime(),
     };
+    if (onPlanDone) onPlanDone(plan, accepted.get(plan.name));
   }
 
   return { accepted, rejects, plans };
@@ -162,8 +183,41 @@ function main() {
   console.log(`generate: ${plans.length} plan(s), batch ${batch}`);
 
   const t0 = Date.now();
-  const { accepted, rejects } = runPlans(plans, { batch, now, wallClockMs: wall });
-  const out = writeAccepted(accepted);
+
+  // Report as it goes, and write each plan's records the moment that plan is
+  // done rather than holding everything to the end.
+  //
+  // Both of these were missing and the pair of them made a working run
+  // indistinguishable from a hung one: runPlans has always taken an onProgress
+  // hook and nothing ever passed it, so a forty-five minute run printed one
+  // line at the start and nothing more, with corpus/ empty throughout. Writing
+  // per plan also means a run that is cut short keeps what it earned.
+  const secs = () => ((Date.now() - t0) / 1000).toFixed(0).padStart(4);
+  let lastLine = '';
+  const written = { written: 0, byBand: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }, byFamily: {} };
+
+  const { accepted, rejects } = runPlans(plans, {
+    batch,
+    now,
+    wallClockMs: wall,
+    onProgress: (plan, got, attempts) => {
+      // One line per tenth of a plan, so a long plan is visibly alive without
+      // burying the log in a line per puzzle.
+      const step = Math.max(1, Math.floor(plan.count / 10));
+      if (got % step !== 0) return;
+      const line = `  [${secs()}s] ${plan.name}  ${got}/${plan.count} accepted in ${attempts} attempts`;
+      if (line !== lastLine) { console.log(line); lastLine = line; }
+    },
+    onPlanDone: (plan, records) => {
+      const out = writeAccepted(new Map([[plan.name, records]]));
+      written.written += out.written;
+      for (const [b, n] of Object.entries(out.byBand)) written.byBand[b] += n;
+      for (const [f, n] of Object.entries(out.byFamily)) written.byFamily[f] = (written.byFamily[f] ?? 0) + n;
+      const r = plan.result;
+      console.log(`  [${secs()}s] ${plan.name}  DONE ${out.written} written${r.out_of_time ? ' (out of time)' : r.exhausted ? ' (attempts exhausted)' : ''}`);
+    },
+  });
+  const out = written;
 
   for (const p of plans) {
     const r = p.result;

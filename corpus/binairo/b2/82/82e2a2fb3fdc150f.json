@@ -1,0 +1,36 @@
+{
+  "batch": "011",
+  "canonical_hash": "82e2a2fb3fdc150fbfb0ee80490e0a6ebc50299053c01cf59ccc0445891dd6e2",
+  "clues": 21,
+  "created_at": "2026-09-19T20:22:42.147Z",
+  "difficulty": {
+    "band": 2,
+    "max_search_depth": 0,
+    "score": 91,
+    "techniques": [
+      "local_triples",
+      "line_counts"
+    ]
+  },
+  "family": "binairo",
+  "family_version": 1,
+  "generator_version": "1.0.0",
+  "id": "82e2a2fb3fdc150f",
+  "params": {
+    "band_target": 2,
+    "dig_passes": 6,
+    "min_clues": 0,
+    "size": 8,
+    "symmetry": "diagonal"
+  },
+  "puzzle": "..1...1..11.1...01.1..0...1..1...0...1.0...11.1.0.1..1......1...",
+  "seed": "011|097-binairo-b2-8x8-diagonal-50|24",
+  "solution": "1010011001101010010110011010010110010110010110100110010110011001",
+  "solver_version": "1.0.0",
+  "uniqueness": {
+    "method": "exhaustive-count-to-2",
+    "nodes_searched": 1,
+    "reference_checked": true,
+    "verdict": "unique"
+  }
+}

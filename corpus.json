@@ -2,6 +2,30 @@
   "families": [
     {
       "by_band": {
+        "1": 50,
+        "2": 50,
+        "3": 50,
+        "4": 40,
+        "5": 13
+      },
+      "clue_range": [
+        12,
+        49
+      ],
+      "count": 203,
+      "display_name": "Binairo",
+      "family": "binairo",
+      "index": "downloads/binairo.json",
+      "player": "site/play/binairo.html",
+      "shapes": {
+        "10x10": 50,
+        "12x12": 53,
+        "6x6": 50,
+        "8x8": 50
+      }
+    },
+    {
+      "by_band": {
         "1": 538,
         "2": 540,
         "3": 335,
@@ -29,12 +53,12 @@
   ],
   "totals": {
     "by_band": {
-      "1": 538,
-      "2": 540,
-      "3": 335,
-      "4": 540,
-      "5": 545
+      "1": 588,
+      "2": 590,
+      "3": 385,
+      "4": 580,
+      "5": 558
     },
-    "puzzles": 2498
+    "puzzles": 2701
   }
 }

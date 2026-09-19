@@ -1,0 +1,16 @@
+{
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "multiple"
+  },
+  "note": "An empty grid. Every valid board is a solution, so the verdict must be multiple.",
+  "params": {
+    "size": 10
+  },
+  "puzzle": "....................................................................................................",
+  "slug": "degenerate-empty-10",
+  "source": "constructed"
+}

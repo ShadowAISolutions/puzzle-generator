@@ -27,13 +27,15 @@
       "maxLength": 128
     },
     "params": {
-      "description": "Everything the generator needs besides the seed. Validated by the family's own generator, not by this schema.",
+      "description": "Everything the generator needs besides the seed. Validated by the family's own generator, not by this schema. The shape keys are optional because they are family-specific: box_h and box_w describe how a sudoku's boxes tile its grid and mean nothing to a family without boxes, and rows and cols describe a grid that need not be square. Each family's generator rejects any key it does not recognise and any value its shape does not allow, which is both stricter and family-aware.",
       "type": "object",
-      "required": ["size", "box_h", "box_w"],
+      "minProperties": 1,
       "properties": {
-        "size": { "type": "integer", "minimum": 4, "maximum": 16 },
-        "box_h": { "type": "integer", "minimum": 2, "maximum": 4 },
-        "box_w": { "type": "integer", "minimum": 2, "maximum": 4 }
+        "size": { "type": "integer", "minimum": 2, "maximum": 64 },
+        "box_h": { "type": "integer", "minimum": 2, "maximum": 8 },
+        "box_w": { "type": "integer", "minimum": 2, "maximum": 8 },
+        "rows": { "type": "integer", "minimum": 2, "maximum": 64 },
+        "cols": { "type": "integer", "minimum": 2, "maximum": 64 }
       }
     },
     "puzzle": {

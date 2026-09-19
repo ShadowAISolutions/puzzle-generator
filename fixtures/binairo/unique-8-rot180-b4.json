@@ -1,0 +1,21 @@
+{
+  "expect": {
+    "band": 4,
+    "reference": "confirmed",
+    "solution": "1100100100110011010101101100110010101001001101100101100110100110",
+    "techniques": [
+      "local_triples",
+      "line_counts",
+      "line_enumerate",
+      "cell_contradiction"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated 8x8 instance with a unique solution, produced targeting band 4 with rot180 givens.",
+  "params": {
+    "size": 8
+  },
+  "puzzle": ".1...0..0.....1.0.....10.1............0.00.....0.1.....1..1...1.",
+  "slug": "unique-8-rot180-b4",
+  "source": "generated"
+}

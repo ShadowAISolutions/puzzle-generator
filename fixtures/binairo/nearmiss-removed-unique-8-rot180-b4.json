@@ -1,0 +1,17 @@
+{
+  "derived_from": "unique-8-rot180-b4",
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "multiple"
+  },
+  "note": "unique-8-rot180-b4 with one given removed. Removing a given can only ever widen the solution set.",
+  "params": {
+    "size": 8
+  },
+  "puzzle": ".1...0..0.......0.....10.1............0.00.....0.1.....1..1...1.",
+  "slug": "nearmiss-removed-unique-8-rot180-b4",
+  "source": "generated"
+}

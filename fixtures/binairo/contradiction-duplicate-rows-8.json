@@ -1,0 +1,16 @@
+{
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "Two complete identical rows. Each row is legal by itself and no column holds three alike, so only the rule against repeating a line makes this impossible.",
+  "params": {
+    "size": 8
+  },
+  "puzzle": "1010010110100101................................................",
+  "slug": "contradiction-duplicate-rows-8",
+  "source": "constructed"
+}
