@@ -411,6 +411,50 @@ id-derived sample. `tools/record.mjs` is not frozen. No `sudoku-classic` record 
 
 ## Batches
 
+### batch/009 — 2026-09-19
+
+**260 accepted, 0 gate rejections, 6,948 generator rejections**, from 7,208 attempts. Five bands,
+four grid shapes, four symmetries, one family. Corpus: **2,228 records**,
+bands `{1:478, 2:490, 3:275, 4:490, 5:495}`. `gate --all --render` passed 2,228/2,228. Every plan
+hit its target, and **every rejection in the batch was `band-mismatch` — not one duplicate-hash**,
+which is what claiming genuinely thin cells looks like.
+
+| plan | accepted | attempts | rejected |
+|---|---:|---:|---:|
+| b1 · 8×8 (4×2) · mirror_h | 50/50 | 50 | 0 |
+| b2 · 8×8 (2×4) · mirror_v | 50/50 | 944 | 894 band-mismatch |
+| b3 · 9×9 (3×3) · diagonal | 60/60 | 3,570 | 3,510 band-mismatch |
+| b4 · 6×6 (2×3) · none | 50/50 | 1,173 | 1,123 band-mismatch |
+| b5 · 8×8 (2×4) · mirror_v | 50/50 | 1,471 | 1,421 band-mismatch |
+
+- **the queue was refilled at 34 plans rather than waiting for it to fall below 20.** CLAUDE.md
+  step 10 says refill below 20, but the cell-aware ranking merged in batch 008 could not do
+  anything until the queue was rebuilt: every plan then in it had been written by the old ranking,
+  and none covered either cell the fix was made to find. The refill immediately produced plans for
+  `8:4x2 b1` and `9:3x3 b1`, and band-3 plans sized at 60. A future session inheriting a ranking or
+  sizing change should refill for the same reason rather than waiting three batches to use it.
+- **the zero-record cell filled on the first try.** `8:4x2 b1` held no puzzles at all before this
+  batch and took 50 from 50 attempts. It is now at 50. The corpus's shape spread is the best it has
+  been: no shape above 30.4%, against 8×8 (4×2) at 51.0% when audit 005 flagged it and 29.4% now.
+- **band 3 is climbing: 9.2% → 10.9% → 12.3% over three batches.** It is still well under the
+  ~22% the other four bands hold and will need several more batches, but the mechanism works and
+  needs no further intervention.
+- **a controlled measurement of band-3 cost against count, which batch 008 said to take.** Batch
+  006 ran band 3 at 9×9 `diagonal` with count 20: 836 attempts, 41.8 per puzzle. This batch ran the
+  *same* band, shape and symmetry with count 60: 3,570 attempts, 59.5 per puzzle. Holding symmetry
+  fixed, the marginal cost of puzzles 21–60 was 68.4 attempts each against 41.8 for the first 20,
+  so **yield does fall as a cell is worked deeper**, and it is not duplicate pressure: this batch
+  recorded zero duplicate-hash rejections. Two runs on different corpus states is thin evidence for
+  the size of the effect; it is good evidence the effect is real and in that direction. Nothing
+  here threatens the count of 60, which cost 14% and 15% of its budget on the two runs.
+- **`9:3x3 b1` is now the thinnest cell in the corpus at 10 records** and was not claimed this
+  batch. The refill wrote three plans for it (104 `diagonal`, 107 `mirror_h`, 109 `mirror_v`).
+  Claim one in batch 010.
+- **`094-onboard-slitherlink` went straight to `queue/blocked/`** rather than through three serious
+  attempts. Its obstacle is the same pair of frozen files that blocks every non-sudoku family,
+  measured in batches 001 and 002 and argued in `PROPOSALS/`. The notes file records that and what
+  would unblock it.
+
 ### batch/008 — 2026-09-19
 
 **290 accepted, 0 gate rejections, 4,225 generator rejections**, from 4,515 attempts. Five bands,
