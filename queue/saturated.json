@@ -6,6 +6,12 @@
       "measured": "2026-09-19, batch 005, plan 023-sudoku-classic-b1-42x2-diagonal-50",
       "corpus_records": 43,
       "evidence": "3,000 attempts, 38 accepted, 2,962 duplicate-hash rejections and zero band-mismatch. The generator's candidates were 98.7% puzzles already in the corpus, so the space of band-1 4x4 puzzles with diagonal symmetry is essentially full at 43 records."
+    },
+    {
+      "cell": "sudoku-classic-b1-42x2-mirror_h",
+      "measured": "2026-09-19, batch 006, plan 027-sudoku-classic-b1-42x2-mirror_h-50",
+      "corpus_records": 15,
+      "evidence": "3,000 attempts, 15 accepted, 2,985 duplicate-hash rejections and zero band-mismatch. Capacity varies sharply by symmetry at this shape: diagonal holds 43, mirror_h only 15, because a horizontal mirror constrains a 4x4 clue pattern much harder."
     }
   ]
 }
