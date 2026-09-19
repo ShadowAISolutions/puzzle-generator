@@ -66,12 +66,32 @@ function symmetriesFor(shape, band) {
   });
 }
 
-function existingPlanNames() {
-  const names = new Set();
+// A plan's identity is the cell it fills -- family, band, shape, symmetry --
+// not its filename. The sequence number and the requested count are bookkeeping.
+// Comparing whole filenames made the duplicate check a no-op, because a freshly
+// numbered plan never collides with an existing one: batch 005 found
+// 054 plans covering only 040 cells, and re-queued a cell the corpus had
+// already exhausted.
+function cellOf(name) {
+  return name.replace(/\.md$/, '').replace(/^\d+-/, '').replace(/-\d+$/, '');
+}
+
+function existingPlanCells() {
+  const cells = new Set();
   for (const dir of [QUEUE, path.join(QUEUE, 'in-progress'), path.join(QUEUE, 'blocked')]) {
-    for (const f of walk(dir, (p) => p.endsWith('.md'))) names.add(path.basename(f).replace(/\.notes\.md$/, '.md'));
+    for (const f of walk(dir, (p) => p.endsWith('.md'))) cells.add(cellOf(path.basename(f).replace(/\.notes\.md$/, '.md')));
   }
-  return names;
+  return cells;
+}
+
+// Cells the generator has measurably exhausted. A small shape holds only so
+// many puzzles that are distinct under the family's symmetry group, and once
+// the corpus holds them a plan for that cell spends its whole budget producing
+// duplicates. queue/saturated.json records the measurement that established it.
+function saturatedCells() {
+  const f = path.join(QUEUE, 'saturated.json');
+  if (!fs.existsSync(f)) return new Set();
+  try { return new Set((readJson(f).cells ?? []).map((c) => c.cell)); } catch { return new Set(); }
 }
 
 function corpusCounts() {
@@ -229,7 +249,8 @@ the hardening report is not green.
 function main() {
   const want = Number(process.argv[2] ?? 40);
   fs.mkdirSync(QUEUE, { recursive: true });
-  const existing = existingPlanNames();
+  const existing = existingPlanCells();
+  const saturated = saturatedCells();
   const counts = corpusCounts();
   let index = nextIndex();
   const written = [];
@@ -244,7 +265,7 @@ function main() {
   if (target) {
     const o = onboardingBody(target, index);
     fs.writeFileSync(path.join(QUEUE, `${o.name}.md`), o.body);
-    existing.add(`${o.name}.md`);
+    existing.add(cellOf(o.name));
     written.push(o.name);
     index++;
   }
@@ -259,9 +280,10 @@ function main() {
     // an onboarding task that produces no puzzles of its own.
     const count = c.plenty === 'scarce' ? 20 : c.shape.size >= 9 ? 60 : 50;
     const { name, body } = planBody(c, count, index);
-    if (existing.has(`${name}.md`)) continue;
+    const cell = cellOf(name);
+    if (existing.has(cell) || saturated.has(cell)) continue;
     fs.writeFileSync(path.join(QUEUE, `${name}.md`), body);
-    existing.add(`${name}.md`);
+    existing.add(cell);
     written.push(name);
     index++;
   }
