@@ -37,6 +37,25 @@ stops Pages running Jekyll over the corpus at all. Fixed in batch 005.
 
 Decisions that settle an ambiguous choice, so no future session re-litigates them.
 
+### 2026-09-19 — `make_plans.mjs` ranks on the band/shape cell, and scarce bands get a full count
+
+Both changes are in a non-frozen file, both were made on measurements taken from the live corpus,
+and both are recorded here so a future session does not re-derive or reverse them.
+
+**Rank on `have_cell`, not `have_shape`.** A plan fills one band/shape/symmetry cell. Ranking it by
+its shape's total across all five bands offered the exhausted `4:2x2 b1` cell at every refill and
+never offered `8:4x2 b1`, which held zero records. `have_shape` is kept as the tie-break so a batch
+still spreads across shapes when two cells are equally thin.
+
+**A scarce band gets the same count as a plentiful one.** Scarcity is already paid for in the
+attempt budget, at 400 attempts per puzzle against 60. Cutting the count to 20 on top of that was a
+second tax that nothing measured justified, and it is why band 3 sat near 9% of the corpus while
+every other band sat near 22.6%. Batch 008 measured a 60-puzzle band-3 plan at 9×9: 3,326 attempts,
+14% of its budget.
+
+Neither change touches the solver, the gate, the bands or any frozen file, and neither makes a
+puzzle easier to accept. They change only which plans the queue offers and how large they are.
+
 ### 2026-09-19 — the band-3 9x9 "decline" is not drift, and nothing frozen has moved
 
 The band-3 9x9 acceptance rate read 3.0% at Phase 0, 2.0% in batch 001, 1.5% in batch 002 and 1.2%
@@ -391,6 +410,45 @@ id-derived sample. `tools/record.mjs` is not frozen. No `sudoku-classic` record 
 ---
 
 ## Batches
+
+### batch/008 — 2026-09-19
+
+**290 accepted, 0 gate rejections, 4,225 generator rejections**, from 4,515 attempts. Five bands,
+two grid shapes, four symmetries, one family. Corpus: **1,968 records**,
+bands `{1:428, 2:440, 3:215, 4:440, 5:445}`. `gate --all --render` passed 1,968/1,968. The most
+even band spread the corpus has had: `{1:50, 2:60, 3:60, 4:60, 5:60}`.
+
+| plan | accepted | attempts | rejected |
+|---|---:|---:|---:|
+| b1 · 6×6 (2×3) · mirror_v | 50/50 | 51 | 1 duplicate-hash |
+| b2 · 9×9 (3×3) · rot180 | 60/60 | 334 | 274 band-mismatch |
+| b3 · 9×9 (3×3) · mirror_h *(count raised 20 → 60)* | **60/60** | 3,326 | 3,266 band-mismatch |
+| b4 · 9×9 (3×3) · mirror_h | 60/60 | 402 | 342 band-mismatch |
+| b5 · 9×9 (3×3) · diagonal | 60/60 | 402 | 342 band-mismatch |
+
+- **band 3 can be produced at scale, and the 20-puzzle cap was the only thing stopping it.** Plan
+  048 was claimed with its count raised from 20 to 60 specifically to find out, and it delivered
+  60 from 3,326 attempts: 55 attempts per puzzle, against the 400 per puzzle its budget assumes.
+  Band 3 went from 9.2% of the corpus to 10.9% in one batch and will keep climbing now that
+  `make_plans.mjs` sizes scarce bands like plentiful ones.
+- **do not read that 55 as a degradation from earlier batches.** The three band-3 measurements so
+  far are 42 (batch 006, `diagonal`, 20 accepted), 30 (batch 007, `none`, 20 accepted) and 55
+  (batch 008, `mirror_h`, 60 accepted). Symmetry is confounded with count across all three, which
+  is exactly the mistake recorded under the band-3 "decline" decision below. Whether the rate
+  degrades as a cell fills is **not established**, and a future session wanting to know should
+  vary count at a fixed symmetry rather than inferring it from these three.
+- **the refiller was ranking on the wrong quantity, and it had two visible consequences.** It
+  sorted candidates within a band by how many records their *grid shape* held across all five
+  bands, not by the band/shape cell a plan actually fills. So `4:2x2 b1` sorted first at every
+  refill — the cell all three `queue/saturated.json` entries name — while `9:3x3 b1` (10 records)
+  and `8:4x2 b1` (**zero** records, an entire band/shape combination absent from the corpus)
+  sorted last behind their own well-stocked bands. Fixed in this batch; `have_shape` remains the
+  tie-break. Both faults were found by measuring the corpus, not by reading the code.
+- **the shape spread was narrow on purpose and should now widen.** Only two shapes appear, because
+  four of five plans were 9×9 to keep correcting the 8×8 (4×2) concentration audit 005 flagged.
+  It is now 30.8% of the corpus, down from 51.0% at the audit and 42.6% two batches ago. With
+  cell-aware ranking the refiller will start offering `8:4x2 b1` itself, so the next batches do
+  not need to steer by hand.
 
 ### batch/007 — 2026-09-19
 
