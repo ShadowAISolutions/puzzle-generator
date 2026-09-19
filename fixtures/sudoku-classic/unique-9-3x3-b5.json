@@ -1,0 +1,23 @@
+{
+  "expect": {
+    "band": 5,
+    "reference": "confirmed",
+    "solution": "798641352436725981215893647179452836352968174684317529527139468943286715861574293",
+    "techniques": [
+      "naked_single",
+      "hidden_single",
+      "locked_candidates_pointing",
+      "bounded_search"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated instance with a unique solution, 9x9 boxes 3x3, produced targeting band 5.",
+  "params": {
+    "box_h": 3,
+    "box_w": 3,
+    "size": 9
+  },
+  "puzzle": "......35.4....59.......36.7.7...2..6...9...7..........5...39..8.432.6....6..7..9.",
+  "slug": "unique-9-3x3-b5",
+  "source": "generated"
+}

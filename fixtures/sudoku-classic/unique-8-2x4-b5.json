@@ -1,0 +1,23 @@
+{
+  "expect": {
+    "band": 5,
+    "reference": "confirmed",
+    "solution": "3648751217524863513684278274513673251684486123756487325125136748",
+    "techniques": [
+      "hidden_single",
+      "locked_candidates_pointing",
+      "naked_triple",
+      "bounded_search"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated instance with a unique solution, 8x8 boxes 2x4, produced targeting band 5.",
+  "params": {
+    "box_h": 2,
+    "box_w": 4,
+    "size": 8
+  },
+  "puzzle": "3.4.75...........1..8.2......13...2..6.4.8..2...648..2.1...36...",
+  "slug": "unique-8-2x4-b5",
+  "source": "generated"
+}

@@ -1,0 +1,18 @@
+{
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "The same symbol twice in one box.",
+  "params": {
+    "box_h": 2,
+    "box_w": 2,
+    "size": 4
+  },
+  "puzzle": "1....1..........",
+  "slug": "contradiction-box-4",
+  "source": "constructed"
+}

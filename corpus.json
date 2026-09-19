@@ -1,0 +1,39 @@
+{
+  "families": [
+    {
+      "by_band": {
+        "1": 20,
+        "2": 20,
+        "3": 15,
+        "4": 20,
+        "5": 25
+      },
+      "clue_range": [
+        6,
+        33
+      ],
+      "count": 100,
+      "display_name": "Classic Sudoku",
+      "family": "sudoku-classic",
+      "index": "downloads/sudoku-classic.json",
+      "player": "site/play/sudoku-classic.html",
+      "shapes": {
+        "4x4 (2x2)": 5,
+        "6x6 (2x3)": 12,
+        "8x8 (2x4)": 20,
+        "8x8 (4x2)": 6,
+        "9x9 (3x3)": 57
+      }
+    }
+  ],
+  "totals": {
+    "by_band": {
+      "1": 20,
+      "2": 20,
+      "3": 15,
+      "4": 20,
+      "5": 25
+    },
+    "puzzles": 100
+  }
+}

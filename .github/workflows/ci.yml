@@ -1,0 +1,120 @@
+name: CI
+
+# CI green is the only merge gate. It runs, in this order:
+#
+#   1. schema validation over the whole corpus
+#   2. the import-isolation check -- solver/ must not import generators/
+#   3. the solver hardening suite, in full, for every family
+#   4. the gate, with --render, over every puzzle this pull request changed
+#
+# Nothing here may be relaxed to make a build pass. A family with no committed
+# hardening report generates nothing, and a puzzle that does not clear the gate
+# is not merged.
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The gate needs the merge base to work out what this pull request
+          # changed.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install
+        run: npm ci
+
+      - name: Install Chromium for the render check
+        run: npx playwright install --with-deps chromium
+
+      - name: Schema
+        run: node tools/validate_schema.mjs
+
+      - name: Import isolation
+        run: node tools/check_imports.mjs
+
+      - name: Every family has a committed hardening report
+        run: |
+          set -euo pipefail
+          missing=0
+          for dir in solver/*/; do
+            family="$(basename "$dir")"
+            [ "$family" = "reference" ] && continue
+            if [ ! -f "HARDENING/${family}.md" ]; then
+              echo "::error::no HARDENING/${family}.md; a family with no committed hardening report generates nothing"
+              missing=1
+            elif ! grep -q '\*\*Result:\*\* \*\*PASS\*\*' "HARDENING/${family}.md"; then
+              echo "::error::HARDENING/${family}.md is not a passing report"
+              missing=1
+            elif grep -q 'is not a valid committed report' "HARDENING/${family}.md"; then
+              echo "::error::HARDENING/${family}.md was produced by a --quick run"
+              missing=1
+            fi
+          done
+          exit $missing
+
+      - name: Solver hardening suite
+        run: |
+          set -euo pipefail
+          for dir in solver/*/; do
+            family="$(basename "$dir")"
+            [ "$family" = "reference" ] && continue
+            echo "::group::harden $family"
+            node tools/harden.mjs "$family"
+            echo "::endgroup::"
+          done
+
+      - name: Work out which puzzles this pull request changed
+        id: changed
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            base="${{ github.event.pull_request.base.sha }}"
+            git diff --name-only --diff-filter=AM "$base" "${{ github.sha }}" -- 'corpus/**/*.json' > changed.txt || true
+          else
+            git diff --name-only --diff-filter=AM "${{ github.event.before }}" "${{ github.sha }}" -- 'corpus/**/*.json' > changed.txt 2>/dev/null || true
+          fi
+          grep -v '/family\.json$' changed.txt > changed.filtered || true
+          mv changed.filtered changed.txt
+          echo "count=$(wc -l < changed.txt | tr -d ' ')" >> "$GITHUB_OUTPUT"
+          echo "changed puzzle records: $(wc -l < changed.txt | tr -d ' ')"
+
+      - name: The gate, over every puzzle this pull request changed
+        if: steps.changed.outputs.count != '0'
+        run: |
+          # One invocation, so the gate builds its corpus-wide hash index once
+          # and the render sample covers the whole change set.
+          node tools/gate.mjs --from-file changed.txt --render
+
+      - name: The gate, over the whole corpus
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        run: node tools/gate.mjs --all
+
+      - name: The index is up to date
+        run: |
+          set -euo pipefail
+          node tools/build_index.mjs
+          if ! git diff --quiet -- index.html corpus.json downloads corpus; then
+            echo "::error::index.html, corpus.json or downloads/ are stale; run node tools/build_index.mjs and commit"
+            git --no-pager diff --stat -- index.html corpus.json downloads corpus
+            exit 1
+          fi

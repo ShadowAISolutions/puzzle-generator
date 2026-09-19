@@ -1,0 +1,19 @@
+{
+  "derived_from": "unique-6-2x3-b5",
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "multiple"
+  },
+  "note": "unique-6-2x3-b5 with a quarter of its givens removed, well past the point where the solution stops being forced.",
+  "params": {
+    "box_h": 2,
+    "box_w": 3,
+    "size": 6
+  },
+  "puzzle": "....2.............3...1.4..5...3...4",
+  "slug": "multiple-unique-6-2x3-b5",
+  "source": "generated"
+}

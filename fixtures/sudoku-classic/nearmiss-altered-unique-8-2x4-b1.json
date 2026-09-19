@@ -1,0 +1,19 @@
+{
+  "derived_from": "unique-8-2x4-b1",
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "unique-8-2x4-b1 with one given changed to a different symbol.",
+  "params": {
+    "box_h": 2,
+    "box_w": 4,
+    "size": 8
+  },
+  "puzzle": "..1.....6.....73.....335..4....6....2....38.1....1..8.6....8.4..",
+  "slug": "nearmiss-altered-unique-8-2x4-b1",
+  "source": "generated"
+}

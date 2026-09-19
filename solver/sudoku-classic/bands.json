@@ -1,0 +1,51 @@
+{
+  "family": "sudoku-classic",
+  "family_version": 1,
+  "frozen": true,
+  "calibrated_on": "2026-09-19",
+  "calibrated_against": "fixtures/sudoku-classic",
+  "solver_version_at_calibration": "1.0.0",
+  "budget_note": "The reference budget is sized from the worst case measured at calibration: a grid built to defeat row-major backtracking needed 69.2 million nodes and 18 seconds. Generated puzzles need a few thousand. Exceeding a budget is a rejection, never a pass.",
+  "note": "Frozen by FOUNDATION.md. Bands may never be re-tuned to change how the existing corpus classifies. The solver asserts at load that its ladder still matches technique_tiers exactly, so editing a technique's tier in code breaks the build rather than silently reclassifying the corpus.",
+  "bands": [
+    { "band": 1, "name": "Gentle", "max_tier": 1, "meaning": "the lowest tier of deductions alone completes it" },
+    { "band": 2, "name": "Easy", "max_tier": 2, "meaning": "needs the second tier" },
+    { "band": 3, "name": "Medium", "max_tier": 3, "meaning": "needs mid-tier techniques" },
+    { "band": 4, "name": "Hard", "max_tier": 4, "meaning": "needs advanced techniques, still no guessing" },
+    { "band": 5, "name": "Brutal", "max_tier": 5, "meaning": "requires bounded search; max_search_depth is recorded" }
+  ],
+  "technique_tiers": {
+    "naked_single": 1,
+    "hidden_single": 1,
+    "locked_candidates_pointing": 2,
+    "locked_candidates_claiming": 2,
+    "naked_pair": 2,
+    "hidden_pair": 2,
+    "naked_triple": 3,
+    "hidden_triple": 3,
+    "x_wing": 3,
+    "naked_quad": 3,
+    "hidden_quad": 3,
+    "swordfish": 4,
+    "xy_wing": 4,
+    "xyz_wing": 4,
+    "w_wing": 4,
+    "jellyfish": 4,
+    "simple_coloring": 4
+  },
+  "search_entry": "bounded_search",
+  "tier_weights": { "1": 1, "2": 4, "3": 12, "4": 40, "5": 150 },
+  "search_depth_weight": 60,
+  "reference_cross_check": {
+    "always_at_or_below_size": 9,
+    "random_fraction_above": 0.02
+  },
+  "budgets": {
+    "count_nodes": 400000,
+    "band_nodes": 200000,
+    "search_nodes": 400000,
+    "reference_nodes": 120000000,
+    "reference_ms": 90000,
+    "ms": 20000
+  }
+}

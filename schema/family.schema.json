@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/ShadowAISolutions/puzzle-generator/schema/family.schema.json",
+  "title": "Family manifest",
+  "description": "corpus/<family>/family.json. Machine-generated from the family's solver adapter.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "family", "family_version", "display_name", "rules_summary",
+    "canonical_encoding", "symmetry_group", "technique_ladder", "bands",
+    "solver_version", "hardening_report", "player"
+  ],
+  "properties": {
+    "family": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "family_version": { "type": "integer", "minimum": 1 },
+    "display_name": { "type": "string", "minLength": 1 },
+    "rules_summary": { "type": "string", "minLength": 1 },
+    "canonical_encoding": { "type": "string", "minLength": 1 },
+    "symmetry_group": { "type": "string", "minLength": 1 },
+    "shapes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["size", "box_h", "box_w"],
+        "properties": {
+          "size": { "type": "integer" },
+          "box_h": { "type": "integer" },
+          "box_w": { "type": "integer" }
+        }
+      }
+    },
+    "technique_ladder": {
+      "description": "Technique name to tier. The tier of a technique is frozen with bands.json.",
+      "type": "object",
+      "additionalProperties": { "type": "integer", "minimum": 1, "maximum": 5 }
+    },
+    "bands": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["band", "name", "max_tier", "meaning"],
+        "properties": {
+          "band": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "name": { "type": "string" },
+          "max_tier": { "type": "integer", "minimum": 1, "maximum": 5 },
+          "meaning": { "type": "string" }
+        }
+      }
+    },
+    "tier_weights": { "type": "object", "additionalProperties": { "type": "number" } },
+    "search_depth_weight": { "type": "number" },
+    "solver_version": { "type": "string" },
+    "hardening_report": { "type": "string" },
+    "player": { "type": "string" }
+  }
+}

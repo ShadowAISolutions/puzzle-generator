@@ -1,0 +1,20 @@
+{
+  "expect": {
+    "band": 1,
+    "reference": "confirmed",
+    "solution": "451632326415562143143526215364634251",
+    "techniques": [
+      "naked_single"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated instance with a unique solution, 6x6 boxes 2x3, produced targeting band 1.",
+  "params": {
+    "box_h": 2,
+    "box_w": 3,
+    "size": 6
+  },
+  "puzzle": ".5..3.......56.1....3.2.2.....6....1",
+  "slug": "unique-6-2x3-b1",
+  "source": "generated"
+}

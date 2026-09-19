@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Puzzle Corpus — logic puzzles with a proven unique solution</title>
+<meta name="description" content="A machine-generated corpus of logic puzzles. Every puzzle has been validated by an independent solver for solvability, solution uniqueness and difficulty band.">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg:#fbfaf8; --panel:#fff; --ink:#1c1b19; --ink-soft:#5c584f; --line:#d8d3c8;
+    --line-strong:#46433c; --accent:#2f6f57; --focus:#b9822c; --radius:10px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#16151a; --panel:#1f1e24; --ink:#eceaf2; --ink-soft:#a5a1b0; --line:#3a3843;
+            --line-strong:#8c8798; --accent:#7fd3ab; --focus:#e0b45f; }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;-webkit-text-size-adjust:100%}
+  .wrap{max-width:900px;margin:0 auto;padding:32px 16px 72px}
+  h1{font-size:1.7rem;margin:0 0 6px;letter-spacing:-0.02em}
+  h2{font-size:1.05rem;margin:36px 0 10px;letter-spacing:-0.01em}
+  .lede{color:var(--ink-soft);margin:0 0 4px;max-width:62ch}
+  a{color:var(--accent)}
+  table{border-collapse:collapse;width:100%;background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;font-size:0.92rem}
+  th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line)}
+  thead th{font-size:0.74rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);font-weight:600}
+  tbody tr:last-child td,tbody tr:last-child th{border-bottom:0}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+  tfoot td,tfoot th{border-top:2px solid var(--line-strong);font-weight:600}
+  .controls{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 14px;align-items:flex-end}
+  .field{display:flex;flex-direction:column;gap:3px}
+  .field label{font-size:0.74rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft)}
+  select,input{font:inherit;padding:7px 9px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);min-height:40px}
+  select:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+  .count{color:var(--ink-soft);font-size:0.88rem;margin:10px 0}
+  .note{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;color:var(--ink-soft);font-size:0.88rem}
+  .note h2{margin-top:0;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--ink)}
+  .note p{margin:0 0 9px} .note p:last-child{margin-bottom:0}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:0.9em}
+  ul.dl{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:8px}
+  ul.dl a{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:4px 12px;text-decoration:none;font-size:0.85rem;background:var(--panel)}
+  @media(max-width:520px){ .wrap{padding:20px 12px 56px} th,td{padding:8px} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Puzzle Corpus</h1>
+  <p class="lede">Machine-generated logic puzzles. <strong>Every one has been validated by an independent
+    solver</strong> for solvability, solution uniqueness and difficulty band, before it entered this corpus.</p>
+
+  <h2>What is here</h2>
+  <table>
+    <thead><tr><th scope="col">Family</th><th scope="col" class="num">1 Gentle</th><th scope="col" class="num">2 Easy</th><th scope="col" class="num">3 Medium</th><th scope="col" class="num">4 Hard</th><th scope="col" class="num">5 Brutal</th><th scope="col" class="num">Total</th></tr></thead>
+    <tbody>
+        <tr><th scope="row"><a href="site/play/sudoku-classic.html">Classic Sudoku</a></th><td class="num">20</td><td class="num">20</td><td class="num">15</td><td class="num">20</td><td class="num">25</td><td class="num"><b>100</b></td></tr>
+    </tbody>
+    <tfoot><tr><th scope="row">All families</th><td class="num">20</td><td class="num">20</td><td class="num">15</td><td class="num">20</td><td class="num">25</td><td class="num">100</td></tr></tfoot>
+  </table>
+
+  <h2>Browse</h2>
+  <div class="controls">
+    <div class="field"><label for="f-family">Family</label><select id="f-family"><option value="">All</option></select></div>
+    <div class="field"><label for="f-band">Band</label><select id="f-band"><option value="">All</option><option value="1">1 Gentle</option><option value="2">2 Easy</option><option value="3">3 Medium</option><option value="4">4 Hard</option><option value="5">5 Brutal</option></select></div>
+    <div class="field"><label for="f-size">Grid</label><select id="f-size"><option value="">All</option></select></div>
+    <div class="field"><label for="f-cmin">Clues from</label><input id="f-cmin" type="number" inputmode="numeric" min="0" step="1" style="width:7.5em"></div>
+    <div class="field"><label for="f-cmax">to</label><input id="f-cmax" type="number" inputmode="numeric" min="0" step="1" style="width:7.5em"></div>
+  </div>
+  <p class="count" id="count" role="status" aria-live="polite"></p>
+  <table>
+    <thead><tr><th scope="col">Puzzle</th><th scope="col">Family</th><th scope="col" class="num">Band</th><th scope="col" class="num">Grid</th><th scope="col" class="num">Clues</th><th scope="col" class="num">Score</th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+
+  <h2>Download</h2>
+  <p class="lede">Use the corpus without cloning the repository. <code>corpus.json</code> is the corpus-wide index;
+    the rest are per-family and per-band bundles of whole records.</p>
+  <ul class="dl">
+    <li><a href="corpus.json">corpus.json</a></li>
+    <li><a href="downloads/sudoku-classic.json">sudoku-classic index</a></li><li><a href="downloads/sudoku-classic-b1.json">sudoku-classic band 1</a></li><li><a href="downloads/sudoku-classic-b2.json">sudoku-classic band 2</a></li><li><a href="downloads/sudoku-classic-b3.json">sudoku-classic band 3</a></li><li><a href="downloads/sudoku-classic-b4.json">sudoku-classic band 4</a></li><li><a href="downloads/sudoku-classic-b5.json">sudoku-classic band 5</a></li>
+  </ul>
+
+  <h2>The guarantee</h2>
+  <div class="note">
+    <p>Every puzzle here is <strong>machine-generated</strong> by this repository. It was then checked by an
+      <strong>independent solver</strong>, which shares no code with the generator: the solver imports nothing
+      from the generator, and continuous integration fails the build if that ever changes.</p>
+    <p>Uniqueness is <strong>proven by exhaustive counting</strong>. The solver counts solutions and stops at
+      two, so "unique" means the search established that a second solution cannot exist, not that it failed to
+      find one. A separate brute-force reference — deliberately slow, with no heuristics — confirms the verdict
+      independently.</p>
+    <p>Difficulty is <strong>measured by technique</strong>, not asserted by the generator. A puzzle's band is
+      the highest technique tier needed by the easiest complete solution path the solver can find. Bands 1 to 4
+      need no guessing at all. Band 5 is the only band that requires bounded search, and every band-5 record
+      carries the search depth it needed.</p>
+    <p><strong>What this does not cover:</strong> the guarantee is about solvability, uniqueness and the measured
+      band. It is not a claim that a puzzle is enjoyable, that its band matches any other publisher's scale, or
+      that the band would be identical under a different technique ladder — the ladder is published in each
+      family's <code>family.json</code> and frozen.</p>
+  </div>
+</div>
+
+<script id="data" type="application/json">{"families":[{"family":"sudoku-classic","display_name":"Classic Sudoku","player":"site/play/sudoku-classic.html"}],"puzzles":[["sudoku-classic","0186947024e91bcf",2,24,8,"2x4",44],["sudoku-classic","0a7a602b552ef947",1,6,4,"2x2",10],["sudoku-classic","0dc92ca0833503d2",3,30,9,"3x3",67],["sudoku-classic","1090c8b17dacb07d",4,20,8,"4x2",212],["sudoku-classic","13d626a3d679a0d3",5,20,8,"2x4",270],["sudoku-classic","157a4aa228ed3632",3,26,9,"3x3",91],["sudoku-classic","161769c8130e158d",4,11,6,"2x3",113],["sudoku-classic","1708f627a8fb24a3",1,10,6,"2x3",26],["sudoku-classic","17cc3fdbc3a2af53",4,32,9,"3x3",101],["sudoku-classic","1819d4f1345d3a8f",5,19,8,"2x4",325],["sudoku-classic","1a8fcf1510da1ae2",4,9,6,"2x3",71],["sudoku-classic","1aa7fd7fc766c418",4,28,9,"3x3",137],["sudoku-classic","1ae9834b53e07fc2",4,10,6,"2x3",162],["sudoku-classic","1af3489d449df2fd",2,25,9,"3x3",80],["sudoku-classic","1be167bf1fa7b08d",2,23,9,"3x3",66],["sudoku-classic","1c6dd8d23383e7a5",3,23,9,"3x3",126],["sudoku-classic","1d84dad31aecf5da",1,33,9,"3x3",48],["sudoku-classic","1f0b13761b381b62",3,25,9,"3x3",72],["sudoku-classic","1f46cde459997fde",5,26,9,"3x3",248],["sudoku-classic","1fb83b03ceb0f89f",1,6,4,"2x2",10],["sudoku-classic","205112187c408f10",3,28,9,"3x3",73],["sudoku-classic","21ecdadc751a47c6",4,26,9,"3x3",119],["sudoku-classic","23245ef949163872",2,27,9,"3x3",62],["sudoku-classic","23d5d633ac41d58e",2,18,8,"2x4",58],["sudoku-classic","260cf4d56d1a93fc",4,20,8,"4x2",92],["sudoku-classic","262499c4133cad5a",1,32,9,"3x3",49],["sudoku-classic","28a0282e4e431eae",4,27,9,"3x3",106],["sudoku-classic","2903472d883f170b",1,6,4,"2x2",10],["sudoku-classic","2ed50406ba4ab636",5,27,9,"3x3",349],["sudoku-classic","3739a24f61e0eaba",1,12,6,"2x3",24],["sudoku-classic","375ca43227c6009f",5,29,9,"3x3",278],["sudoku-classic","3a737f761e89c7a3",5,18,8,"2x4",488],["sudoku-classic","3ca4e56985100824",4,28,9,"3x3",125],["sudoku-classic","3dcf318ede42610b",4,10,6,"2x3",70],["sudoku-classic","3e190b30e8d6b4fb",2,26,9,"3x3",67],["sudoku-classic","3ed6f7b845bc3e73",4,11,6,"2x3",65],["sudoku-classic","40239e61ee287705",1,6,4,"2x2",10],["sudoku-classic","40bc451c55d5b050",5,24,9,"3x3",367],["sudoku-classic","41a5ca0f20674054",2,24,9,"3x3",77],["sudoku-classic","4365ee669d7fed0f",1,27,9,"3x3",54],["sudoku-classic","4b6ef343306e5c65",1,25,9,"3x3",56],["sudoku-classic","4df3de784a98f70e",3,25,9,"3x3",76],["sudoku-classic","52d1e5d67585a218",2,22,9,"3x3",79],["sudoku-classic","56aa69dfddadee9c",3,28,9,"3x3",81],["sudoku-classic","5af64e07520a3e70",5,19,8,"2x4",254],["sudoku-classic","5baefd1011205d3f",5,26,9,"3x3",299],["sudoku-classic","5c0bb144110aea07",4,27,9,"3x3",114],["sudoku-classic","61dd447e455b392e",2,24,9,"3x3",69],["sudoku-classic","6316cedb5ce18170",3,24,9,"3x3",109],["sudoku-classic","64e00c2ea27acee3",1,30,9,"3x3",51],["sudoku-classic","65115503a11250da",3,26,9,"3x3",87],["sudoku-classic","684fb280257cb9bf",5,26,9,"3x3",278],["sudoku-classic","6a83055bfd3143fd",2,20,8,"2x4",48],["sudoku-classic","6cefff6f46fff03f",5,23,9,"3x3",335],["sudoku-classic","6ed8db71f1e0879b",1,28,9,"3x3",53],["sudoku-classic","6ef48cea658d1135",5,24,9,"3x3",405],["sudoku-classic","730cb4a05310d034",3,31,9,"3x3",66],["sudoku-classic","73c20dd621be3fa8",2,24,9,"3x3",65],["sudoku-classic","76377f5a5493e4f9",5,28,9,"3x3",347],["sudoku-classic","7f70663bafa67712",1,6,4,"2x2",10],["sudoku-classic","803557aadb2a66aa",5,23,9,"3x3",305],["sudoku-classic","8653be2ad8c6394b",2,24,8,"2x4",52],["sudoku-classic","867edad7c8fe299c",4,20,8,"4x2",172],["sudoku-classic","878722224b9f214d",5,28,9,"3x3",249],["sudoku-classic","8876c7e001c6095c",1,26,9,"3x3",55],["sudoku-classic","8c40c6e6d448a737",5,23,9,"3x3",295],["sudoku-classic","8d82856f13eec4e1",5,20,8,"2x4",357],["sudoku-classic","8f12e2b6155c58fe",1,29,9,"3x3",52],["sudoku-classic","8f2d5df756bb5385",3,25,9,"3x3",84],["sudoku-classic","8faffa8a120a5465",5,24,9,"3x3",442],["sudoku-classic","98390db77bc37f43",3,24,9,"3x3",89],["sudoku-classic","a52d7c9787bfe9a3",5,18,8,"2x4",275],["sudoku-classic","a88356c0a2b9679f",5,20,8,"2x4",283],["sudoku-classic","ac481479bb3ac246",5,28,9,"3x3",332],["sudoku-classic","afe19ff001526223",2,25,9,"3x3",64],["sudoku-classic","b466b90f7790b698",2,24,8,"2x4",52],["sudoku-classic","b693efb29bcfad10",4,10,6,"2x3",118],["sudoku-classic","baa605c64143dd0c",2,20,8,"2x4",52],["sudoku-classic","bbfa0a7e44095faf",4,21,8,"4x2",127],["sudoku-classic","c0a7c8391ff605b0",4,30,9,"3x3",167],["sudoku-classic","c149ce16f1184b69",4,21,8,"4x2",223],["sudoku-classic","c16013bc7b2abf1f",2,24,9,"3x3",65],["sudoku-classic","c6481d521fc56e8d",1,14,6,"2x3",22],["sudoku-classic","c6bc38823603a578",2,20,8,"2x4",48],["sudoku-classic","c954cc4558f7d97d",3,22,9,"3x3",75],["sudoku-classic","cfa9977c9a0efd41",5,22,8,"2x4",233],["sudoku-classic","d39020cc3c5ab604",5,19,8,"2x4",240],["sudoku-classic","d4941afb65a7a273",4,19,8,"4x2",141],["sudoku-classic","d4d9a675fe728171",5,19,8,"2x4",244],["sudoku-classic","dae393657adde6f8",1,32,9,"3x3",49],["sudoku-classic","dc2d1312c3a1aeab",5,25,9,"3x3",367],["sudoku-classic","ddfaee04df7b4dba",4,11,6,"2x3",69],["sudoku-classic","e61827ab760e2099",2,24,8,"2x4",56],["sudoku-classic","e907f63974daf75f",1,10,6,"2x3",26],["sudoku-classic","ecea51fc254572f5",1,14,6,"2x3",22],["sudoku-classic","ee70de9b1588ac8b",1,26,9,"3x3",55],["sudoku-classic","f6e673e9bc60c9aa",3,28,9,"3x3",97],["sudoku-classic","f716f09978cf668c",3,26,9,"3x3",111],["sudoku-classic","f8f591a66d086529",2,22,8,"2x4",50],["sudoku-classic","fb53eaa6256013d4",2,24,8,"2x4",44]]}</script>
+<script>
+(function(){
+  'use strict';
+  var DATA = JSON.parse(document.getElementById('data').textContent);
+  var BANDS = {1:'1 Gentle',2:'2 Easy',3:'3 Medium',4:'4 Hard',5:'5 Brutal'};
+  var players = {};
+  var famSel = document.getElementById('f-family');
+  DATA.families.forEach(function(f){
+    players[f.family] = f.player;
+    var o = document.createElement('option'); o.value = f.family; o.textContent = f.display_name; famSel.appendChild(o);
+  });
+  var sizes = {};
+  DATA.puzzles.forEach(function(p){ sizes[p[4] + 'x' + p[4] + ' (' + p[5] + ')'] = p[4]; });
+  var sizeSel = document.getElementById('f-size');
+  Object.keys(sizes).sort().forEach(function(k){ var o=document.createElement('option'); o.value=k; o.textContent=k; sizeSel.appendChild(o); });
+
+  var els = ['f-family','f-band','f-size','f-cmin','f-cmax'].map(function(id){ return document.getElementById(id); });
+  var rows = document.getElementById('rows');
+  var count = document.getElementById('count');
+  var LIMIT = 300;
+
+  function draw(){
+    var fam = els[0].value, band = els[1].value, size = els[2].value;
+    var cmin = els[3].value === '' ? -Infinity : Number(els[3].value);
+    var cmax = els[4].value === '' ? Infinity : Number(els[4].value);
+    var hits = DATA.puzzles.filter(function(p){
+      if (fam && p[0] !== fam) return false;
+      if (band && String(p[2]) !== band) return false;
+      if (size && (p[4] + 'x' + p[4] + ' (' + p[5] + ')') !== size) return false;
+      return p[3] >= cmin && p[3] <= cmax;
+    });
+    count.textContent = hits.length.toLocaleString('en') + ' puzzle' + (hits.length === 1 ? '' : 's') +
+      (hits.length > LIMIT ? ' — showing the first ' + LIMIT : '');
+    var html = '';
+    hits.slice(0, LIMIT).forEach(function(p){
+      var href = players[p[0]] + '?id=' + p[1] + '&band=' + p[2] + '&family=' + p[0];
+      html += '<tr><th scope="row"><a href="' + href + '"><code>' + p[1] + '</code></a></th>' +
+        '<td>' + p[0] + '</td><td class="num">' + BANDS[p[2]] + '</td><td class="num">' + p[4] + '&times;' + p[4] +
+        '</td><td class="num">' + p[3] + '</td><td class="num">' + p[6] + '</td></tr>';
+    });
+    rows.innerHTML = html || '<tr><td colspan="6">Nothing matches those filters.</td></tr>';
+  }
+  els.forEach(function(e){ e.addEventListener('input', draw); e.addEventListener('change', draw); });
+  draw();
+})();
+</script>
+</body>
+</html>

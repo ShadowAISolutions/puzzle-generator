@@ -1,0 +1,18 @@
+{
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "The same symbol twice in one row. No completion can exist.",
+  "params": {
+    "box_h": 3,
+    "box_w": 3,
+    "size": 9
+  },
+  "puzzle": "1.......1........................................................................",
+  "slug": "contradiction-row-9",
+  "source": "constructed"
+}

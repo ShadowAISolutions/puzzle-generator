@@ -1,0 +1,20 @@
+{
+  "expect": {
+    "band": 1,
+    "reference": "confirmed",
+    "solution": "2413134242313124",
+    "techniques": [
+      "naked_single"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated instance with a unique solution, 4x4 boxes 2x2, produced targeting band 1.",
+  "params": {
+    "box_h": 2,
+    "box_w": 2,
+    "size": 4
+  },
+  "puzzle": "..1.1...4.....2.",
+  "slug": "unique-4-2x2-b1",
+  "source": "generated"
+}

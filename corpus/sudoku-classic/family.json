@@ -1,0 +1,102 @@
+{
+  "bands": [
+    {
+      "band": 1,
+      "max_tier": 1,
+      "meaning": "the lowest tier of deductions alone completes it",
+      "name": "Gentle"
+    },
+    {
+      "band": 2,
+      "max_tier": 2,
+      "meaning": "needs the second tier",
+      "name": "Easy"
+    },
+    {
+      "band": 3,
+      "max_tier": 3,
+      "meaning": "needs mid-tier techniques",
+      "name": "Medium"
+    },
+    {
+      "band": 4,
+      "max_tier": 4,
+      "meaning": "needs advanced techniques, still no guessing",
+      "name": "Hard"
+    },
+    {
+      "band": 5,
+      "max_tier": 5,
+      "meaning": "requires bounded search; max_search_depth is recorded",
+      "name": "Brutal"
+    }
+  ],
+  "canonical_encoding": "A single string of size*size characters read left to right, top to bottom. Symbols are \"123456789ABCDEFG\" truncated to the grid size, and \".\" marks an empty cell.",
+  "display_name": "Classic Sudoku",
+  "family": "sudoku-classic",
+  "family_version": 1,
+  "hardening_report": "HARDENING/sudoku-classic.md",
+  "player": "site/play/sudoku-classic.html",
+  "rules_summary": "Fill the grid so that every row, every column and every box contains each symbol exactly once. A puzzle is presented as its givens; the rest of the cells are yours to fill.",
+  "search_depth_weight": 60,
+  "shapes": [
+    {
+      "box_h": 2,
+      "box_w": 2,
+      "size": 4
+    },
+    {
+      "box_h": 2,
+      "box_w": 3,
+      "size": 6
+    },
+    {
+      "box_h": 3,
+      "box_w": 2,
+      "size": 6
+    },
+    {
+      "box_h": 2,
+      "box_w": 4,
+      "size": 8
+    },
+    {
+      "box_h": 4,
+      "box_w": 2,
+      "size": 8
+    },
+    {
+      "box_h": 3,
+      "box_w": 3,
+      "size": 9
+    }
+  ],
+  "solver_version": "1.0.0",
+  "symmetry_group": "Permutations of the bands, of the rows inside each band, of the stacks and of the columns inside each stack; transposition; and relabelling of the symbols. Rotations and reflections are contained in this group. The canonical form is the lexicographically smallest encoding over the whole group, with givens ordered before blanks and symbols renumbered by first appearance.",
+  "technique_ladder": {
+    "hidden_pair": 2,
+    "hidden_quad": 3,
+    "hidden_single": 1,
+    "hidden_triple": 3,
+    "jellyfish": 4,
+    "locked_candidates_claiming": 2,
+    "locked_candidates_pointing": 2,
+    "naked_pair": 2,
+    "naked_quad": 3,
+    "naked_single": 1,
+    "naked_triple": 3,
+    "simple_coloring": 4,
+    "swordfish": 4,
+    "w_wing": 4,
+    "x_wing": 3,
+    "xy_wing": 4,
+    "xyz_wing": 4
+  },
+  "tier_weights": {
+    "1": 1,
+    "2": 4,
+    "3": 12,
+    "4": 40,
+    "5": 150
+  }
+}

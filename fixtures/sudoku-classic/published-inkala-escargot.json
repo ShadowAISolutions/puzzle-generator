@@ -1,0 +1,21 @@
+{
+  "expect": {
+    "band": 5,
+    "reference": "confirmed",
+    "solution": "162857493534129678789643521475312986913586742628794135356478219241935867897261354",
+    "techniques": [
+      "hidden_single",
+      "bounded_search"
+    ],
+    "verdict": "unique"
+  },
+  "note": "Widely circulated as Arto Inkala's \"AI Escargot\".",
+  "params": {
+    "box_h": 3,
+    "box_w": 3,
+    "size": 9
+  },
+  "puzzle": "1....7.9..3..2...8..96..5....53..9...1..8...26....4...3......1..4......7..7...3..",
+  "slug": "published-inkala-escargot",
+  "source": "published"
+}
