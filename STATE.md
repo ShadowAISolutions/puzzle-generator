@@ -12,6 +12,99 @@ Nothing outstanding.
 
 Decisions that settle an ambiguous choice, so no future session re-litigates them.
 
+### 2026-09-19 — the band-3 9x9 "decline" is not drift, and nothing frozen has moved
+
+The band-3 9x9 acceptance rate read 3.0% at Phase 0, 2.0% in batch 001, 1.5% in batch 002 and 1.2%
+in batch 003, which looks like a trend and was briefly recorded as one. It is not, and no future
+session should chase it as one.
+
+**Nothing frozen has drifted, and this is proved rather than argued.** The gate's `banded` check
+re-derives band, score, `max_search_depth` and the full technique trace from the current solver and
+fails a record whose stored values differ. `node tools/gate.mjs --all --render` passed **760/760**
+this batch. Every Phase 0 and batch 001 record therefore still classifies today exactly as it did
+when it was written, trace included. If `bands.json` or the ladder had moved by one technique, those
+older records would fail. This is the audit step 4 check, available every batch for free, and it is
+stronger than re-running the classifier over a 200-record sample.
+
+**The four figures are four different symmetries.** Every other parameter is identical across them
+(`size` 9, `3x3`, `min_clues` 17, `dig_passes` 6); only `symmetry` changes: `rot180` at Phase 0,
+`diagonal` in 001, `mirror_h` in 002, `mirror_v` in 003. So they were never a time series.
+
+Re-measuring all five symmetries in one run, today, with the same code (a scratch copy, 20
+acceptances each, 7,092 rejections total):
+
+| symmetry | attempts for 20 | acceptance |
+|---|---:|---:|
+| `none` | 622 | 3.2% |
+| `diagonal` | 1,429 | 1.4% |
+| `rot180` | 1,619 | 1.2% |
+| `mirror_h` | 1,739 | 1.2% |
+| `mirror_v` | 1,783 | 1.1% |
+
+What this establishes: **`none` is about 2.5x cheaper than any constrained symmetry, and the four
+constrained symmetries are indistinguishable from each other** at this sample size. A band-3 9x9
+plan on a constrained symmetry costs roughly 1,700 attempts for 20 puzzles, against the 8,000 the
+plan budget allows, so there is about 4.7x headroom and nothing is at risk.
+
+What it does not establish: why Phase 0 recorded 3.0% for `rot180` when `rot180` measures 1.2%
+today. The classifier is proved unchanged, so the honest options are that the Phase 0 figure was
+computed differently from an attempts-to-target rate, or that it was a small sample stated too
+precisely. It was not re-derived, and it should not be treated as a comparable measurement.
+
+**The lesson worth keeping:** a difficulty-acceptance rate is only comparable across batches when
+the plan parameters match, and the queue varies symmetry from plan to plan by design. Compare
+like with like, or compare nothing.
+
+### 2026-09-19 — the gate was proved live, because it had never rejected anything
+
+Three batches in, the gate's record is **660 accepted, 0 rejected**. Every rejection in batches
+001, 002 and 003 came from the generator's own band check (`band-mismatch`), never from the gate.
+`CLAUDE.md` is explicit that this is the moment to suspect the gate rather than congratulate the
+generator, so it was checked instead of assumed.
+
+Method: a full copy of the repository under the scratchpad, never the corpus itself, with one real
+band-3 9x9 record broken four ways and re-gated. Results, all as they should be:
+
+| break | checks that fired |
+|---|---|
+| remove one given | `unique` ("solver says multiple"), `solvable` |
+| corrupt the stated solution | `solvable`, `cross-checked` (the reference caught it independently), `regenerable` |
+| claim band 4 instead of 3 | `banded`, `corpus-unique`, `regenerable` |
+| `clues` off by one | `schema` |
+| a player whose board overflows a 360px phone | `renderable` |
+
+**Eight of the nine checks were observed firing:** `schema`, `solvable`, `unique`, `banded`,
+`cross-checked`, `regenerable`, `corpus-unique`, `renderable`.
+
+`renderable` is worth its own line, because operating rule 3 says a gate cannot see a board printed
+off the edge of the screen. It can. Widening the board to 900px in a scratch copy of the player
+failed the record with `selftest failed: the board fits a 360px viewport board is 900px wide` and
+`the page does not scroll sideways page scrolls to 630px in a 360px viewport`. So the player's own
+selftests cover exactly the failure rule 3 warns about, and the gate refuses a record whose player
+cannot draw it on a phone. Opening the screenshots is still worth doing for the things no assertion
+names — crowding, contrast, a grid that is technically inside the viewport and still unpleasant.
+
+`bounded` is the one check still unobserved in production. It fires only on `BudgetExceeded`, which
+no valid record has yet provoked; the hardening suite exercises that path instead. Provoking it by
+shrinking a budget in a scratch copy would prove nothing, so it was not done.
+
+So the zero-rejection record is a property of the generator, not a dead gate: the generator
+validates with the same solver before offering a candidate, so the gate is a verification step
+rather than a filter, which is the intended defence in depth.
+
+Two things found on the way, worth keeping:
+
+- **The gate checks the storage path first and returns immediately if it is wrong.** Broken copies
+  placed anywhere but their proper `corpus/<family>/b<band>/<xx>/<id>.json` fail on `schema` alone
+  and the other eight checks never run. A future session testing the gate must place its cases at
+  the path the record's own fields imply, or it will prove nothing and think it proved something.
+- **The band is part of the path**, so a record that lies about its band lands in a different
+  directory and `corpus-unique` fires against the honest copy. Deduplication of genuinely
+  symmetry-equivalent puzzles, though, is enforced by the path and not by that check: two such
+  puzzles share a canonical hash, hence an id, hence a filename, so the second silently overwrites
+  the first rather than being rejected. The guard against that is the accepted count matching the
+  corpus growth, which held for every batch so far (+220 each).
+
 ### 2026-09-19 — the band-3 mechanism was hand-verified, not just self-consistent
 
 An internally consistent band is worthless if the ladder is mislabelled, so one band-3 puzzle was
@@ -240,6 +333,43 @@ id-derived sample. `tools/record.mjs` is not frozen. No `sudoku-classic` record 
 ---
 
 ## Batches
+
+### batch/003 — 2026-09-19
+
+**220 accepted, 0 gate rejections, 2,915 generator rejections**, all `band-mismatch`, from 3,135
+attempts. Generation took 16s. Five bands, three grid shapes, two symmetries, one family. Corpus:
+**760 records**, bands `{1:170, 2:170, 3:75, 4:170, 5:175}`.
+
+| plan | accepted | attempts | rejected |
+|---|---:|---:|---:|
+| b3 · 9×9 (3×3) · mirror_v | 20/20 | 1,715 | 1,695 |
+| b1 · 6×6 (3×2) · none | 50/50 | 50 | 0 |
+| b2 · 8×8 (4×2) · none | 50/50 | 340 | 290 |
+| b4 · 8×8 (4×2) · mirror_v | 50/50 | 521 | 471 |
+| b5 · 8×8 (4×2) · none | 50/50 | 509 | 459 |
+
+- **the gate was proved live this batch**, which is the thing worth reading from it. Three batches
+  of 0 gate rejections is exactly the signal `CLAUDE.md` says to distrust, so the gate was attacked
+  with deliberately broken copies of a real record and seven of its nine checks were watched to
+  fire, `unique` among them. Method and the two traps found are under `## Decisions` above.
+- **health signal.** All 220 ids, canonical hashes and seeds distinct, and all 760 hashes in the
+  corpus are distinct, so nothing has been silently overwritten. All 220 verdicts `unique`, all 220
+  reference-checked. `max_search_depth` is 0 in bands 1 to 4 and reaches 6 in band 5;
+  `bounded_search` appears in band 5 and nowhere else. Score ranges by band: 24–28, 46–68, 63–103,
+  78–392, 225–530. Clue ranges: 8–12, 17–22, 25–31, 18–26, 18–22.
+- **band 3 at 9×9 took 1,715 attempts for 20 (1.2%).** An earlier draft of this entry called the
+  series 3.0% → 2.0% → 1.5% → 1.2% a monotonic decline too large to be noise, and filed it as drift
+  to chase. **That was wrong and it is corrected here**, because the four figures are four
+  different symmetries, not four samples of one thing, and because the drift question has a direct
+  test that had already been run. See `## Decisions` above.
+- **variety was thinner than batch 002:** three shapes but only two symmetries (`none` 150,
+  `mirror_v` 70), because the queue is consumed in FIFO order and plans 012–016 happened to cluster
+  there. Not a defect, but `tools/make_plans.mjs` emits plans grouped by symmetry, so FIFO
+  claiming will keep producing narrow batches. Interleaving the queue when refilling would fix it.
+- **renderings were opened**, not just gate-passed: a 9×9 3×3, a 6×6 3×2 and an 8×8 4×2 at 360px.
+  Box borders correct for all three shapes, no clue outside the board, stated clue counts matching
+  the boards, and band 5 the only one showing a search depth. Screenshots in `.artifacts/`,
+  uncommitted.
 
 ### batch/002 — 2026-09-19
 
