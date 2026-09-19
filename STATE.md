@@ -13,12 +13,25 @@ and the owner was told that in the thread so he can correct it. The 2,498 existi
 exactly as they are: they are validated and the instruction is about what gets generated next, not
 about the corpus.
 
-**4. The two frozen files were changed on the owner's instruction, and that instruction is above.**
-Correction 3 is not achievable without them: `schema/puzzle.schema.json` required sudoku box
-dimensions on every record, and `tools/harden.mjs` could only build sudoku test grids. Both
-proposals in `PROPOSALS/` were applied as written. Neither weakens a check. This does not open the
-other frozen files, and it does not make a frozen-file change a session's own decision: the rule
-stands and still needs the owner's word each time.
+**4. Three frozen files were changed on the owner's instruction, and that instruction is above.**
+Correction 3 is not achievable without them. `schema/puzzle.schema.json` required sudoku box
+dimensions on every record; `tools/harden.mjs` could only build sudoku test grids; and
+`tools/gate.mjs` checked that every puzzle string was exactly `size * size` characters, which is
+true of sudoku and of nothing else on the roster. All three proposals in `PROPOSALS/` were applied
+as written and none weakens a check.
+
+The first two were applied on the owner's "different families" message, and the owner was told so
+in the thread. The third was **asked for explicitly and granted explicitly** on 2026-09-19: "yes
+you can modify the frozen file". Ask, do not infer. Three files changed on one inferred go-ahead is
+how a freeze stops meaning anything, and the harness itself refused to run the gate after it had
+been edited, which was the right call.
+
+The bar each change had to clear is that it takes nothing away: every check that existed still
+runs, on the same inputs, with the same verdicts, and the existing corpus re-validates unchanged.
+All 2,498 sudoku records re-gated green after the gate change, and `HARDENING/sudoku-classic.md`
+regenerated identical but for wall-clock seconds. A change that cannot show that should be refused
+however badly it is wanted. This does not open the remaining frozen files, and it does not make a
+frozen-file change a session's own decision.
 
 ---
 
@@ -54,6 +67,38 @@ stops Pages running Jekyll over the corpus at all. Fixed in batch 005.
 ## Decisions
 
 Decisions that settle an ambiguous choice, so no future session re-litigates them.
+
+### 2026-09-19 — binairo went first, not nonogram, and a family's tiers must be measured
+
+Nonogram was the roster's next family and the one the build started on. It turned out to be blocked
+on `tools/gate.mjs`, which asked every puzzle string to be `size * size` characters; a nonogram's
+puzzle is its clue lists, whose length has nothing to do with its grid. **Binairo was onboarded
+instead, because it fits that check as it stands**, and the gate was fixed afterwards on the owner's
+explicit word. The nonogram solver is parked at `PROPOSALS/nonogram/` with everything established
+about it; it is not blocked any more, only unfinished, and it should be the next family.
+
+**A technique tier has to be measured, not asserted.** This cost most of a session on nonogram and
+the finding generalises to every family still to be onboarded.
+
+Two ways of defining a ladder were tried and both were wrong.
+
+1. *Tiers that are shown less of the puzzle.* A tier that cannot see what it has already deduced
+   cannot iterate, so the cheap bands never occur and everything piles into the middle. Measured:
+   36 of 37 puzzles came out band 3.
+2. *Tiers whose rules a cheaper tier already subsumes.* Nonogram's tier 2 was given the rules a
+   person would name — pin a run with one placement left, narrow a run whose filled cell no other
+   run could own — and it decided a cell tier 1 had missed on **0 of 397,750 lines**. Those rules
+   cannot fire against a global dynamic program: every placement it offers already has a consistent
+   completion, so both rules only ever discard placements that were never offered.
+
+What works is separating tiers by **the machinery they reason with**, every tier seeing the whole
+puzzle. Nonogram: run ranges, then surviving placements, then whole arrangements — 22.4% and 8.9%
+strict gains, measured. Binairo: a three-cell window, then the balance rule, then a whole line
+enumerated against every finished line parallel to it.
+
+**So: before a family's `bands.json` is frozen, measure how often each tier decides something the
+tier below it could not.** A tier that never fires is worse than no tier at all, because the band it
+labels is a lie, and `bands.json` is frozen with that lie inside it.
 
 ### 2026-09-19 — the corpus leaves sudoku, and the two frozen files were applied to allow it
 

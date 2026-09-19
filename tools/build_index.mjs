@@ -38,6 +38,17 @@ function collect() {
   return byFamily;
 }
 
+// How a family's grid shape reads in an index row. A sudoku is described by
+// its box tiling; a family without boxes is described by its grid, and saying
+// "undefinedxundefined" for it would be worse than saying nothing.
+function shapeLabel(rec) {
+  const p = rec.params ?? {};
+  if (p.box_h != null && p.box_w != null) return `${p.box_h}x${p.box_w}`;
+  if (p.rows != null && p.cols != null) return `${p.rows}x${p.cols}`;
+  if (p.size != null) return `${p.size}x${p.size}`;
+  return '';
+}
+
 // One compact row per puzzle. Kept small on purpose: a family index must stay
 // under 5MB, and these are what the browse page filters over.
 function row(rec) {
@@ -47,7 +58,7 @@ function row(rec) {
     score: rec.difficulty.score,
     clues: rec.clues,
     size: rec.params.size,
-    box: `${rec.params.box_h}x${rec.params.box_w}`,
+    box: shapeLabel(rec),
     depth: rec.difficulty.max_search_depth,
   };
 }
@@ -73,7 +84,10 @@ function main() {
     let clueMin = Infinity, clueMax = -Infinity;
     for (const rec of list) {
       byBand[rec.difficulty.band].push(row(rec));
-      const k = `${rec.params.size}x${rec.params.size} (${rec.params.box_h}x${rec.params.box_w})`;
+      const p = rec.params;
+      const k = p.box_h != null && p.box_w != null
+        ? `${p.size}x${p.size} (${p.box_h}x${p.box_w})`
+        : p.rows != null && p.cols != null ? `${p.rows}x${p.cols}` : `${p.size}x${p.size}`;
       sizes.set(k, (sizes.get(k) ?? 0) + 1);
       clueMin = Math.min(clueMin, rec.clues);
       clueMax = Math.max(clueMax, rec.clues);
@@ -127,7 +141,7 @@ function renderIndex(summary, byFamily) {
   const inline = JSON.stringify({
     families: summary.families.map((f) => ({ family: f.family, display_name: f.display_name, player: f.player })),
     puzzles: [...byFamily.entries()].flatMap(([family, list]) =>
-      list.map((r) => [family, r.id, r.difficulty.band, r.clues, r.params.size, `${r.params.box_h}x${r.params.box_w}`, r.difficulty.score])),
+      list.map((r) => [family, r.id, r.difficulty.band, r.clues, r.params.size, shapeLabel(r), r.difficulty.score])),
   });
 
   return `<!doctype html>
