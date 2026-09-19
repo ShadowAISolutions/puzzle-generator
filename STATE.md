@@ -334,6 +334,51 @@ id-derived sample. `tools/record.mjs` is not frozen. No `sudoku-classic` record 
 
 ## Batches
 
+### batch/004 — 2026-09-19
+
+**220 accepted, 0 gate rejections, 2,846 generator rejections**, all `band-mismatch`, from 3,066
+attempts. Generation took 18s. Five bands, three grid shapes, two symmetries, one family. Corpus:
+**980 records**, bands `{1:220, 2:220, 3:95, 4:220, 5:225}`. `gate --all --render` passed 980/980.
+
+| plan | accepted | attempts | rejected |
+|---|---:|---:|---:|
+| b3 · 9×9 (3×3) · none | 20/20 | 718 | 698 |
+| b1 · 6×6 (3×2) · rot180 | 50/50 | 50 | 0 |
+| b2 · 8×8 (4×2) · rot180 | 50/50 | 827 | 777 |
+| b4 · 8×8 (4×2) · none | 50/50 | 264 | 214 |
+| b5 · 8×8 (4×2) · rot180 | 50/50 | 1,207 | 1,157 |
+
+- **the symmetry effect is confirmed in production**, which matters because it was measured in a
+  scratch copy last batch and a scratch measurement is not the real thing. Batch 003 and batch 004
+  happen to pair four band-and-shape combinations that differ only in symmetry, and the constrained
+  symmetry costs about twice as many attempts every time:
+
+  | band · shape | unconstrained | constrained | ratio |
+  |---|---:|---:|---:|
+  | b3 · 9×9 | `none` 718 | `mirror_v` 1,715 | 2.4× |
+  | b4 · 8×8 | `none` 264 | `mirror_v` 521 | 2.0× |
+  | b2 · 8×8 | `none` 340 | `rot180` 827 | 2.4× |
+  | b5 · 8×8 | `none` 509 | `rot180` 1,207 | 2.4× |
+
+  Four independent pairs, all between 2.0× and 2.4×, in the live corpus rather than a scratch run.
+  So **an acceptance rate is only comparable across batches when the symmetry matches**, and the
+  8,000-attempt plan budget is sized for the constrained case with room to spare.
+- **health signal.** All 220 ids, hashes and seeds distinct; all 980 hashes in the corpus distinct,
+  so nothing has been overwritten. All 220 `unique` and all 220 reference-checked. `max_search_depth`
+  0 in bands 1 to 4, 3 in band 5; `bounded_search` in band 5 alone. Score ranges by band: 22–26,
+  44–74, 68–116, 84–259, 221–411. Clue ranges: 10–14, 18–26, 22–27, 17–23, 20–24.
+- **`queue/in-progress/.gitkeep` was added**, because claiming this batch failed on its first try.
+  A finished batch deletes its claimed plans, git does not track empty directories, so the next
+  branch had no `queue/in-progress/` and every `git mv` of the claim failed. It had gone unnoticed
+  because the worktree kept the empty directory between batches 002 and 003.
+- **renderings opened:** an 8×8 4×2 `rot180` at band 2 and band 5, the first `rot180` puzzles in the
+  corpus. The clue pattern is visibly symmetric under a half turn, the count matches the record, and
+  the board fits 360px.
+- **queue refilled to 59** (step 10, it had fallen to 19). The refill brought in shapes the corpus
+  is thin on, including 4×4 `rot90` and 6×6 `2x3`, and queued `042-onboard-thermo-sudoku`. That
+  onboarding plan will almost certainly hit the frozen hardening suite the same way killer sudoku
+  did; the batch that claims it should check rather than assume, and block it the same way if so.
+
 ### batch/003 — 2026-09-19
 
 **220 accepted, 0 gate rejections, 2,915 generator rejections**, all `band-mismatch`, from 3,135
