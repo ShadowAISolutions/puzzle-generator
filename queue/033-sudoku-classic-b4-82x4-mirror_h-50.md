@@ -1,30 +1,30 @@
-# 011-sudoku-classic-b1-42x2-mirror_h-30
+# 033-sudoku-classic-b4-82x4-mirror_h-50
 
-Generate **30** sudoku-classic puzzles in **band 1 (Gentle)** on a
-**4×4** grid with **2×2** boxes and **mirror_h** symmetry.
+Generate **50** sudoku-classic puzzles in **band 4 (Hard)** on a
+**8×8** grid with **2×4** boxes and **mirror_h** symmetry.
 
-- Dig no further than **4** clues.
-- Band 1 is **plentiful** at this shape, so the attempt budget is **1800**.
+- Dig no further than **14** clues.
+- Band 4 is **plentiful** at this shape, so the attempt budget is **3000**.
 - The band written to each record is whatever the solver's trace says. If this plan yields puzzles
   at a different band, the plan was wrong, not the solver: the driver offers them to another plan
   in the batch that wants that band, and discards them otherwise.
 
-**This plan has failed if** it accepts fewer than 15 puzzles
+**This plan has failed if** it accepts fewer than 25 puzzles
 within its attempt budget, or if any accepted puzzle fails `tools/gate.mjs`.
 
 ```json
 {
   "family": "sudoku-classic",
-  "band": 1,
-  "count": 30,
-  "max_attempts": 1800,
+  "band": 4,
+  "count": 50,
+  "max_attempts": 3000,
   "params": {
-    "size": 4,
+    "size": 8,
     "box_h": 2,
-    "box_w": 2,
+    "box_w": 4,
     "symmetry": "mirror_h",
-    "min_clues": 4,
-    "band_target": 1,
+    "min_clues": 14,
+    "band_target": 4,
     "dig_passes": 6
   }
 }
