@@ -12,6 +12,23 @@ Nothing outstanding.
 
 Decisions that settle an ambiguous choice, so no future session re-litigates them.
 
+### 2026-09-19 — the band-3 mechanism was hand-verified, not just self-consistent
+
+An internally consistent band is worthless if the ladder is mislabelled, so one band-3 puzzle was
+traced by hand at calibration. `corpus/sudoku-classic/b3/0d/0dc92ca0833503d2.json`, 30 clues:
+deduction is stuck at 39 open cells under a tier-1 ceiling **and** under a tier-2 ceiling, and
+completes under tier 3.
+
+At the tier-2 stuck state, row 0 holds r0c0 {1,7,9}, r0c1 {7,9} and r0c7 {7,9} — three cells whose
+candidates union to exactly three digits, which is a naked triple. So 1, 7 and 9 must occupy those
+three cells and can leave the rest of the row, giving r0c2 {1,2,7,8,9} → {2,8}, r0c6 {2,3,4,7,9} →
+{2,3,4} and r0c8 {2,3,4,9} → {2,3,4}. Those are exactly the three eliminations the solver made, and
+they are sound. No tier-2 technique reaches them: a naked pair cannot, because r0c0 has three
+candidates, and there is no hidden pair to find, since digit 7 has five possible cells in that row.
+
+The band is therefore honest and not merely self-consistent. Two such hand-traces are required of
+every audit pass; this is the Phase 0 one.
+
 ### 2026-09-19 — a completed plan file is deleted, not archived
 
 The loop moves a plan from `queue/` to `queue/in-progress/` when it is claimed, and to
