@@ -392,6 +392,49 @@ id-derived sample. `tools/record.mjs` is not frozen. No `sudoku-classic` record 
 
 ## Batches
 
+### batch/007 — 2026-09-19
+
+**255 accepted, 0 gate rejections, 4,230 generator rejections**, from 4,485 attempts. Five bands,
+three grid shapes, four symmetries, one family. Corpus: **1,678 records**,
+bands `{1:378, 2:380, 3:155, 4:380, 5:385}`. `gate --all --render` passed 1,678/1,678.
+
+| plan | accepted | attempts | rejected |
+|---|---:|---:|---:|
+| b2 · 9×9 (3×3) · diagonal | 60/60 | 339 | 279 band-mismatch |
+| b3 · 9×9 (3×3) · none | 20/20 | 602 | 582 band-mismatch |
+| b1 · 4×4 (2×2) · rot90 | **5/50** | 3,000 | 2,995 duplicate-hash |
+| b4 · 9×9 (3×3) · diagonal | 60/60 | 263 | 203 band-mismatch |
+| b5 · 9×9 (3×3) · none | 60/60 | 231 | 171 band-mismatch |
+| b1 · 6×6 (2×3) · rot180 *(top-up)* | 50/50 | 50 | 0 |
+
+- **the plans were chosen to correct the corpus's own shape and symmetry skew**, which is a
+  deliberate departure from queue order and the second batch running to need one. Audit 005 had
+  flagged 8×8 (4×2) at 51.0% of the corpus. Four of the five claimed plans were 9×9 and none was
+  8×8 (4×2), which moved 9×9 (3×3) from 12.4% to 22.5% of the corpus, `diagonal` from 5.8% to
+  12.1%, and 8×8 (4×2) down to 36.1%. Read the distribution before claiming; do not claim FIFO.
+- **4×4 rot90 is full at 5 records, and this one has a closed-form ceiling rather than an
+  empirical one.** rot90 partitions a 4×4's 16 cells into exactly 4 orbits of 4, so a symmetric
+  clue pattern is a union of orbits and only 15 non-empty patterns exist in total. Every accepted
+  record has 8 clues — exactly two orbits — and the corpus holds 4 of the 6 two-orbit patterns.
+  One orbit cannot force uniqueness and three does not reach band 1, so 8 clues is the only
+  workable size. `make_plans.mjs` offers rot90 at band 1 only, so that is the entire 4×4 rot90
+  space. Recorded in `queue/saturated.json`.
+- **the plan asked for 50 from a cell whose whole space is 15 clue patterns.** `make_plans.mjs`
+  sizes every plan the same regardless of how large the cell actually is, so a small grid with a
+  strong symmetry will always look like a failed plan. It is not one. A future session should read
+  a `SHORT` line with an all-`duplicate-hash` rejection column as a measurement, not a defect, and
+  should expect the same from the three unmeasured 4×4 band-1 cells still in the queue
+  (`mirror_v`, `none`, `rot180`).
+- **the batch was topped up to clear the 200 minimum**, the same as batch 006 and for the same
+  reason: a short small-grid plan. 205 would have cleared it, but with only 5 puzzles in band 1 the
+  band spread would have been token, so plan 083 (band 1, 6×6 2×3 rot180) was claimed as a sixth.
+  It accepted 50 from 50 attempts, the expected band-1 behaviour explained under `### batch/001`.
+- **there are no 9×9 band-1 plans in the queue and only 10 such records in the corpus** (5 rot90,
+  5 mirror_h), the thinnest band/shape cell that is not a measured-full one. Nothing is wrong with
+  the refiller's duplicate check, which was fixed in batch 005; this is its ranking. When the queue
+  next drops below 20 and refills, check that 9×9 band-1 cells appear in the new plans, and claim
+  one deliberately if they do not.
+
 ### batch/006 — 2026-09-19
 
 **235 accepted, 0 gate rejections, 7,726 generator rejections**, from 7,961 attempts. Five bands,

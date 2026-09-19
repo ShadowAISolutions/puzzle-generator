@@ -2,39 +2,39 @@
   "families": [
     {
       "by_band": {
-        "1": 323,
-        "2": 320,
-        "3": 135,
-        "4": 320,
-        "5": 325
+        "1": 378,
+        "2": 380,
+        "3": 155,
+        "4": 380,
+        "5": 385
       },
       "clue_range": [
         4,
         34
       ],
-      "count": 1423,
+      "count": 1678,
       "display_name": "Classic Sudoku",
       "family": "sudoku-classic",
       "index": "downloads/sudoku-classic.json",
       "player": "site/play/sudoku-classic.html",
       "shapes": {
-        "4x4 (2x2)": 58,
-        "6x6 (2x3)": 62,
+        "4x4 (2x2)": 63,
+        "6x6 (2x3)": 112,
         "6x6 (3x2)": 250,
         "8x8 (2x4)": 270,
         "8x8 (4x2)": 606,
-        "9x9 (3x3)": 177
+        "9x9 (3x3)": 377
       }
     }
   ],
   "totals": {
     "by_band": {
-      "1": 323,
-      "2": 320,
-      "3": 135,
-      "4": 320,
-      "5": 325
+      "1": 378,
+      "2": 380,
+      "3": 155,
+      "4": 380,
+      "5": 385
     },
-    "puzzles": 1423
+    "puzzles": 1678
   }
 }
