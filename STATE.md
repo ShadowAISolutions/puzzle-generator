@@ -4,12 +4,31 @@
 
 *(Anything here must be read before the next puzzle is generated. Empty is the normal state.)*
 
+**0. The loop is stopped. Do not claim batch 013.**
+On 2026-09-19 at 21:16 UTC the repository owner said: "once you push out the next finished game, we
+will stop and re-evaluate what we are doing." Nonogram was the game in flight. It was finished,
+gated and merged as batch 012, and the loop stopped there.
+
+This overrides `CLAUDE.md`'s "do not stop between batches" and its session loop step 11, and it
+overrides them for the daily safety-net routine too — that routine exists to restart a **dead**
+loop, not a **stopped** one. A session that wakes up and finds this entry should not claim plans,
+should not generate, and should not open a pull request. It should say in the thread that the
+project is paused for re-evaluation and wait.
+
+`ASSESSMENT.md` at the repository root is what the re-evaluation is meant to be read from: what
+exists, whether the guarantee is worth anything, what a family actually costs, the three places
+the design fights the plan, and a ranked recommendation.
+
+**Only the owner lifts this.** When they do, delete this entry in the same commit that claims the
+next batch, and record what they decided under `## Decisions`.
+
+
 **3. The corpus no longer generates `sudoku-classic`, or any sudoku variant.**
 On 2026-09-19 the repository owner asked for no more sudoku and for different families going
 forward. Batch 010 was already generated and gated when that arrived and shipped as the last sudoku
 batch; nothing after it generates a sudoku puzzle of any kind. It was read as ruling out the boxed
 variants too — `killer-sudoku`, `thermo-sudoku`, `sandwich-sudoku` — which is the stricter reading,
-and the owner was told that in the thread so he can correct it. The 2,498 existing records stay
+and the owner was told that in the thread so they can correct it. The 2,498 existing records stay
 exactly as they are: they are validated and the instruction is about what gets generated next, not
 about the corpus.
 
@@ -169,7 +188,7 @@ unchanged.
 **The reading of "no more sudoku".** Taken to exclude the boxed variants as well, not only
 `sudoku-classic`. That is the stricter reading; the looser one would have let `killer-sudoku` ship
 quickly, since it is already built and parked in `PROPOSALS/killer-sudoku/`. The owner was told in
-the thread which reading was taken. If he corrects it, the parked family is the fastest thing to
+the thread which reading was taken. If they correct it, the parked family is the fastest thing to
 onboard and its README lists where each file goes.
 
 **What happens to the existing 2,498 records.** Nothing. They are validated, they pass the gate,
@@ -248,11 +267,11 @@ sandbox cannot delete a remote branch: `git push --delete` is refused locally, a
 available here expose no delete-ref call. So a branch per batch was a one-way ratchet. Seven
 branches existed when this was raised: `main`, `preflight/write-test`,
 `claude/project-thread-m3ash8` and `batch/001` to `batch/004`, the last five all merged and dead.
-Deleting those five needs the owner, and he was asked.
+Deleting those five needs the owner, and they were asked.
 
 `CLAUDE.md` still carries the old instruction, because a session cannot edit its own instruction
 file — the attempt was refused as self-modification, which is correct. The exact replacement text
-was given to the owner. `## Standing corrections` at the top of this file governs until he applies
+was given to the owner. `## Standing corrections` at the top of this file governs until they apply
 it.
 
 **The Pages failure was ours, not GitHub's.** Runs 1 and 2 succeeded; 3, 4 and 5 failed, and the
