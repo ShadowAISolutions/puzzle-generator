@@ -16,15 +16,24 @@ ONBOARDING CONTRACT. A new family ships its solver, its reference support, at le
 a green hardening report, calibrated and frozen bands, a working player and its manifest **before
 its first puzzle**.
 
-**Reachable under the schema as frozen** — every one of these has boxes, so its `params` are
-honest:
+**Every family is currently blocked, and the corpus can only grow through `sudoku-classic`.**
+There are two blockers, both on frozen files, both written up and neither applied:
 
-`killer-sudoku`, `thermo-sudoku`, `sandwich-sudoku`.
+- `tools/harden.mjs` can only harden a sudoku digit grid, which blocks all nineteen non-classic
+  families. See `PROPOSALS/2026-09-19-family-agnostic-hardening.md`.
+- `schema/puzzle.schema.json` requires box dimensions in `params`, which blocks the sixteen
+  families that have no boxes. See `PROPOSALS/2026-09-19-family-agnostic-params.md`.
 
-**Waiting on a widened `params`** — see `PROPOSALS/2026-09-19-family-agnostic-params.md`:
+Both need an explicit instruction from the repo owner in a live session. Until then:
 
-`nonogram`, `slitherlink`, `kakuro`, `star-battle`, `hitori`, `masyu`, `akari`, `nurikabe`,
-`skyscrapers`, `futoshiki`, `binairo`, `shikaku`, `heyawake`, `yajilin`, `tents`, `norinori`.
+- `killer-sudoku` is **built and parked** at `PROPOSALS/killer-sudoku/`: solver, reference,
+  generator and canonicaliser written and checked, generating nothing. It needs only the hardening
+  hook, then its fixtures, player and calibration.
+- `thermo-sudoku` and `sandwich-sudoku` would clear the schema, being boxed, and are blocked on
+  hardening alone.
+- `nonogram`, `slitherlink`, `kakuro`, `star-battle`, `hitori`, `masyu`, `akari`, `nurikabe`,
+  `skyscrapers`, `futoshiki`, `binairo`, `shikaku`, `heyawake`, `yajilin`, `tents` and `norinori`
+  are blocked on both.
 
 ## Balance targets
 
@@ -39,6 +48,11 @@ honest:
   would let the same puzzle in disguise enter twice.
 - **Band 3 is scarce** in sudoku, and a 4×4 sudoku has no band above 1. Both are properties of the
   technique ladder, both are measured, and `tools/make_plans.mjs` plans around them.
+- **The frozen hardening suite can only harden a sudoku digit grid.** `tools/harden.mjs` builds
+  its own test instances and all of them are digit grids, so four of its seven passes cannot test
+  a family with another encoding, and its fuzz pass would report a green line having tested
+  nothing. Measured by running it, not inferred. The suite is frozen and was not changed; see
+  `PROPOSALS/2026-09-19-family-agnostic-hardening.md`.
 - **The frozen schema can only express a boxed grid.** `params` requires `size`, `box_h` and
   `box_w`, which describe how a sudoku's boxes tile its grid. Sixteen of the twenty rostered
   families have no boxes and cannot be onboarded without inventing a value for a field that does

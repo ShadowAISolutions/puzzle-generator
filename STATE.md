@@ -171,9 +171,105 @@ missing family that is not already queued, in progress or blocked. And `main()` 
 so importing the module to read `ROSTER` silently refilled the queue; it is now behind the usual
 `import.meta.url` guard.
 
+### 2026-09-19 — the frozen hardening suite can only harden `sudoku-classic`
+
+`tools/harden.mjs` builds its own test instances, and every one of them is a sudoku digit grid on a
+sudoku shape: `randomInstance`, `minimalUniqueInstance` and `fuzzCase` all produce strings of
+digits and dots. Four of the seven passes draw from those three, and there is no hook a family can
+use to supply its own. Run against a family with another encoding, the differential pass fails on
+every instance and the uniqueness-adversarial pass throws and takes the run down. Worse, the fuzz
+pass reports **pass**, because a correct solver rejects every malformed sudoku grid handed to it:
+a green line that tested nothing.
+
+The file is frozen, so it was not changed. The argument, the exact change, and how to verify it
+leaves `sudoku-classic`'s report byte-identical are in
+`PROPOSALS/2026-09-19-family-agnostic-hardening.md`.
+
+**This blocks every remaining family.** Sixteen of the twenty cannot express their params under the
+frozen schema, and all nineteen non-classic families cannot be hardened. A future session should
+read the corpus being 100% sudoku as this, not as a session that forgot to onboard anything.
+
+### 2026-09-19 — killer-sudoku is built and parked, not abandoned
+
+The expensive part of a family is its solver, so it was written before the blocker was found, and
+it is kept. It lives at `PROPOSALS/killer-sudoku/`, which nothing scans and nothing imports, with a
+README giving each file's destination under `solver/` and `generators/`. It is in no registry and
+generates nothing. A directory under `solver/` would fail CI, which requires a passing
+`HARDENING/<family>.md` for every one.
+
+What it is: a 23-technique ladder over four tiers plus bounded search, reusing the frozen classic
+techniques (every classic deduction is valid in killer) and adding six cage rules — `cage_single`,
+`cage_combination`, `cage_hidden_single`, `cage_innie_single`, `cage_innie_set` and
+`cage_group_sum`. Cage distinctness needs no technique: the family's geometry puts cage-mates into
+the peer relation, so the frozen `assign()` propagates it without a frozen file changing.
+
+Measured, not estimated: all five bands are reachable on a 9x9, the technique sets escalate exactly
+as the ladder predicts with `bounded_search` confined to band 5, generation takes 0.1 to 4.0
+seconds per puzzle, and the encoding of a 9x9 with 22 to 38 cages is 126 to 158 characters, inside
+the schema's 256-character limit.
+
+### 2026-09-19 — the corpus's deduplication key was checked against a brute force, and is sound
+
+`solver/sudoku-classic/canonical.mjs` was compared against an obviously correct brute force over
+the family's whole symmetry group, on sixteen corpus records, four at each grid shape. **Exact
+agreement, including at 9x9**, where the brute force enumerates 3,359,232 orientations and takes
+28 seconds for four records.
+
+Worth doing because the killer canonicaliser, written the same week, was wrong. It carried a prefix
+comparison down the recursion, and that comparison is a statement about the running best — which
+goes stale the moment a deeper leaf improves it. The classic one re-derives its comparison for each
+complete candidate, so it never had the bug. The killer one now recomputes from position zero and
+agrees with its own brute force exactly, at 8.8ms against 13.8 seconds.
+
+One trap, recorded so nobody repeats it: the classic canonical encoding orders **givens before
+blanks**, because an empty cell encodes as 255. A brute force that compares the printable strings
+instead puts `.` before `A` and reverses the ordering, and reports a mismatch on every record. The
+first run did exactly that. The checker was wrong, not the frozen file.
+
+### 2026-09-19 — generation and the gate now decide the reference cross-check the same way
+
+`tools/record.mjs` ran the reference brute force on every instance, while `tools/gate.mjs` asks
+`needsReferenceCheck(params, sampleValue(id, 'reference'))`. For `sudoku-classic` the two agree by
+accident, because every supported shape is at or below its `always_at_or_below_size` of 9. For a
+family with an expensive reference they would not: generation would burn a brute force the gate
+never asks for, or ship a record whose cross-check the gate then demands and does not find.
+
+`tools/record.mjs` now computes the canonical hash first and asks the same question with the same
+id-derived sample. `tools/record.mjs` is not frozen. No `sudoku-classic` record changes.
+
 ---
 
 ## Batches
+
+### batch/002 — 2026-09-19
+
+**220 accepted, 0 gate rejections, 4,684 generator rejections**, all `band-mismatch`, from 4,904
+attempts. Five bands, three grid shapes, three symmetries, one family. Corpus after the merge:
+**540 records**, bands `{1:120, 2:120, 3:55, 4:120, 5:125}`.
+
+| plan | accepted | attempts | rejected |
+|---|---:|---:|---:|
+| b1 · 6×6 (3×2) · mirror_v | 50/50 | 50 | 0 |
+| b2 · 8×8 (4×2) · mirror_v | 50/50 | 1,095 | 1,045 |
+| b3 · 9×9 (3×3) · mirror_h | 20/20 | 1,338 | 1,318 |
+| b4 · 8×8 (4×2) · mirror_h | 50/50 | 876 | 826 |
+| b5 · 8×8 (4×2) · mirror_v | 50/50 | 1,545 | 1,495 |
+
+- **the batch that was meant to onboard a second family did not.** Both onboarding plans are in
+  `queue/blocked/` now. The nonogram plan is blocked on the frozen schema's `params`; the
+  killer-sudoku plan on the frozen hardening suite, which only understands sudoku digit grids. Both
+  are written up under `## Decisions` above and in `PROPOSALS/`. Neither frozen file was changed.
+- **killer-sudoku was built anyway** and is parked at `PROPOSALS/killer-sudoku/`. The solver is the
+  expensive part of a family and it is done and checked; the blocker is one hook in the hardening
+  suite. Building it is also what turned up the canonicaliser bug and the confirmation that the
+  classic canonicaliser is sound, both recorded above.
+- **health signal.** All 220 canonical hashes and seeds distinct. Technique sets escalate as the
+  ladder predicts, `bounded_search` in band 5 and no other. Score ranges by band: 20–26, 44–74,
+  63–108, 82–266, 221–526. The band-1 plan again accepted 50 from 50 attempts, which is expected
+  and explained under `### batch/001`; a zero rejection rate on any other plan is a defect.
+- **band 3 at 9×9 cost 1,318 rejections for 20 puzzles**, a 1.5% acceptance rate against 2.0% in
+  batch 001 and the 3% measured in Phase 0. Still inside what the 400× attempt budget covers, but
+  the trend is worth watching: two batches now below the calibrated rate.
 
 ### batch/001 — 2026-09-19
 
