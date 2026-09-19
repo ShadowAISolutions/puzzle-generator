@@ -4,13 +4,13 @@
     "2": 50,
     "3": 50,
     "4": 40,
-    "5": 13
+    "5": 21
   },
   "clue_range": [
     12,
     49
   ],
-  "count": 203,
+  "count": 211,
   "family": "binairo",
   "puzzles": [
     {
@@ -104,6 +104,15 @@
       "size": 12
     },
     {
+      "band": 5,
+      "box": "12x12",
+      "clues": 42,
+      "depth": 1,
+      "id": "0f36d8f3b3f2bd88",
+      "score": 566,
+      "size": 12
+    },
+    {
       "band": 1,
       "box": "6x6",
       "clues": 18,
@@ -120,6 +129,15 @@
       "id": "1030c67173e7d86c",
       "score": 96,
       "size": 8
+    },
+    {
+      "band": 5,
+      "box": "12x12",
+      "clues": 48,
+      "depth": 1,
+      "id": "10491e48a6f467f0",
+      "score": 485,
+      "size": 12
     },
     {
       "band": 3,
@@ -182,6 +200,15 @@
       "depth": 0,
       "id": "1cfd289fcc0b9387",
       "score": 446,
+      "size": 12
+    },
+    {
+      "band": 5,
+      "box": "12x12",
+      "clues": 38,
+      "depth": 1,
+      "id": "1e752c62b6d77545",
+      "score": 570,
       "size": 12
     },
     {
@@ -461,6 +488,15 @@
       "depth": 0,
       "id": "4f98ec464ca43894",
       "score": 467,
+      "size": 12
+    },
+    {
+      "band": 5,
+      "box": "12x12",
+      "clues": 38,
+      "depth": 1,
+      "id": "51cf23ff06293f74",
+      "score": 694,
       "size": 12
     },
     {
@@ -851,6 +887,15 @@
       "size": 8
     },
     {
+      "band": 5,
+      "box": "12x12",
+      "clues": 40,
+      "depth": 2,
+      "id": "8385830427d6148d",
+      "score": 494,
+      "size": 12
+    },
+    {
       "band": 3,
       "box": "10x10",
       "clues": 32,
@@ -1204,6 +1249,15 @@
     {
       "band": 5,
       "box": "12x12",
+      "clues": 40,
+      "depth": 2,
+      "id": "b0e84eb4e6dffd64",
+      "score": 647,
+      "size": 12
+    },
+    {
+      "band": 5,
+      "box": "12x12",
       "clues": 39,
       "depth": 1,
       "id": "b130cc2d2cbdce6f",
@@ -1409,6 +1463,15 @@
       "size": 6
     },
     {
+      "band": 5,
+      "box": "12x12",
+      "clues": 38,
+      "depth": 4,
+      "id": "c9216b8afd76132f",
+      "score": 525,
+      "size": 12
+    },
+    {
       "band": 2,
       "box": "8x8",
       "clues": 22,
@@ -1596,6 +1659,15 @@
       "id": "e6643d4d041eb71c",
       "score": 268,
       "size": 10
+    },
+    {
+      "band": 5,
+      "box": "12x12",
+      "clues": 38,
+      "depth": 3,
+      "id": "e7c0c7cace42af0c",
+      "score": 521,
+      "size": 12
     },
     {
       "band": 5,
@@ -1843,7 +1915,7 @@
   ],
   "shapes": {
     "10x10": 50,
-    "12x12": 53,
+    "12x12": 61,
     "6x6": 50,
     "8x8": 50
   }

@@ -49,6 +49,18 @@ function shapeLabel(rec) {
   return '';
 }
 
+// The one number the browse page sorts and filters grids by. A family whose
+// params carry no `size` -- nonogram's grids need not be square -- is measured
+// by its longer side, so a 10x15 sorts with the 15s. Reading `params.size`
+// directly put `null` in that column for every nonogram and broke the filter
+// for the whole family.
+function shapeSize(rec) {
+  const p = rec.params ?? {};
+  if (p.size != null) return p.size;
+  if (p.rows != null && p.cols != null) return Math.max(p.rows, p.cols);
+  return null;
+}
+
 // One compact row per puzzle. Kept small on purpose: a family index must stay
 // under 5MB, and these are what the browse page filters over.
 function row(rec) {
@@ -57,7 +69,7 @@ function row(rec) {
     band: rec.difficulty.band,
     score: rec.difficulty.score,
     clues: rec.clues,
-    size: rec.params.size,
+    size: shapeSize(rec),
     box: shapeLabel(rec),
     depth: rec.difficulty.max_search_depth,
   };
@@ -141,7 +153,7 @@ function renderIndex(summary, byFamily) {
   const inline = JSON.stringify({
     families: summary.families.map((f) => ({ family: f.family, display_name: f.display_name, player: f.player })),
     puzzles: [...byFamily.entries()].flatMap(([family, list]) =>
-      list.map((r) => [family, r.id, r.difficulty.band, r.clues, r.params.size, shapeLabel(r), r.difficulty.score])),
+      list.map((r) => [family, r.id, r.difficulty.band, r.clues, shapeSize(r), shapeLabel(r), r.difficulty.score])),
   });
 
   return `<!doctype html>

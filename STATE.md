@@ -68,6 +68,55 @@ stops Pages running Jekyll over the corpus at all. Fixed in batch 005.
 
 Decisions that settle an ambiguous choice, so no future session re-litigates them.
 
+### 2026-09-19 — measuring a tier is not enough; measure it *at grid level*
+
+The decision below says a technique tier must be measured rather than asserted. Nonogram proved
+that half-right and then proved the other half the hard way, so this sharpens it.
+
+The nonogram line reasoner's three tiers were measured on single lines and are real there: tier 2
+beats tier 1 on 22.4% of lines, tier 3 beats tier 2 on 8.9%. Built into a grid ladder, **tier 3
+became a rung nothing could stand on.** A grid is swept row and column alternately until nothing
+moves, and that iteration recovers what full line solving knows that run bounds does not. Measured
+over 40 grids run-bound propagation could not finish: full line solving finished **none** of them
+and cell contradiction finished all 40.
+
+A gain on one line is not a gain on a grid. **The measurement that counts is: among grids the tier
+below cannot finish, how many does this tier finish?** If the answer is zero, the band that names
+it is a label no puzzle can earn, and freezing it would have shipped a lie in every record.
+
+Nonogram's frozen ladder separates by how hard the solver may think inside a hypothesis — overlap,
+then complete line reasoning, then a hypothesis refuted by overlap alone, then a hypothesis worked
+out with full line reasoning — because that distinction survives the iteration. `line.mjs` keeps
+its own three line tiers, which are exact and validated; the grid ladder uses the first and the
+third. The reasoning is in `solver/nonogram/bands.json` under `ladder_note` and in
+`HARDENING/nonogram.notes.md`.
+
+### 2026-09-19 — a family need not have all five bands, and nonogram does not
+
+A band is defined by a family's own technique ladder, so a family only has the bands its ladder
+produces. **No band-5 nonogram has been observed at any supported shape**: a hypothesis on a single
+cell, worked out with full line reasoning, resolves every unique nonogram measured. Band 4 exists
+and is scarce — about one hill climb in thirty at 12x12.
+
+This is recorded, not engineered around. `tools/make_plans.mjs` queues no band-5 nonogram plan,
+because a plan that cannot be met wastes a batch; `tools/make_fixtures.mjs` attempts band 5 at every
+shape on every run, so the day one appears there is a fixture for it. Do not manufacture a band-5
+nonogram by weakening anything to reach it.
+
+The consequence for the batch rules is in `ASSESSMENT.md`: "all five bands in every batch" really
+means "keep one family in the batch whose ladder is deep enough", which is a weaker property than
+it sounds.
+
+### 2026-09-19 — a fulfilled plan leaves queue/in-progress/ when its batch merges
+
+`CLAUDE.md` step 4 moves five plans into `queue/in-progress/` and nothing in the loop ever moves
+them out. Left alone they are re-claimed and re-run every batch, against a corpus that already
+holds their output, and the whole run is spent producing duplicate hashes.
+
+So: **when a batch merges, delete the plans it claimed.** Not a new directory — `queue/done/` was
+tried in batch 011 and reverted as an invention — just a delete, recorded in that batch's entry.
+Batch 011's five were cleared at the start of batch 012.
+
 ### 2026-09-19 — binairo went first, not nonogram, and a family's tiers must be measured
 
 Nonogram was the roster's next family and the one the build started on. It turned out to be blocked
@@ -499,6 +548,64 @@ id-derived sample. `tools/record.mjs` is not frozen. No `sudoku-classic` record 
 ---
 
 ## Batches
+
+### batch/012 — 2026-09-19 — nonogram onboarded, and the last batch before a re-evaluation
+
+**330 accepted, 2,645 generator rejections**, from 2,975 attempts. Five bands, seven grid shapes,
+two families. Corpus: **3,031 records**, bands `{1:708, 2:671, 3:505, 4:581, 5:566}`.
+
+- **accepted:** nonogram 322 (b1 120, b2 81, b3 120, b4 1), binairo 8 (all b5)
+- **rejected:** 2,645 (band-mismatch 2,643, timeout 2)
+- **families:** nonogram, binairo
+- **blocked:** none
+
+| plan | accepted | attempts |
+|---|---:|---:|
+| binairo · b5 · 12×12 · mirror_h | 8/40 | 2,238 |
+| nonogram · b4 · 10×10 | 1/6 | 366 |
+| nonogram · b1 · 6×6 | 40/40 | 40 |
+| nonogram · b2 · 8×8 | 40/40 | 48 |
+| nonogram · b3 · 10×10 | 40/40 | 47 |
+| nonogram · b1 · 5×5 | 40/40 | 40 |
+| nonogram · b2 · 6×6 | 40/40 | 65 |
+| nonogram · b3 · 8×8 | 40/40 | 44 |
+| nonogram · b1 · 8×8 | 40/40 | 40 |
+| nonogram · b3 · 5×8 | 40/40 | 46 |
+
+**Ten plans, not five, and why.** `CLAUDE.md` step 4 claims five; the batch target is 200 to 400
+accepted. Those two conflict when a plan asks for 40. The first five plans produced 129, because
+two of them were scarce-band plans that spend their whole time share and come up short by design.
+A second wave of five nonogram plans was claimed and run into the same batch and produced 200 more
+in **twelve seconds**. If only one of the two numbers can be met, the accepted count is the one
+that speaks to value, so that is the one that was met. The deviation is here rather than silent.
+
+**The two short plans went back to `queue/`, not to `queue/blocked/`.** Neither is blocked. Binairo
+band 5 at 12×12 yields about one puzzle per 280 attempts and nonogram band 4 about one per 366;
+both ran out of their time share, which is a budget fact, not an obstacle a future session could
+clear. Blocking them would say something untrue about the family. The other eight plans were
+fulfilled and deleted, per the decision above.
+
+**Nonogram is 98% of the batch, and the 40% rule still cannot be met.** Two usable families cannot
+produce a batch where neither exceeds 40%. This is the second batch in a row to record that. It is
+argued properly in `ASSESSMENT.md`; the short version is that the rule should start applying at
+family four rather than being logged as an exception every batch.
+
+**learned — a nonogram generates about 250 times faster than a binairo.** Wave 2 wrote 200 records
+in 12 seconds, at roughly one acceptance per 1.1 attempts. The reason is structural: a nonogram's
+clues are a function of its solution, so any grid whose clues happen to be unambiguous is a puzzle,
+and most grids are. Binairo has to dig a grid down to a fixpoint and check uniqueness at every
+step. When planning a batch, a nonogram plan costs almost nothing and a scarce-band binairo plan
+costs its entire time share.
+
+**learned — `pgrep -f` matches the shell that holds your script.** A chained "wait for the
+generator, then run the next wave" script never advanced, because the wrapper shell's own command
+line contained the heredoc, so the pattern always matched something. This is the same self-match
+that killed a shell with `pkill -f` earlier in the project. **Wait on a PID, never on a pattern.**
+
+**learned — band 4 exists for nonogram but is genuinely scarce.** 366 attempts produced one. It is
+the only band-4 nonogram in the corpus, and it is real: the fixture set holds another, and both are
+recorded at band 4 by the solver rather than by the plan that asked for it.
+
 
 ### batch/011 — 2026-09-19 — binairo onboarded, and the first non-sudoku puzzles
 

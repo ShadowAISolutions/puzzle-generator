@@ -1,0 +1,3004 @@
+{
+  "band": 2,
+  "count": 81,
+  "family": "nonogram",
+  "puzzles": [
+    {
+      "batch": "012",
+      "canonical_hash": "0d3ebcd38678f621b3c0179127466ab62e8343b4c9904d0f1a6773b8c6b2837a",
+      "clues": 19,
+      "created_at": "2026-09-19T21:40:34.903Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "0d3ebcd38678f621",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "2,111,11,3,1,11|1,,21,21,11,22",
+      "seed": "012|138-nonogram-b2-6x6-none-40|8",
+      "solution": "...##.#..#.#..#..#..###......#..#..#",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "0e23733361001fc04f99562802625b6e7994cc7f8794a18acf0849f61b06c4f7",
+      "clues": 34,
+      "created_at": "2026-09-19T21:39:32.744Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "0e23733361001fc0",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "13,14,22,12,131,1,131,11|34,2,1,111,311,211,22,12",
+      "seed": "012|142-nonogram-b2-8x8-none-40|22",
+      "solution": "#...###.#...######.##....#...##.#.###.#.#.......#..###.##......#",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "0e93a0f413dcae808afe9fb58c705902e43f2cd86a18b2795978ca96cd434414",
+      "clues": 29,
+      "created_at": "2026-09-19T21:39:34.591Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "0e93a0f413dcae80",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "12,111,4,113,12,1,2,111|212,2,11,2,13,41,3,1",
+      "seed": "012|142-nonogram-b2-8x8-none-40|41",
+      "solution": "#...##..#..#.#.....####.#.#.###.....#.##.#......##......#.#..#..",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "117468996a695bf64815ce6a3bb82b2bebf5f9f6e058ef94641f5cad75e1ce77",
+      "clues": 20,
+      "created_at": "2026-09-19T21:40:35.494Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "117468996a695bf6",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "12,4,11,1,31,12|12,11,5,2,12,11",
+      "seed": "012|138-nonogram-b2-6x6-none-40|13",
+      "solution": "#.##...####...#..#..#...###.#.#...##",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "12b3d44339cb31265913be608d5f98596fece1e1a048b38f81be3d6a6b807151",
+      "clues": 28,
+      "created_at": "2026-09-19T21:39:31.803Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "12b3d44339cb3126",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "3,11,11,32,22,12,33,32|12,122,15,2,5,4,2,12",
+      "seed": "012|142-nonogram-b2-8x8-none-40|14",
+      "solution": "###.........#..##...#...###.##...##.##....#.##...###.###.###..##",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "14e2bb4200a6de7eeb0f36ebc3f8d5029bf6056dfbe8846ce8e7c72580a00c9d",
+      "clues": 31,
+      "created_at": "2026-09-19T21:39:33.025Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "14e2bb4200a6de7e",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "11,1111,5,3,22,2,11,12|4,13,11,2,111,2,111,212",
+      "seed": "012|142-nonogram-b2-8x8-none-40|26",
+      "solution": "..#.#....#.#.#.#...########.....##....####......#......#....#.##",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "164ccedddfb46dcbc491d5a05cd9c356038abd2585a405e241d5e47b5b445e79",
+      "clues": 34,
+      "created_at": "2026-09-19T21:39:31.299Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "164ccedddfb46dcb",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "22,41,2,22,23,3,1,24|11,221,211,11,121,1112,51,11",
+      "seed": "012|142-nonogram-b2-8x8-none-40|9",
+      "solution": ".##..##..####.#......##..##...####..###...###........#..##..####",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "216b9188ef74518b17fed01061eb0c72b74dcc30f9bc980eedbf4ae8f114dd22",
+      "clues": 41,
+      "created_at": "2026-09-19T21:39:30.183Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "216b9188ef74518b",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "1111,1111,13,12,32,52,211,111|12,114,13,13,111,111,5,123",
+      "seed": "012|142-nonogram-b2-8x8-none-40|3",
+      "solution": ".#.#.#.##.#.#.#..#...###..#...##.###.##.#####.####.#...#.#..#..#",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "225a51d19c7fc0792752095bfd50f3e94c75c2854e84848802e4272e7d7e6ee0",
+      "clues": 21,
+      "created_at": "2026-09-19T21:40:35.636Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "225a51d19c7fc079",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "11,11,2,12,21,111|3,21,1,22,2,11",
+      "seed": "012|138-nonogram-b2-6x6-none-40|14",
+      "solution": ".#.#...#.#......###..##.##.#..#.#..#",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "239006da0ca52fe1791efcadeb29c83b4723303aa2175d9a8fcbe3c90b4aa34e",
+      "clues": 33,
+      "created_at": "2026-09-19T21:39:34.707Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "239006da0ca52fe1",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "2,22,31,111,12,1112,12,31|11,1,311,22,111,1,7,23",
+      "seed": "012|142-nonogram-b2-8x8-none-40|45",
+      "solution": "......##..##..##..###.#.#.#...#..#...##.#.#.#.##...#..##..###..#",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "255da511f8671b5b59cd2487088161bccb303870a08b37242b7baedffeafae9c",
+      "clues": 37,
+      "created_at": "2026-09-19T21:39:32.588Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "255da511f8671b5b",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "112,411,312,3,11,3,21,12|41,31,311,21,111,211,111,21",
+      "seed": "012|142-nonogram-b2-8x8-none-40|21",
+      "solution": "#..#.##.####.#.####.#.#####..........#.#..###...##....#...#.##..",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "25b9df306d554c60e57cd18221952de0ca05afd5fda44b085529d2b9c154205b",
+      "clues": 39,
+      "created_at": "2026-09-19T21:39:29.564Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "25b9df306d554c60",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "24,121,11,12,15,2,111,131|121,111,13,121,51,111,111,22",
+      "seed": "012|142-nonogram-b2-8x8-none-40|0",
+      "solution": ".##.#####..##..#....#.#.#..##...#.#####..##.....#.#....#.#.###.#",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "25c33318c5fc59f243c47d8d71ec6777d533a8d0b8b097583c07f85fa0a3f8c7",
+      "clues": 21,
+      "created_at": "2026-09-19T21:40:36.488Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "25c33318c5fc59f2",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "11,11,11,11,111,12|12,,6,1,1,111",
+      "seed": "012|138-nonogram-b2-6x6-none-40|26",
+      "solution": "..#..##.#.....#..#..#.#.#.#..##.##..",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "28a0e0665400fe2ecf0da057326175fcd91407805c816d8874242dc524f7df76",
+      "clues": 19,
+      "created_at": "2026-09-19T21:40:38.844Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "28a0e0665400fe2e",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "2,5,4,11,11,23|12,31,3,5,21,11",
+      "seed": "012|138-nonogram-b2-6x6-none-40|55",
+      "solution": ".##...#####..####....#.##..#..##.###",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "28d336027591f25b68e82ef70b46e3919363ad1608dc1a1a74d81c13094ea53a",
+      "clues": 35,
+      "created_at": "2026-09-19T21:39:33.265Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "28d336027591f25b",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "111,14,111,22,111,24,21,211|16,113,1,3,15,31,11,21",
+      "seed": "012|142-nonogram-b2-8x8-none-40|29",
+      "solution": "#.#..#...#.####.#..#.#..##.##...#...#..###..######..#...##..#..#",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "2a95aec75cfaf65498a5b0e4fbea8ffd27fb3e603bcbefd466f408bf968fcac8",
+      "clues": 34,
+      "created_at": "2026-09-19T21:39:33.262Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "2a95aec75cfaf654",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "2,1111,122,2,1,121,22,23|21,11,2,121,32,11,112,23",
+      "seed": "012|142-nonogram-b2-8x8-none-40|28",
+      "solution": "..##....#.#.#..##..##.##...##.........#..#..##.#...##.####...###",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "33dedb9ab0ce06a5eef0d43823e43fc72e002d5ec0a0a959674f4689a8782312",
+      "clues": 44,
+      "created_at": "2026-09-19T21:39:33.628Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "33dedb9ab0ce06a5",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "11,113,211,211,121,411,112,111|13,1211,22,13,111,111,121,23",
+      "seed": "012|142-nonogram-b2-8x8-none-40|32",
+      "solution": ".#.#....#.#..###.##.#..###.#..#.#..##.#.####.#.#..#.#.##.#...#.#",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "34fb50ad92b535b5a76a6ac3f931d4147a47b798ef2d470d5b6518c5d9fc8ff5",
+      "clues": 20,
+      "created_at": "2026-09-19T21:40:36.513Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "34fb50ad92b535b5",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "12,12,12,11,3,11|21,2,32,21,1,2",
+      "seed": "012|138-nonogram-b2-6x6-none-40|27",
+      "solution": "#.##..#.##....#.##.#...#.###..#.#...",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "385ad9114df886557ea73da1d056774ed43edcb32506b60933579a312b432782",
+      "clues": 18,
+      "created_at": "2026-09-19T21:40:37.146Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "385ad9114df88655",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "11,12,12,11,4,11|2,2,5,12,3,1",
+      "seed": "012|138-nonogram-b2-6x6-none-40|33",
+      "solution": "#.#...#.##....#.##..#.#..####..#.#..",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "40d11c6b80e7a20f8ed076293d89fd42c4eefd8d15279ce10d32858954aa5bda",
+      "clues": 33,
+      "created_at": "2026-09-19T21:39:33.717Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "40d11c6b80e7a20f",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "2,111,121,11,1,12,131,51|211,12,31,23,4,111,11,1",
+      "seed": "012|142-nonogram-b2-8x8-none-40|33",
+      "solution": ".##.....#.#..#..#.##..#....#.#......#...#..##....#.###.######.#.",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "4117fc6c22f6da2e941436143479fd5495222a27a0839afd7665d57c10245177",
+      "clues": 34,
+      "created_at": "2026-09-19T21:39:29.974Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "4117fc6c22f6da2e",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "31,12,111,23,21,22,13,3|1,12,221,14,1111,21,14,12",
+      "seed": "012|142-nonogram-b2-8x8-none-40|2",
+      "solution": "###.#.....#...##.#.#.#...##.###...##..#....##.##...#.###..###...",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "45583ff86774cb5051495eeed6bc64681e1551dd664fcee95d5526da31751cd0",
+      "clues": 23,
+      "created_at": "2026-09-19T21:40:38.886Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "45583ff86774cb50",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "111,3,11,12,21,12|13,1,111,31,21,2",
+      "seed": "012|138-nonogram-b2-6x6-none-40|56",
+      "solution": "#.#.#....###...#.##.##..##..#.#.##..",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "45dd5c4142e3c63a56b4b063ece7557f36b78bdc7661af1c2f2a2a0a1a3914b2",
+      "clues": 19,
+      "created_at": "2026-09-19T21:40:38.619Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "45dd5c4142e3c63a",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "11,2,31,4,1,3|11,11,4,21,11,12",
+      "seed": "012|138-nonogram-b2-6x6-none-40|53",
+      "solution": "...#.#...##.###..#..####..#...###...",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "48f6dc3116f72f5642cd83eadc14a3f7fe43b3cbbb0967da6851085e0e53815c",
+      "clues": 32,
+      "created_at": "2026-09-19T21:39:33.586Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "48f6dc3116f72f56",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "3,113,4,4,11,121,21,3|1,112,121,41,41,21,111,12",
+      "seed": "012|142-nonogram-b2-8x8-none-40|31",
+      "solution": ".###....#..#.###..####...####.......#.#..#.##..#.##....#....###.",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "4a149c6f791fd8ad3d5bb7d961d80104c4e220697c35167dfb1eb45a0bedb709",
+      "clues": 19,
+      "created_at": "2026-09-19T21:40:38.106Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "4a149c6f791fd8ad",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "11,12,1,11,23,3|1,22,1,3,22,12",
+      "seed": "012|138-nonogram-b2-6x6-none-40|47",
+      "solution": ".#..#..#..##..#....#.#..##.###...###",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "4a78180153da42f9255e681d2e8998c76c7a0190d096fbffd6c542f0a762d364",
+      "clues": 35,
+      "created_at": "2026-09-19T21:39:32.166Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "4a78180153da42f9",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "11,32,33,32,111,1121,21,11|22,21,5,22,22,121,41,11",
+      "seed": "012|142-nonogram-b2-8x8-none-40|17",
+      "solution": "...#.#....###.#####.###.###..##...#.#.#.#.#.##.###.#.......#..#.",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "4ae51c399e7ab9c9345012eb3f68cdc5e28e83e353f9e7b47b17e7f4c1c25221",
+      "clues": 24,
+      "created_at": "2026-09-19T21:40:35.749Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "4ae51c399e7ab9c9",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "22,11,13,111,1,21|21,111,3,3,111,11",
+      "seed": "012|138-nonogram-b2-6x6-none-40|15",
+      "solution": ".##.###.#...#.###..#.#.#...#..##..#.",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "4b35dd7213e101970da41abab464be1d98c158a09927a756a4795238b8f50caa",
+      "clues": 21,
+      "created_at": "2026-09-19T21:40:37.801Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "4b35dd7213e10197",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "3,11,11,11,22,111|12,13,21,2,2,2",
+      "seed": "012|138-nonogram-b2-6x6-none-40|40",
+      "solution": "###.....#..#.#...#.#.#..##.##.#.#.#.",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "595e757561bd25651401f990c724cf3f809c18ce448980deab80f3ca9bffc1ee",
+      "clues": 21,
+      "created_at": "2026-09-19T21:40:35.434Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "595e757561bd2565",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "31,1,12,4,12,11|1,111,13,12,3,21",
+      "seed": "012|138-nonogram-b2-6x6-none-40|12",
+      "solution": ".###.#.....##.##...####...#.##.#..#.",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "5dc0c480087adbf87826ac8bb54fd31b4158d975a019d53afe221aa16a7fec9a",
+      "clues": 19,
+      "created_at": "2026-09-19T21:40:35.775Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "5dc0c480087adbf8",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "2,11,11,4,12,11|12,2,1,2,12,22",
+      "seed": "012|138-nonogram-b2-6x6-none-40|16",
+      "solution": "....###....#.#.#...####.#...###....#",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "5dd8dcb74f76d852b1349acd4ca89aaec5b5a389ccf379cc1ab077910d877250",
+      "clues": 28,
+      "created_at": "2026-09-19T21:39:33.820Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "5dd8dcb74f76d852",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "11,41,4,22,41,13,2,12|111,4,5,21,211,15,2,2",
+      "seed": "012|142-nonogram-b2-8x8-none-40|35",
+      "solution": ".....#.#####...#.####....##.##..####.#....#.###......##.#...##..",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "611e40a58d12bc2a2107e800d275c9245fe42c2fb77a52c8ec440bc76670bc6f",
+      "clues": 35,
+      "created_at": "2026-09-19T21:39:34.636Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "611e40a58d12bc2a",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "31,11,211,15,33,111,11,21|121,31,111,21,123,2,51,2",
+      "seed": "012|142-nonogram-b2-8x8-none-40|42",
+      "solution": "###.#....#....#.##..#.#.#..#####.###.####...#.#...#.#......##.#.",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "61d8d76e76be86eb56b353e4ba7aa85f677272faac576d793e4daa49ee102a52",
+      "clues": 35,
+      "created_at": "2026-09-19T21:39:34.576Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "61d8d76e76be86eb",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "122,21,6,12,4,12,13,11|211,21,13,16,111,112,1111,1",
+      "seed": "012|142-nonogram-b2-8x8-none-40|40",
+      "solution": "#.##.##.##.....#.######.#.##.....####......#.##.#..###.....#..#.",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "65a27e0c0d6f01cf42f7d72135ee29e778f4e725f1ab93019cea6344c94b03fe",
+      "clues": 19,
+      "created_at": "2026-09-19T21:40:35.925Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "65a27e0c0d6f01cf",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "22,11,12,2,12,1|1,12,4,2,11,21",
+      "seed": "012|138-nonogram-b2-6x6-none-40|21",
+      "solution": ".##.##..#..##.##....##...#..##.#....",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "68868144b2d66f61a08b027e605bbce90dfaab2b43479b068b1ed81bc2e0a347",
+      "clues": 31,
+      "created_at": "2026-09-19T21:39:30.196Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "68868144b2d66f61",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "4,3,13,121,13,11,311,22|5,12,21,2,111,41,31,23",
+      "seed": "012|142-nonogram-b2-8x8-none-40|4",
+      "solution": "....####.....###.#..###.#.##.#..#.###...#......####..#.###....##",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "697460703321d7023a9315a2244e04d3f8caef4d9f83c32f46c8b574e577761c",
+      "clues": 18,
+      "created_at": "2026-09-19T21:40:37.626Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "697460703321d702",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "1,3,2,11,3,111|11,1,12,4,11,2",
+      "seed": "012|138-nonogram-b2-6x6-none-40|38",
+      "solution": ".....#...###..##..#..#...###..#.#.#.",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "697a230ba8c18a2fe010675ef87713fa8812088456e24df9619c760cd233af0b",
+      "clues": 42,
+      "created_at": "2026-09-19T21:39:31.382Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "697a230ba8c18a2f",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "111,121,122,12,212,211,111,13|22,13,22,21,111,111,131,212",
+      "seed": "012|142-nonogram-b2-8x8-none-40|10",
+      "solution": ".#..#.#.#.##...##.##..##.#...##.##..#.####.#.#....#.#..#..#..###",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "75765796ba718f6f1e3814cbc7d02ac3bc91e3783b18c2053f9472947da42626",
+      "clues": 23,
+      "created_at": "2026-09-19T21:40:34.708Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "75765796ba718f6f",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "2,31,111,111,31,11|21,22,31,11,2,3",
+      "seed": "012|138-nonogram-b2-6x6-none-40|7",
+      "solution": ".##...###.#.#.#.#..#.#.####..#...#.#",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "7b169f149eb2f8e16aecd2d6cc42dc265e85921969e7bfc76e7f1c06288491d7",
+      "clues": 21,
+      "created_at": "2026-09-19T21:40:37.999Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "7b169f149eb2f8e1",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "11,11,3,13,11,12|21,11,4,12,11,2",
+      "seed": "012|138-nonogram-b2-6x6-none-40|44",
+      "solution": "#..#..#.#....###..#.###...#..#.#..##",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "7d5a9d0bfc01f4f24794d5dea4ff4c806c48d5b3a5441bcdff3a4b5d6a1ae05d",
+      "clues": 20,
+      "created_at": "2026-09-19T21:40:35.797Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "7d5a9d0bfc01f4f2",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "21,11,3,12,31,2|12,12,4,11,3,11",
+      "seed": "012|138-nonogram-b2-6x6-none-40|18",
+      "solution": "##.#....#..#..###...#.#####.#.##....",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "7f9439bc90c1b45913b8a12907b17ffb09b4d864a159532e414dabeeea1f11e5",
+      "clues": 19,
+      "created_at": "2026-09-19T21:40:34.040Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "7f9439bc90c1b459",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "2,11,111,5,31,1|4,2,13,21,21,1",
+      "seed": "012|138-nonogram-b2-6x6-none-40|1",
+      "solution": "..##..#..#..#.#.#.#####.###..#....#.",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "8078fa675a56c44ebb7741436247805cebf5f1009152be1b169c2b42545d62b7",
+      "clues": 22,
+      "created_at": "2026-09-19T21:40:39.941Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "8078fa675a56c44e",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "21,11,13,12,12,21|14,21,1,12,12,3",
+      "seed": "012|138-nonogram-b2-6x6-none-40|64",
+      "solution": "##..#..#...##..####...###.##..##.#..",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "8a81f39cc5146b0cce12823260c89bed6c18e7200a039d5a10f79898d3f9a013",
+      "clues": 35,
+      "created_at": "2026-09-19T21:39:32.779Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "8a81f39cc5146b0c",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "11,121,11,15,111,11,7,121|22,23,12,12,32,222,11,11",
+      "seed": "012|142-nonogram-b2-8x8-none-40|23",
+      "solution": ".#...#...#..##.##...#...#.#####..#...#.#.#..#...#######.#.##.#..",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "8eb9d75266c069f8059866eccb0f661f9104406d3e417d02f85fb8abffbf8ae0",
+      "clues": 24,
+      "created_at": "2026-09-19T21:40:37.823Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "8eb9d75266c069f8",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "31,11,12,11,12,2|111,111,22,11,12,1",
+      "seed": "012|138-nonogram-b2-6x6-none-40|41",
+      "solution": "###.#...#..##..##..#..#.#.##...##...",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "8ed9ee7bd81c02b3d8673a35e520018f333901dd0d3414f30a1b27d5173e6e26",
+      "clues": 35,
+      "created_at": "2026-09-19T21:39:30.518Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "8ed9ee7bd81c02b3",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "1,13,14,211,33,13,111,3|121,4,111,111,33,112,31,11",
+      "seed": "012|142-nonogram-b2-8x8-none-40|7",
+      "solution": ".....#..#.###....#..######..#.#.###..###.#.###..#...#.#...###...",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "9144af9aa9d33da651d9086e0534c5f988e7cb0e0ff986e305f36c5f0194c341",
+      "clues": 36,
+      "created_at": "2026-09-19T21:39:31.797Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "9144af9aa9d33da6",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "41,22,111,3,121,21,3,12|112,111,311,211,12,11,13,21",
+      "seed": "012|142-nonogram-b2-8x8-none-40|13",
+      "solution": "####...#..##..###.#.#........####.##..#.##....#...###....#..##..",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "916b92f95379a2efccb737d01cd817a6446dd7a2db59031d44f7c38d04d700f0",
+      "clues": 22,
+      "created_at": "2026-09-19T21:40:37.541Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "916b92f95379a2ef",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "4,111,5,11,1,12|11,12,12,3,111,31",
+      "seed": "012|138-nonogram-b2-6x6-none-40|36",
+      "solution": "..#####..#.#.######.#....#.....#..##",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "949b0ad622ac56c993d955393f1ae5f67bd09900cc5beb9bdf8e4b65a9550905",
+      "clues": 19,
+      "created_at": "2026-09-19T21:40:39.518Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "949b0ad622ac56c9",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "12,11,21,2,12,3|2,3,112,2,11,3",
+      "seed": "012|138-nonogram-b2-6x6-none-40|61",
+      "solution": "..#.##.#...#.##..###....#.##....###.",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "998ec703c836de39d4a89a06cda63e1eb046363383e1386f3ffcb7d78e6ef915",
+      "clues": 20,
+      "created_at": "2026-09-19T21:40:38.024Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "998ec703c836de39",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "1,4,11,111,3,31|11,13,22,4,1,11",
+      "seed": "012|138-nonogram-b2-6x6-none-40|46",
+      "solution": "..#....####.#..#...#.#.#.###..###..#",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "9da213bd543c9e4c0fbb570b157de784eee4ef112649f123c1594529230be0ef",
+      "clues": 29,
+      "created_at": "2026-09-19T21:39:33.805Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "9da213bd543c9e4c",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "24,31,111,31,1,4,3,2|3,21,111,123,13,112,2,2",
+      "seed": "012|142-nonogram-b2-8x8-none-40|34",
+      "solution": "##.####.###...#.#..#.#...###...#.......#..####.....###.....##...",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "a2c3a5038fd8dc8d14a4da660a5da426a64d62d5b435440ad85b087b57994c8e",
+      "clues": 33,
+      "created_at": "2026-09-19T21:00:00.000Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "a2c3a5038fd8dc8d",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "121,22,131,111,12,31,2,1|31,11,11,11,61,2,111,31",
+      "seed": "gatecheck-1",
+      "solution": "#..##.#.##..##..#..###.#..#.#..#....#.#####.#.........##....#...",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "a4a85f030fee67e8e04c80dbfe87f92a26d632db3c372e6b74fe1b7e16ea6eb4",
+      "clues": 22,
+      "created_at": "2026-09-19T21:40:35.792Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "a4a85f030fee67e8",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "11,31,11,111,3,11|1,3,21,12,11,13",
+      "seed": "012|138-nonogram-b2-6x6-none-40|17",
+      "solution": "#.#....###.#.#..#..#.#.#...###..#..#",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "b1c761713b2f0fadf9d4a0a333df0d7878b4d7f3b46c1772a7353e5b18eb6c13",
+      "clues": 38,
+      "created_at": "2026-09-19T21:39:34.699Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "b1c761713b2f0fad",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "312,21,21,21,11,211,12,121|312,3,11,3,112,111,111,121",
+      "seed": "012|142-nonogram-b2-8x8-none-40|44",
+      "solution": "###.#.####...#..##.....#....##.##.....#...##.#.##..##...#..##.#.",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "b783721f46bc4a1e9f824cba3d8e8dd1a81efe5e85872416511b046c19e86870",
+      "clues": 24,
+      "created_at": "2026-09-19T21:40:38.493Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "b783721f46bc4a1e",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "12,21,21,11,2,23|21,21,11,13,12,111",
+      "seed": "012|138-nonogram-b2-6x6-none-40|52",
+      "solution": "#.##..##...#.##.#....#.#...##.##.###",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "b83cc46b60f3f5b683c11b824063f15369c2935238391f0413be19e45f67cdd7",
+      "clues": 35,
+      "created_at": "2026-09-19T21:39:33.289Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "b83cc46b60f3f5b6",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "112,34,41,21,14,13,1,121|111,4,51,111,32,131,31,21",
+      "seed": "012|142-nonogram-b2-8x8-none-40|30",
+      "solution": ".#..#.#####.####.####.#..##..#..#.####....#.###........##.##.#..",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "baae262db050704518127cd44a4dc2c00ce87d7b47b381f2b8b52c6c4af640b6",
+      "clues": 33,
+      "created_at": "2026-09-19T21:39:31.900Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "baae262db0507045",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "3,311,6,111,5,21,111,1|111,31,31,13,13,22,12,111",
+      "seed": "012|142-nonogram-b2-8x8-none-40|15",
+      "solution": ".###....###..#.#.######.#..#...#.#####......##.##...#.#.......#.",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "bf633b5a3cf628f191eaa35a37c57c4de834d2119025719466414a3f5d3aed40",
+      "clues": 33,
+      "created_at": "2026-09-19T21:39:34.660Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "bf633b5a3cf628f1",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "112,12,7,12,24,22,21,32|131,121,33,111,31,6,32,2",
+      "seed": "012|142-nonogram-b2-8x8-none-40|43",
+      "solution": "#.#...##..#...#########.#...##..##.####..##..##...##.#..###.##..",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "c0766d38b1cc3ef330e6d494a9347a846f06ac453fe7607ea3b1b0fc49b3f6f8",
+      "clues": 38,
+      "created_at": "2026-09-19T21:39:32.460Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "c0766d38b1cc3ef3",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "23,22,13,4,21,221,1,122|121,15,12,411,1111,111,111,11",
+      "seed": "012|142-nonogram-b2-8x8-none-40|19",
+      "solution": "##.###....##..###..###..####.....##..#..##.##.#..#.......#.##.##",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "c27c8a098f2c2dbd01afcbd58e66723dd935268ce044c6f371a68dcf556628d2",
+      "clues": 17,
+      "created_at": "2026-09-19T21:40:37.590Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "c27c8a098f2c2dbd",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "11,21,5,5,11,21|3,41,4,4,3,1",
+      "seed": "012|138-nonogram-b2-6x6-none-40|37",
+      "solution": ".#.#..##.#..#####.#####...#.#..##..#",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "c3947c9e1e9fb443a4fb6c31dd73bfb38c75284d88a2788517a73a71264b8a28",
+      "clues": 40,
+      "created_at": "2026-09-19T21:39:30.436Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "c3947c9e1e9fb443",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "122,11,111,41,111,211,1111,13|112,11,122,231,22,111,1,5",
+      "seed": "012|142-nonogram-b2-8x8-none-40|6",
+      "solution": "#.##.##..#.#......#.#..#.####..##..#...#..##.#.##.#.#..##..###..",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "c3e1e14403f1455b63c7fc49ab39e3db42e041591cc0f47932f4c6d691c52081",
+      "clues": 33,
+      "created_at": "2026-09-19T21:39:33.866Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "c3e1e14403f1455b",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "22,113,21,22,1,21,111,22|33,1211,111,,1,42,22,11",
+      "seed": "012|142-nonogram-b2-8x8-none-40|36",
+      "solution": "##...##.#.#..#####...#...##..##.......#.##.....##.#..#..##..##..",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "c643aa7531e557f738edd7af04ea6434159db15ef26bf1b2b491ea59fe6bafe6",
+      "clues": 18,
+      "created_at": "2026-09-19T21:40:39.606Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "c643aa7531e557f7",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "21,2,41,21,2,1|11,3,4,3,11,11",
+      "seed": "012|138-nonogram-b2-6x6-none-40|62",
+      "solution": "..##.#..##..####.#.##.#.##........#.",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "c6a091156678a647b18f7d505c07c6ec881d5a840406371bbf3697fb1d91f488",
+      "clues": 21,
+      "created_at": "2026-09-19T21:40:38.327Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "c6a091156678a647",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "31,31,31,1,31,11|2,31,32,3,11,21",
+      "seed": "012|138-nonogram-b2-6x6-none-40|49",
+      "solution": "###.#.###..#.###.#...#...###.#..#.#.",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "cb123aaafe97eaa363246422fac080c9d10e30d1f29a8275e73f015e0f6e9fa0",
+      "clues": 16,
+      "created_at": "2026-09-19T21:40:36.197Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "cb123aaafe97eaa3",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "2,11,1,,22,12|11,2,2,2,12,1",
+      "seed": "012|138-nonogram-b2-6x6-none-40|23",
+      "solution": "....###.#.....#.........##.##..#.##.",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "ccacb802c6ad14d701172b83520dd8db10c8bf18a85d80091036df7332e40e1d",
+      "clues": 18,
+      "created_at": "2026-09-19T21:40:34.093Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "ccacb802c6ad14d7",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "111,1,11,4,12,1|12,11,1,5,2,1",
+      "seed": "012|138-nonogram-b2-6x6-none-40|2",
+      "solution": ".#.#.#...#..#..#...####.#..##.#.....",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "d14d0db2a8a02f3ba8d961dc63f7ae629cf9ec8d82cc4dec206cd5db41e99771",
+      "clues": 20,
+      "created_at": "2026-09-19T21:40:38.339Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "d14d0db2a8a02f3b",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "11,2,12,11,3,21|,13,12,22,11,11",
+      "seed": "012|138-nonogram-b2-6x6-none-40|50",
+      "solution": ".#..#...##...#.##..#...#.###....##.#",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "d23f811178f52245b313d40c4e035634b7a944633ed050587dffb966eeaa4b7b",
+      "clues": 36,
+      "created_at": "2026-09-19T21:39:32.485Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "d23f811178f52245",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "11,11,15,112,13,4,31,1111|112,112,3,31,11,32,13,211",
+      "seed": "012|142-nonogram-b2-8x8-none-40|20",
+      "solution": ".#....#....#...##..#####.#.#.##.#....###.####...###..#..#.#..#.#",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "d78385846fcd1bb33db30e1d60d2321d4fa0359cfbad9c7a45bc34aee81c10da",
+      "clues": 32,
+      "created_at": "2026-09-19T21:39:32.801Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "d78385846fcd1bb3",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "2,31,12,122,11,122,4,22|111,32,22,13,4,21,31,11",
+      "seed": "012|142-nonogram-b2-8x8-none-40|24",
+      "solution": ".##.....###..#...#..##..#..##.##....#.#..#.##.######......##.##.",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "d8e61878432be9a46ae55d0b7ace6697b32335afb966f3a567beeb2f3f11ea07",
+      "clues": 22,
+      "created_at": "2026-09-19T21:40:38.011Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "d8e61878432be9a4",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "31,11,111,31,31,1|11,22,12,12,2,4",
+      "seed": "012|138-nonogram-b2-6x6-none-40|45",
+      "solution": ".###.#.#...##..#.#.###.####.#.....#.",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "dc613eef0ee28ac5856d9c26317c379cefe059516ed3fa2b464cff0f0285ca0a",
+      "clues": 36,
+      "created_at": "2026-09-19T21:39:31.436Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "dc613eef0ee28ac5",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "112,11,4,32,51,211,12,111|111,13,15,31,11,31,111,14",
+      "seed": "012|142-nonogram-b2-8x8-none-40|11",
+      "solution": "#.#...##.#...#....####...###.##.#####..#.##..#.#..#...###..#...#",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "deafec7c784ef669c0a6572fca4a8d2328de83093dd81ba96e7d4eb8008ebf49",
+      "clues": 19,
+      "created_at": "2026-09-19T21:40:36.346Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "deafec7c784ef669",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "2,31,31,4,12,1|31,3,4,11,11,21",
+      "seed": "012|138-nonogram-b2-6x6-none-40|24",
+      "solution": "...##.###..####..#####....#.###.....",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "e1beb1e02efeb456bb08c8b28dbea8dd5e36556260a0a36bd897922593a2b97e",
+      "clues": 23,
+      "created_at": "2026-09-19T21:40:33.999Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "e1beb1e02efeb456",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "2,21,11,111,31,11|2,12,11,21,11,13",
+      "seed": "012|138-nonogram-b2-6x6-none-40|0",
+      "solution": "...##...##.#.#..#.#..#.####..#.#...#",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "e362343e10c0065174e706c673241ce8ab801112f85ba97c3bc795bd5c12b7b9",
+      "clues": 21,
+      "created_at": "2026-09-19T21:40:34.663Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "e362343e10c00651",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "11,2,23,11,21,1|1,3,12,11,21,111",
+      "seed": "012|138-nonogram-b2-6x6-none-40|6",
+      "solution": ".#...#.##...##.###..#.#...##.#....#.",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "e457a3fdf226a5493c002c8291aa6c41f843e83a53a0d66e22cf20a4fedaea6f",
+      "clues": 33,
+      "created_at": "2026-09-19T21:39:35.176Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "e457a3fdf226a549",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "12,11,13,12,11,24,41,31|2,6,12,112,11,114,211,11",
+      "seed": "012|142-nonogram-b2-8x8-none-40|47",
+      "solution": "...#.##...#...#..#.###...#....##.#...#..##..########.#...###.#..",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "e66cdfe589a136d757f4c546009c8be62de513cd8199370dba653a0a817efa03",
+      "clues": 19,
+      "created_at": "2026-09-19T21:40:35.885Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "e66cdfe589a136d7",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "11,31,4,21,31,|12,12,31,2,3,11",
+      "seed": "012|138-nonogram-b2-6x6-none-40|20",
+      "solution": "..#.#.###.#...######.#..###..#......",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "e966a990b2aef51d2539e3268d5185fcb8bf6a0ffd90a85f7833874d3fa45d77",
+      "clues": 36,
+      "created_at": "2026-09-19T21:39:32.226Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "e966a990b2aef51d",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "21,11,131,111,51,13,12,3|11,14,211,31,1121,121,11,3",
+      "seed": "012|142-nonogram-b2-8x8-none-40|18",
+      "solution": ".##.#...#.#......#.###.#.#.#...#.#####.#.#..###.#.##........###.",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "ee69255463758c28e4580b9b85c65c97008f709274f37a2a91fd5855e8d5c8cc",
+      "clues": 35,
+      "created_at": "2026-09-19T21:39:32.080Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "ee69255463758c28",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "22,4,23,11,121,5,211,22|221,33,23,13,111,112,111,2",
+      "seed": "012|142-nonogram-b2-8x8-none-40|16",
+      "solution": "##..##..####.....##.###.#..#....#.##..#..#####...##..#.###....##",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "f04ca0ae552c9821df2634c2755e89157450062b6fc34ba43ee8f651bfc45d08",
+      "clues": 35,
+      "created_at": "2026-09-19T21:39:33.142Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "f04ca0ae552c9821",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "111,32,21,121,112,7,2,6|11,211,24,213,41,211,13,12",
+      "seed": "012|142-nonogram-b2-8x8-none-40|27",
+      "solution": "...#.#.#.###.##..##.#...#..##.#...#.#.##.#######..##....######..",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "f12e02c1254b2f9637c6bd8455539b153890bf7a6529ccf42eca3e00c36b0865",
+      "clues": 21,
+      "created_at": "2026-09-19T21:40:37.832Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "f12e02c1254b2f96",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "11,13,41,11,11,2|31,12,2,21,11,3",
+      "seed": "012|138-nonogram-b2-6x6-none-40|42",
+      "solution": "#....##..#######.#..#.#..#.#..##....",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "f2e5cd12605f4b4f89fa235801a3629afd355aed8dc91a6bd551a551f3e0506c",
+      "clues": 37,
+      "created_at": "2026-09-19T21:39:34.513Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "f2e5cd12605f4b4f",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 8,
+        "density": 0.48,
+        "rows": 8,
+        "smooth": 1
+      },
+      "puzzle": "311,111,41,31,13,11,411,4|113,122,42,32,1,111,22,121",
+      "seed": "012|142-nonogram-b2-8x8-none-40|39",
+      "solution": "###..#.#..#.#.#.####..#..###...#...#.####.....#.####.#.#####....",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "f59b109273cd8cc595c63dbb22cd6d010739e6cbaf6e321e52d5b859446dd14d",
+      "clues": 24,
+      "created_at": "2026-09-19T21:40:35.831Z",
+      "difficulty": {
+        "band": 2,
+        "max_search_depth": 0,
+        "score": 5,
+        "techniques": [
+          "overlap",
+          "line_solve"
+        ]
+      },
+      "family": "nonogram",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "f59b109273cd8cc5",
+      "params": {
+        "band_target": 2,
+        "climb_steps": 300,
+        "cols": 6,
+        "density": 0.5,
+        "rows": 6,
+        "smooth": 0
+      },
+      "puzzle": "22,11,21,12,12,3|2,111,22,21,12,111",
+      "seed": "012|138-nonogram-b2-6x6-none-40|19",
+      "solution": "##..###.#.....##.#.#.##...#.##.###..",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 1,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    }
+  ]
+}

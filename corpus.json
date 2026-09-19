@@ -6,22 +6,47 @@
         "2": 50,
         "3": 50,
         "4": 40,
-        "5": 13
+        "5": 21
       },
       "clue_range": [
         12,
         49
       ],
-      "count": 203,
+      "count": 211,
       "display_name": "Binairo",
       "family": "binairo",
       "index": "downloads/binairo.json",
       "player": "site/play/binairo.html",
       "shapes": {
         "10x10": 50,
-        "12x12": 53,
+        "12x12": 61,
         "6x6": 50,
         "8x8": 50
+      }
+    },
+    {
+      "by_band": {
+        "1": 120,
+        "2": 81,
+        "3": 120,
+        "4": 1,
+        "5": 0
+      },
+      "clue_range": [
+        10,
+        62
+      ],
+      "count": 322,
+      "display_name": "Nonogram",
+      "family": "nonogram",
+      "index": "downloads/nonogram.json",
+      "player": "site/play/nonogram.html",
+      "shapes": {
+        "10x10": 41,
+        "5x5": 40,
+        "5x8": 40,
+        "6x6": 80,
+        "8x8": 121
       }
     },
     {
@@ -53,12 +78,12 @@
   ],
   "totals": {
     "by_band": {
-      "1": 588,
-      "2": 590,
-      "3": 385,
-      "4": 580,
-      "5": 558
+      "1": 708,
+      "2": 671,
+      "3": 505,
+      "4": 581,
+      "5": 566
     },
-    "puzzles": 2701
+    "puzzles": 3031
   }
 }

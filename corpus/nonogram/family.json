@@ -1,0 +1,109 @@
+{
+  "bands": [
+    {
+      "band": 1,
+      "max_tier": 1,
+      "meaning": "each run's range alone completes it: the overlap between its earliest and latest placement",
+      "name": "Gentle"
+    },
+    {
+      "band": 2,
+      "max_tier": 2,
+      "meaning": "needs complete reasoning about a whole line: every cell that is the same in every arrangement of it",
+      "name": "Easy"
+    },
+    {
+      "band": 3,
+      "max_tier": 3,
+      "meaning": "needs a hypothesis on one cell, refuted by overlap alone -- the glance before committing to a guess",
+      "name": "Medium"
+    },
+    {
+      "band": 4,
+      "max_tier": 4,
+      "meaning": "needs a hypothesis on one cell worked out with full line reasoning before it breaks; still no guessing",
+      "name": "Hard"
+    },
+    {
+      "band": 5,
+      "max_tier": 5,
+      "meaning": "requires bounded search; max_search_depth is recorded",
+      "name": "Brutal"
+    }
+  ],
+  "canonical_encoding": "The puzzle is \"<row clues>|<column clues>\". Each side is one group per line, joined by commas, and each group is that line's run lengths as single base-36 digits, so an empty group is a line with no filled cells. The solution is one character per cell in reading order, \"#\" filled and \".\" empty.",
+  "display_name": "Nonogram",
+  "family": "nonogram",
+  "family_version": 1,
+  "hardening_report": "HARDENING/nonogram.md",
+  "player": "site/play/nonogram.html",
+  "rules_summary": "Every row and every column carries a list of numbers giving the lengths of its blocks of filled cells, in order, with at least one empty cell between consecutive blocks. Fill in the grid so that every row and every column matches its list. A line with no numbers is entirely empty.",
+  "search_depth_weight": 60,
+  "shapes": [
+    {
+      "cols": 5,
+      "rows": 5,
+      "size": 5
+    },
+    {
+      "cols": 6,
+      "rows": 6,
+      "size": 6
+    },
+    {
+      "cols": 8,
+      "rows": 8,
+      "size": 8
+    },
+    {
+      "cols": 10,
+      "rows": 10,
+      "size": 10
+    },
+    {
+      "cols": 12,
+      "rows": 12,
+      "size": 12
+    },
+    {
+      "cols": 14,
+      "rows": 14,
+      "size": 14
+    },
+    {
+      "cols": 8,
+      "rows": 5,
+      "size": 8
+    },
+    {
+      "cols": 10,
+      "rows": 6,
+      "size": 10
+    },
+    {
+      "cols": 12,
+      "rows": 8,
+      "size": 12
+    },
+    {
+      "cols": 15,
+      "rows": 10,
+      "size": 15
+    }
+  ],
+  "solver_version": "1.0.0",
+  "symmetry_group": "The four symmetries of the rectangle -- identity, mirror left to right, mirror top to bottom and a half turn -- each with or without transposing, eight in all. Transposing is included because the two clue lists play identical roles, so swapping them gives a puzzle a solver works through identically with the axes relabelled. Exchanging filled for empty is deliberately excluded: the clues describe the filled cells and say nothing about the empty ones, so the inverted grid is a different puzzle. The canonical form is the lexicographically smallest encoding over the group.",
+  "technique_ladder": {
+    "deep_contradiction": 4,
+    "line_solve": 2,
+    "overlap": 1,
+    "shallow_contradiction": 3
+  },
+  "tier_weights": {
+    "1": 1,
+    "2": 4,
+    "3": 12,
+    "4": 40,
+    "5": 150
+  }
+}
