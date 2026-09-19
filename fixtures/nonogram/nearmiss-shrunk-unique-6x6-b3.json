@@ -1,0 +1,21 @@
+{
+  "derived_from": "unique-6x6-b3",
+  "expect": {
+    "band": 3,
+    "reference": "confirmed",
+    "solution": ".#.##.##.##...#....#.##..#...#..#.##",
+    "techniques": [
+      "overlap",
+      "shallow_contradiction"
+    ],
+    "verdict": "unique"
+  },
+  "note": "unique-6x6-b3 with one run shortened by one.",
+  "params": {
+    "cols": 6,
+    "rows": 6
+  },
+  "puzzle": "12,22,1,12,11,12|1,22,11,21,211,2",
+  "slug": "nearmiss-shrunk-unique-6x6-b3",
+  "source": "generated"
+}

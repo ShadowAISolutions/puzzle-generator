@@ -1,0 +1,19 @@
+{
+  "expect": {
+    "band": 1,
+    "reference": "confirmed",
+    "solution": ".#.#.#.#.#.#.#.#.#.#.#.#.",
+    "techniques": [
+      "overlap"
+    ],
+    "verdict": "unique"
+  },
+  "note": "Alternating cells, which is the longest clue string a grid of this shape can produce and therefore the encoding's worst case.",
+  "params": {
+    "cols": 5,
+    "rows": 5
+  },
+  "puzzle": "11,111,11,111,11|11,111,11,111,11",
+  "slug": "pattern-checkerboard-5x5",
+  "source": "constructed"
+}

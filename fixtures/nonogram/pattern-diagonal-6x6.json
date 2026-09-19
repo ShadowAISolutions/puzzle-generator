@@ -1,0 +1,17 @@
+{
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "multiple"
+  },
+  "note": "A single cell on each row, stepping one column to the right each time.",
+  "params": {
+    "cols": 6,
+    "rows": 6
+  },
+  "puzzle": "1,1,1,1,1,1|1,1,1,1,1,1",
+  "slug": "pattern-diagonal-6x6",
+  "source": "constructed"
+}

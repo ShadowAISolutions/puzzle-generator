@@ -1,0 +1,18 @@
+{
+  "derived_from": "unique-6x6-b2",
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "unique-6x6-b2 with one run removed from its clue entirely.",
+  "params": {
+    "cols": 6,
+    "rows": 6
+  },
+  "puzzle": "12,11,4,21,2,21|2,111,31,12,2,2",
+  "slug": "nearmiss-dropped-unique-6x6-b2",
+  "source": "generated"
+}

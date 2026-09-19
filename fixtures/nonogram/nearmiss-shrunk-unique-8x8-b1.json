@@ -1,0 +1,18 @@
+{
+  "derived_from": "unique-8x8-b1",
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "unique-8x8-b1 with one run shortened by one.",
+  "params": {
+    "cols": 8,
+    "rows": 8
+  },
+  "puzzle": "8,213,13,22,21,3,3,31|8,25,13,2,11,31,4,5",
+  "slug": "nearmiss-shrunk-unique-8x8-b1",
+  "source": "generated"
+}

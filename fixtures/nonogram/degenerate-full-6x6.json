@@ -1,0 +1,19 @@
+{
+  "expect": {
+    "band": 1,
+    "reference": "confirmed",
+    "solution": "####################################",
+    "techniques": [
+      "overlap"
+    ],
+    "verdict": "unique"
+  },
+  "note": "Every row is one run the width of the grid and every column one run its height. Only the completely filled grid matches.",
+  "params": {
+    "cols": 6,
+    "rows": 6
+  },
+  "puzzle": "6,6,6,6,6,6|6,6,6,6,6,6",
+  "slug": "degenerate-full-6x6",
+  "source": "constructed"
+}

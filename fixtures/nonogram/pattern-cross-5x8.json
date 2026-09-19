@@ -1,0 +1,19 @@
+{
+  "expect": {
+    "band": 1,
+    "reference": "confirmed",
+    "solution": "....#.......#...########....#.......#...",
+    "techniques": [
+      "overlap"
+    ],
+    "verdict": "unique"
+  },
+  "note": "The middle row and the middle column, filled.",
+  "params": {
+    "cols": 8,
+    "rows": 5
+  },
+  "puzzle": "1,1,8,1,1|1,1,1,1,5,1,1,1",
+  "slug": "pattern-cross-5x8",
+  "source": "constructed"
+}

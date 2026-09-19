@@ -1,0 +1,17 @@
+{
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "A row asks for a run of 9 in a line 8 cells wide.",
+  "params": {
+    "cols": 8,
+    "rows": 8
+  },
+  "puzzle": "9,,,,,,,|8,,,,,,,",
+  "slug": "contradiction-run-too-long-8x8",
+  "source": "constructed"
+}

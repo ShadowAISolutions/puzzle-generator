@@ -1,0 +1,21 @@
+{
+  "expect": {
+    "band": 3,
+    "reference": "confirmed",
+    "solution": "..#.#.#.##..##..#####.#......#...#......##...###...###.#...#.###",
+    "techniques": [
+      "overlap",
+      "line_solve",
+      "shallow_contradiction"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated 8x8 instance with a unique solution, produced targeting band 3.",
+  "params": {
+    "cols": 8,
+    "rows": 8
+  },
+  "puzzle": "111,22,51,1,1,23,31,13|21,22,11,12,31,113,1111,3",
+  "slug": "unique-8x8-b3",
+  "source": "generated"
+}

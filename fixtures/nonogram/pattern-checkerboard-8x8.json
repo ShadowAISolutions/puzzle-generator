@@ -1,0 +1,17 @@
+{
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "multiple"
+  },
+  "note": "Alternating cells, which is the longest clue string a grid of this shape can produce and therefore the encoding's worst case.",
+  "params": {
+    "cols": 8,
+    "rows": 8
+  },
+  "puzzle": "1111,1111,1111,1111,1111,1111,1111,1111|1111,1111,1111,1111,1111,1111,1111,1111",
+  "slug": "pattern-checkerboard-8x8",
+  "source": "constructed"
+}

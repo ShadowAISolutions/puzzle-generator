@@ -1,8 +1,125 @@
 {
   "band": 5,
-  "count": 13,
+  "count": 21,
   "family": "binairo",
   "puzzles": [
+    {
+      "batch": "012",
+      "canonical_hash": "0f36d8f3b3f2bd88ed1ba914535e808dc2d074e9bdffcde5471d90b969c6045d",
+      "clues": 42,
+      "created_at": "2026-09-19T21:28:23.473Z",
+      "difficulty": {
+        "band": 5,
+        "max_search_depth": 1,
+        "score": 566,
+        "techniques": [
+          "local_triples",
+          "line_counts",
+          "cell_contradiction",
+          "line_enumerate",
+          "bounded_search"
+        ]
+      },
+      "family": "binairo",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "0f36d8f3b3f2bd88",
+      "params": {
+        "band_target": 5,
+        "dig_passes": 6,
+        "min_clues": 0,
+        "size": 12,
+        "symmetry": "mirror_h"
+      },
+      "puzzle": ".1........0.....1101......0......1..11..1..0..00...0.10.1...0.1..11..0.01....01....0....1..1......0......1..0.0..01..1.1....0..1......0......1..",
+      "seed": "012|105-binairo-b5-12x12-mirror_h-40|1358",
+      "solution": "011011001001001011011001100100110110110110100100011001011001001101101010100110100110011010011001100101010110010010101101101001010011110100100110",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 233,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "10491e48a6f467f003a0bf976640f0fef2e0921eff923041bb310a2758923c95",
+      "clues": 48,
+      "created_at": "2026-09-19T21:30:08.488Z",
+      "difficulty": {
+        "band": 5,
+        "max_search_depth": 1,
+        "score": 485,
+        "techniques": [
+          "local_triples",
+          "line_counts",
+          "line_enumerate",
+          "cell_contradiction",
+          "bounded_search"
+        ]
+      },
+      "family": "binairo",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "10491e48a6f467f0",
+      "params": {
+        "band_target": 5,
+        "dig_passes": 6,
+        "min_clues": 0,
+        "size": 12,
+        "symmetry": "mirror_h"
+      },
+      "puzzle": "1..1....0..0............0.101..110.1.....01.....1...0..0...1.0........0.0..0.01.0..010..0..1..10.1........1.1...1..1...0............0.10110110.1",
+      "seed": "012|105-binairo-b5-12x12-mirror_h-40|1788",
+      "solution": "110100100110100101100101011010011001010010110110100101001011101011001001011010110100100100110110011001001011110110010100001101101010001011011001",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 73,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "1e752c62b6d7754511859009e53713582fa8e657dd9b0082d8eabf645fddcdde",
+      "clues": 38,
+      "created_at": "2026-09-19T21:29:07.936Z",
+      "difficulty": {
+        "band": 5,
+        "max_search_depth": 1,
+        "score": 570,
+        "techniques": [
+          "local_triples",
+          "line_counts",
+          "line_enumerate",
+          "cell_contradiction",
+          "bounded_search"
+        ]
+      },
+      "family": "binairo",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "1e752c62b6d77545",
+      "params": {
+        "band_target": 5,
+        "dig_passes": 6,
+        "min_clues": 0,
+        "size": 12,
+        "symmetry": "mirror_h"
+      },
+      "puzzle": "...1....1........10.......0..11..0...011....011..1..1..0..1...1......0..01...01...10.1...01...1...1......0....1......0..0..........0...1....0...",
+      "seed": "012|105-binairo-b5-12x12-mirror_h-40|1603",
+      "solution": "100110011010011011010100100101101001001100110110010011001011101011001001010100110110110010100110101101001001011001011001010010110110101100100101",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 125,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
     {
       "batch": "011",
       "canonical_hash": "4bdbfbbdb16aa2f94dfea6ad96a9c909a245f24dd9f73a1742f5f8f34bdcf431",
@@ -33,6 +150,44 @@
       "puzzle": ".1.1.0.....10.....0.1.....0.....1...1.....10.........1....110...1..1.....1.0...1..0....1.01..1.0.11................1.0.0....0.1.....1...0..1.0..",
       "seed": "011|100-binairo-b5-12x12-diagonal-40|602",
       "solution": "010110100101001011001101100101011010110110100100001001101011010110010011110011010100101100101100011001010011110010110010001100101101101001011010",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 83,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "51cf23ff06293f743ea81cef7a0b0fffa4445e414fe9ed59ff341b2222463a66",
+      "clues": 38,
+      "created_at": "2026-09-19T21:30:39.432Z",
+      "difficulty": {
+        "band": 5,
+        "max_search_depth": 1,
+        "score": 694,
+        "techniques": [
+          "local_triples",
+          "line_enumerate",
+          "cell_contradiction",
+          "bounded_search"
+        ]
+      },
+      "family": "binairo",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "51cf23ff06293f74",
+      "params": {
+        "band_target": 5,
+        "dig_passes": 6,
+        "min_clues": 0,
+        "size": 12,
+        "symmetry": "mirror_h"
+      },
+      "puzzle": "..0......0..1..1....1..110..0..1..10.....10..........01.....00........00.....10......1........0.0.0.1..1.0.1....0..1.................10..10..11.",
+      "seed": "012|105-binairo-b5-12x12-mirror_h-40|1959",
+      "solution": "010110101001100100101101101001010110011011010010110100101001001101101100101011010010110100100101010010011011101101010100001010101011010011010110",
       "solver_version": "1.0.0",
       "uniqueness": {
         "method": "exhaustive-count-to-2",
@@ -118,6 +273,44 @@
       }
     },
     {
+      "batch": "012",
+      "canonical_hash": "8385830427d6148d049432e434855d05936898c45db47df8ce6dd7d8a94030ae",
+      "clues": 40,
+      "created_at": "2026-09-19T21:26:13.169Z",
+      "difficulty": {
+        "band": 5,
+        "max_search_depth": 2,
+        "score": 494,
+        "techniques": [
+          "local_triples",
+          "line_enumerate",
+          "cell_contradiction",
+          "bounded_search"
+        ]
+      },
+      "family": "binairo",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "8385830427d6148d",
+      "params": {
+        "band_target": 5,
+        "dig_passes": 6,
+        "min_clues": 0,
+        "size": 12,
+        "symmetry": "mirror_h"
+      },
+      "puzzle": "0.10....00.01..........0..1......0..01........10.1..1..1..0...10....11..............10.1....1.11.................00.....0...0100...1.1.1....1.0.",
+      "seed": "012|105-binairo-b5-12x12-mirror_h-40|673",
+      "solution": "011011010010100110110100101001101001011011001010110110010100001001101101110010110010100101001011001100110101110010010110001101001011010100101101",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 441,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
       "batch": "011",
       "canonical_hash": "8d8c510f709674021851f0724989b74f71c81853e0cb2531a710c9feee01cc5f",
       "clues": 36,
@@ -190,6 +383,45 @@
       "uniqueness": {
         "method": "exhaustive-count-to-2",
         "nodes_searched": 275,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "b0e84eb4e6dffd64693f39b86bbf3785176b26a5fdaf61f59ca1cc0a6612bc61",
+      "clues": 40,
+      "created_at": "2026-09-19T21:30:05.052Z",
+      "difficulty": {
+        "band": 5,
+        "max_search_depth": 2,
+        "score": 647,
+        "techniques": [
+          "local_triples",
+          "line_counts",
+          "line_enumerate",
+          "cell_contradiction",
+          "bounded_search"
+        ]
+      },
+      "family": "binairo",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "b0e84eb4e6dffd64",
+      "params": {
+        "band_target": 5,
+        "dig_passes": 6,
+        "min_clues": 0,
+        "size": 12,
+        "symmetry": "mirror_h"
+      },
+      "puzzle": "0....10....0...........................0....0........10.......1.0101.1..00........10.1........0.....0..0........0011....0.10....10.10.1.0010.1.1",
+      "seed": "012|105-binairo-b5-12x12-mirror_h-40|1787",
+      "solution": "010011010110100110110010101101001001010010110110110101001010101001010101001010110110010110101001101001001101110100110010011011001001001100101101",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 109,
         "reference_checked": true,
         "verdict": "unique"
       }
@@ -310,6 +542,44 @@
       }
     },
     {
+      "batch": "012",
+      "canonical_hash": "c9216b8afd76132f04f752fc49cab0775680f03ec4c0c5dcbb5b7723455b7e83",
+      "clues": 38,
+      "created_at": "2026-09-19T21:27:58.205Z",
+      "difficulty": {
+        "band": 5,
+        "max_search_depth": 4,
+        "score": 525,
+        "techniques": [
+          "local_triples",
+          "line_enumerate",
+          "cell_contradiction",
+          "bounded_search"
+        ]
+      },
+      "family": "binairo",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "c9216b8afd76132f",
+      "params": {
+        "band_target": 5,
+        "dig_passes": 6,
+        "min_clues": 0,
+        "size": 12,
+        "symmetry": "mirror_h"
+      },
+      "puzzle": ".0..0..1..1...11.11.10...................11.....0..........01.0..00..0.0.................10......0........0..01......00...00....00...100....010.",
+      "seed": "012|105-binairo-b5-12x12-mirror_h-40|1216",
+      "solution": "001100110110001101101010110010010101001001101101010101011010110110010010001010101101110101001010101010010101001101101001110011010010110010100101",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 421,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
       "batch": "011",
       "canonical_hash": "ccbc2c29b701febb752e4fc9cbd90ff3cd9a944e40785461c6b7a17e0ac448fe",
       "clues": 41,
@@ -381,6 +651,44 @@
       "uniqueness": {
         "method": "exhaustive-count-to-2",
         "nodes_searched": 161,
+        "reference_checked": true,
+        "verdict": "unique"
+      }
+    },
+    {
+      "batch": "012",
+      "canonical_hash": "e7c0c7cace42af0cfffe071acf712315d2f928eb40bf46749d4f2508cf5733a0",
+      "clues": 38,
+      "created_at": "2026-09-19T21:27:54.562Z",
+      "difficulty": {
+        "band": 5,
+        "max_search_depth": 3,
+        "score": 521,
+        "techniques": [
+          "local_triples",
+          "line_enumerate",
+          "cell_contradiction",
+          "bounded_search"
+        ]
+      },
+      "family": "binairo",
+      "family_version": 1,
+      "generator_version": "1.0.0",
+      "id": "e7c0c7cace42af0c",
+      "params": {
+        "band_target": 5,
+        "dig_passes": 6,
+        "min_clues": 0,
+        "size": 12,
+        "symmetry": "mirror_h"
+      },
+      "puzzle": ".1..0..1..0..........................1.1....0.0....100100.....1......0......0..1....0.01....11.11....00....0.0..0..0..0....1....1...0...1..0...0",
+      "seed": "012|105-binairo-b5-12x12-mirror_h-40|1204",
+      "solution": "110100110100101001100110001011001011010110110100110100100101001011011010100100110011010101001101101010011010101001100101010110011001011011001010",
+      "solver_version": "1.0.0",
+      "uniqueness": {
+        "method": "exhaustive-count-to-2",
+        "nodes_searched": 543,
         "reference_checked": true,
         "verdict": "unique"
       }

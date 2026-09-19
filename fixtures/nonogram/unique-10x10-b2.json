@@ -1,0 +1,20 @@
+{
+  "expect": {
+    "band": 2,
+    "reference": "confirmed",
+    "solution": "#####...#....#####...#..###....#.#.#....#...#.#..##..###...##.#..##....##..##..##...###........#...#",
+    "techniques": [
+      "overlap",
+      "line_solve"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated 10x10 instance with a unique solution, produced targeting band 2.",
+  "params": {
+    "cols": 10,
+    "rows": 10
+  },
+  "puzzle": "51,5,13,111,1111,131,112,221,13,11|131,121,12,211,321,35,213,1,1,211",
+  "slug": "unique-10x10-b2",
+  "source": "generated"
+}

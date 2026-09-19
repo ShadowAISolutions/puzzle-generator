@@ -1,0 +1,19 @@
+{
+  "expect": {
+    "band": 1,
+    "reference": "confirmed",
+    "solution": "#######....##....##....##....#######",
+    "techniques": [
+      "overlap"
+    ],
+    "verdict": "unique"
+  },
+  "note": "The outline of the grid: every edge cell filled, the inside empty.",
+  "params": {
+    "cols": 6,
+    "rows": 6
+  },
+  "puzzle": "6,11,11,11,11,6|6,11,11,11,11,6",
+  "slug": "pattern-border-6x6",
+  "source": "constructed"
+}

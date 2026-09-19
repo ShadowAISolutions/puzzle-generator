@@ -4,10 +4,12 @@
 // in solver/ may import from here; tools/check_imports.mjs enforces it.
 import * as sudokuClassic from './sudoku-classic/index.mjs';
 import * as binairo from './binairo/index.mjs';
+import * as nonogram from './nonogram/index.mjs';
 
 export const GENERATORS = {
   'sudoku-classic': sudokuClassic,
   binairo,
+  nonogram,
 };
 
 export const FAMILIES = Object.keys(GENERATORS).sort();

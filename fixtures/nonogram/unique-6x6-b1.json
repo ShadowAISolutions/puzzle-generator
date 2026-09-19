@@ -1,0 +1,19 @@
+{
+  "expect": {
+    "band": 1,
+    "reference": "confirmed",
+    "solution": "##....##.....#..###.####.#..###..###",
+    "techniques": [
+      "overlap"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated 6x6 instance with a unique solution, produced targeting band 1.",
+  "params": {
+    "cols": 6,
+    "rows": 6
+  },
+  "puzzle": "2,2,12,14,12,13|211,31,1,11,4,4",
+  "slug": "unique-6x6-b1",
+  "source": "generated"
+}

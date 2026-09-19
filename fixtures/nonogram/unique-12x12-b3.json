@@ -1,0 +1,21 @@
+{
+  "expect": {
+    "band": 3,
+    "reference": "confirmed",
+    "solution": ".#..#.#....##...#...#..#.#.##.#.#.###..#..###...#.........#..##....##.###.##...#..#.####.##..#....#.....##..#..#.#...#.#..##.###...###...#......",
+    "techniques": [
+      "overlap",
+      "line_solve",
+      "shallow_contradiction"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated 12x12 instance with a unique solution, produced targeting band 3.",
+  "params": {
+    "cols": 12,
+    "rows": 12
+  },
+  "puzzle": "1111,1111,12112,113,11,222,1211,421,12,11111,231,21|12211,11111,41,222,3,13,1211,121,311,3,13,312",
+  "slug": "unique-12x12-b3",
+  "source": "generated"
+}

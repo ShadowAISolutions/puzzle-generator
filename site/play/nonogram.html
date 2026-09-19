@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Play — Nonogram</title>
+<meta name="description" content="Play a machine-generated nonogram whose unique solution has been proven by exhaustive counting.">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #fbfaf8;
+    --panel: #ffffff;
+    --ink: #1c1b19;
+    --ink-soft: #5c584f;
+    --line: #d8d3c8;
+    --line-strong: #46433c;
+    --fill: #2b2926;
+    --wrong: #a3301f;
+    --accent: #2f6f57;
+    --clue-bg: #f1ede4;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #171614;
+      --panel: #201f1c;
+      --ink: #f2efe8;
+      --ink-soft: #a9a396;
+      --line: #3a3733;
+      --line-strong: #8d8579;
+      --fill: #e8e4da;
+      --wrong: #e0705c;
+      --accent: #6fc49d;
+      --clue-bg: #2a2825;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font: 16px/1.5 ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    padding: 16px;
+  }
+  .wrap { max-width: 44rem; margin: 0 auto; }
+  header h1 { font-size: 1.5rem; margin: 0 0 .25rem; letter-spacing: -.01em; }
+  .sub { margin: 0 0 1rem; color: var(--ink-soft); }
+  .meta {
+    display: flex; flex-wrap: wrap; gap: .4rem .75rem;
+    font-size: .8125rem; color: var(--ink-soft);
+    margin-bottom: .75rem;
+  }
+  .meta span { white-space: nowrap; }
+  .meta b { color: var(--ink); font-weight: 600; }
+  .boardwrap { display: flex; justify-content: center; }
+  table.board {
+    border-collapse: collapse;
+    background: var(--panel);
+    table-layout: fixed;
+    width: 100%;
+    max-width: 32rem;
+  }
+  table.board td, table.board th { padding: 0; border: 1px solid var(--line); }
+  /* The clue strips sit outside the grid proper, so the grid itself gets the
+     heavy border and the strips get none of it. */
+  table.board td.cellbox { border: 1px solid var(--line); }
+  table.board tr.firstrow td.cellbox, table.board tr.firstrow th.rowclue { border-top: 2px solid var(--line-strong); }
+  table.board tr:last-child td.cellbox, table.board tr:last-child th.rowclue { border-bottom: 2px solid var(--line-strong); }
+  table.board td.cellbox.firstcol, table.board th.colclue.firstcol { border-left: 2px solid var(--line-strong); }
+  table.board td.cellbox.lastcol, table.board th.colclue.lastcol { border-right: 2px solid var(--line-strong); }
+  /* Counting to eleven along an unbroken row of 15 cells is the thing that
+     makes a large nonogram unpleasant, so the grid is ruled every five. */
+  table.board td.cellbox.fifth { border-right: 2px solid var(--line-strong); }
+  table.board tr.fifth td.cellbox, table.board tr.fifth th.rowclue { border-bottom: 2px solid var(--line-strong); }
+  th.colclue, th.rowclue {
+    background: var(--clue-bg); color: var(--ink);
+    font: inherit; font-weight: 600;
+    font-size: clamp(.5rem, 1.9vw, .8125rem);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.15;
+  }
+  th.colclue { vertical-align: bottom; padding: .2rem 0 .25rem; }
+  th.rowclue { text-align: right; white-space: nowrap; padding: 0 .2rem; }
+  th.colclue div { display: block; }
+  th.corner { background: transparent; border: 0; }
+  /* A run of numbers printed tight reads as one number: "2 1 2 2" becomes
+     "2122", which a reader cannot tell from "21 2 2". Each number gets its own
+     box with space around it, and every other one is tinted, so the boundaries
+     are visible at the 8px the narrowest screen allows. */
+  th.rowclue span.n {
+    display: inline-block; min-width: 1.05em; text-align: center;
+    padding: 0 .04em; margin-left: .12em; border-radius: .18em;
+  }
+  th.rowclue span.n:first-child { margin-left: 0; }
+  th.rowclue span.n.alt, th.colclue div.alt { background: rgba(127,127,127,.17); }
+  th.colclue div { min-height: 1.1em; border-radius: .18em; }
+  th.colclue.done, th.rowclue.done { color: var(--ink-soft); opacity: .55; }
+  button.cell {
+    display: block; width: 100%; aspect-ratio: 1 / 1;
+    margin: 0; padding: 0; border: 0; background: transparent;
+    color: var(--ink-soft); cursor: pointer;
+    font: inherit; font-weight: 600;
+    font-size: clamp(.5rem, 2.2vw, .9rem);
+    line-height: 1;
+  }
+  button.cell.on { background: var(--fill); }
+  button.cell.off { color: var(--ink-soft); }
+  button.cell.wrong { outline: 2px solid var(--wrong); outline-offset: -2px; }
+  button.cell:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+  .acts { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1rem 0 .5rem; }
+  .act {
+    font: inherit; padding: .5rem .85rem; border-radius: .4rem;
+    border: 1px solid var(--line-strong); background: var(--panel); color: var(--ink);
+    cursor: pointer;
+  }
+  .act.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .status { min-height: 1.5rem; margin: .25rem 0 1rem; font-weight: 600; }
+  .guarantee {
+    border-top: 1px solid var(--line); margin-top: 1.5rem; padding-top: 1rem;
+    color: var(--ink-soft); font-size: .9375rem;
+  }
+  .guarantee h2 { font-size: 1rem; color: var(--ink); margin: 0 0 .5rem; }
+  .guarantee p { margin: 0 0 .6rem; }
+  .visually-hidden {
+    position: absolute; width: 1px; height: 1px; overflow: hidden;
+    clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Nonogram</h1>
+    <p class="sub">Each number is a block of filled cells, in order, with a gap between blocks.</p>
+  </header>
+
+  <div class="meta" id="meta"></div>
+
+  <div class="boardwrap">
+    <table class="board" id="board" role="grid" aria-labelledby="boardlabel"></table>
+  </div>
+  <p id="boardlabel" class="visually-hidden">Nonogram grid. Use the arrow keys to move, space or F to fill a cell, X to mark it empty, and backspace to clear it.</p>
+
+  <div class="acts">
+    <button class="act primary" id="check" type="button">Check my solution</button>
+    <button class="act" id="clear" type="button">Clear entries</button>
+    <button class="act" id="reveal" type="button">Reveal solution</button>
+  </div>
+
+  <p class="status" id="status" role="status" aria-live="polite"></p>
+
+  <section class="guarantee">
+    <h2>The guarantee</h2>
+    <p>This puzzle is machine-generated. An <strong>independent solver</strong>, which shares no code with the
+      generator that made it, proved that it has <strong>exactly one solution</strong> by counting solutions
+      exhaustively and stopping at two. A separate brute-force reference confirmed that verdict.</p>
+    <p>Its difficulty band is <strong>measured</strong>, not asserted: it is the highest technique tier the
+      easiest complete solution path needs. Bands 1 to 4 are solvable by pure deduction with no guessing.
+      Band 5 is the only band where bounded search is required, and it is always flagged.</p>
+    <p>Your solution is checked here in your browser, against the record. Nothing is sent anywhere.</p>
+  </section>
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  var UNKNOWN = 0, ON = 1, OFF = 2;
+  var state = { record: null, rows: 0, cols: 0, rowRuns: null, colRuns: null, entries: null, showErrors: false };
+  var el = {
+    board: document.getElementById('board'),
+    meta: document.getElementById('meta'),
+    status: document.getElementById('status'),
+    check: document.getElementById('check'),
+    clear: document.getElementById('clear'),
+    reveal: document.getElementById('reveal')
+  };
+
+  function say(text, tone) {
+    el.status.textContent = text;
+    el.status.style.color = tone === 'bad' ? 'var(--wrong)' : tone === 'good' ? 'var(--accent)' : 'var(--ink-soft)';
+  }
+
+  // The encoding, read here from scratch. The point of a self-test is to be
+  // able to disagree with the solver, which it cannot do if it asks the solver.
+  function decodeClues(puzzle) {
+    var halves = String(puzzle).split('|');
+    if (halves.length !== 2) throw new Error('puzzle must hold exactly one |');
+    function side(s) {
+      return s.split(',').map(function (group) {
+        var out = [];
+        for (var i = 0; i < group.length; i++) {
+          var n = parseInt(group.charAt(i), 36);
+          if (!(n >= 1)) throw new Error('bad run length');
+          out.push(n);
+        }
+        return out;
+      });
+    }
+    return { rowRuns: side(halves[0]), colRuns: side(halves[1]) };
+  }
+
+  function runsOf(cells) {
+    var runs = [], n = 0;
+    for (var i = 0; i < cells.length; i++) {
+      if (cells[i] === ON) n++;
+      else if (n) { runs.push(n); n = 0; }
+    }
+    if (n) runs.push(n);
+    return runs;
+  }
+
+  function lineOf(g, isRow, n) {
+    var out = [], len = isRow ? state.cols : state.rows, i;
+    for (i = 0; i < len; i++) out.push(isRow ? g[n * state.cols + i] : g[i * state.cols + n]);
+    return out;
+  }
+
+  // Does a finished grid match every clue? Written from the rules.
+  function satisfiesClues(g) {
+    var r, c;
+    for (r = 0; r < state.rows; r++) {
+      if (runsOf(lineOf(g, true, r)).join(',') !== state.rowRuns[r].join(',')) return false;
+    }
+    for (c = 0; c < state.cols; c++) {
+      if (runsOf(lineOf(g, false, c)).join(',') !== state.colRuns[c].join(',')) return false;
+    }
+    return true;
+  }
+
+  function clueText(runs) { return runs.length ? runs.join(' ') : '0'; }
+
+  function render() {
+    var rows = state.rows, cols = state.cols, r, c, i;
+    var depth = 1;
+    for (c = 0; c < cols; c++) depth = Math.max(depth, state.colRuns[c].length);
+
+    // The row clue strip needs a column of its own, sized to the longest clue
+    // it has to print. Leaving it to share the table's fixed layout equally
+    // with the grid gives it one cell's width, which clips "1 2 1 3 1" on
+    // anything wider than about ten columns -- caught by the self-test below at
+    // 12x12 and up, on a 360px screen.
+    var widest = 1;
+    for (r = 0; r < rows; r++) widest = Math.max(widest, clueText(state.rowRuns[r]).length);
+    // Character widths, converted to grid-cell units so the split can be
+    // expressed as a percentage the fixed layout will honour.
+    var clueUnits = Math.max(2, Math.ceil(widest * 0.62));
+    var pct = (clueUnits / (clueUnits + cols)) * 100;
+
+    var html = ['<colgroup><col style="width:' + pct.toFixed(3) + '%">' +
+      '<col span="' + cols + '" style="width:' + ((100 - pct) / cols).toFixed(3) + '%"></colgroup>'];
+
+    function colClass(c) {
+      return (c === 0 ? ' firstcol' : '') + (c === cols - 1 ? ' lastcol' : '') +
+        ((c + 1) % 5 === 0 && c !== cols - 1 ? ' fifth' : '');
+    }
+
+    // The column clue strip, one table row per level so the numbers stack. The
+    // corner is one cell spanning every level rather than one per level, so it
+    // is genuinely empty rather than a stack of empty boxes.
+    for (var lvl = 0; lvl < depth; lvl++) {
+      var cells = lvl === 0 ? ['<th class="corner" rowspan="' + depth + '"></th>'] : [];
+      for (c = 0; c < cols; c++) {
+        var runs = state.colRuns[c];
+        var k = runs.length - depth + lvl;
+        var txt = runs.length === 0 ? (lvl === depth - 1 ? '0' : '') : (k >= 0 ? String(runs[k]) : '');
+        // Tint alternate numbers counting up from the grid, so a stack of four
+        // reads as four numbers and not as one long one.
+        var alt = txt !== '' && ((depth - 1 - lvl) % 2 === 1);
+        cells.push('<th class="colclue' + colClass(c) + '" data-col="' + c + '" scope="col">' +
+          '<div' + (alt ? ' class="alt"' : '') + '>' + txt + '</div></th>');
+      }
+      html.push('<tr>' + cells.join('') + '</tr>');
+    }
+
+    for (r = 0; r < rows; r++) {
+      var runsR = state.rowRuns[r];
+      var spans = runsR.length
+        ? runsR.map(function (n, k) { return '<span class="n' + (k % 2 === 1 ? ' alt' : '') + '">' + n + '</span>'; }).join(' ')
+        : '<span class="n">0</span>';
+      var tds = ['<th class="rowclue" data-row="' + r + '" scope="row">' + spans + '</th>'];
+      for (c = 0; c < cols; c++) {
+        i = r * cols + c;
+        tds.push('<td class="cellbox' + colClass(c) + '">' +
+          '<button class="cell" type="button" data-i="' + i + '" role="gridcell"' +
+          ' aria-label="row ' + (r + 1) + ' column ' + (c + 1) + '"></button></td>');
+      }
+      var trClass = (r === 0 ? 'firstrow ' : '') + ((r + 1) % 5 === 0 && r !== rows - 1 ? 'fifth' : '');
+      html.push('<tr' + (trClass.trim() ? ' class="' + trClass.trim() + '"' : '') + '>' + tds.join('') + '</tr>');
+    }
+    el.board.innerHTML = html.join('');
+    paint();
+  }
+
+  function paint() {
+    var buttons = el.board.querySelectorAll('button.cell'), k, i, v, b;
+    var want = state.record ? state.record.solution : null;
+    for (k = 0; k < buttons.length; k++) {
+      b = buttons[k];
+      i = Number(b.getAttribute('data-i'));
+      v = state.entries[i];
+      b.className = 'cell' + (v === ON ? ' on' : v === OFF ? ' off' : '');
+      b.textContent = v === OFF ? '×' : '';
+      b.setAttribute('aria-pressed', v === ON ? 'true' : 'false');
+      if (state.showErrors && want) {
+        var should = want.charAt(i) === '#' ? ON : OFF;
+        if (v !== UNKNOWN && v !== should) b.className += ' wrong';
+      }
+    }
+    // Grey out a clue whose line is finished and correct, which is the one
+    // piece of help a paper nonogram cannot give you.
+    var strips = el.board.querySelectorAll('th.rowclue, th.colclue');
+    for (k = 0; k < strips.length; k++) {
+      var th = strips[k];
+      var isRow = th.classList.contains('rowclue');
+      var n = Number(th.getAttribute(isRow ? 'data-row' : 'data-col'));
+      var line = lineOf(state.entries, isRow, n);
+      var settled = line.indexOf(UNKNOWN) === -1;
+      var runs = isRow ? state.rowRuns[n] : state.colRuns[n];
+      var ok = settled && runsOf(line).join(',') === runs.join(',');
+      th.classList.toggle('done', ok);
+    }
+  }
+
+  function checkSolution() {
+    var g = state.entries, i;
+    var left = 0;
+    for (i = 0; i < g.length; i++) if (g[i] === UNKNOWN) left++;
+    if (left) return { solved: false, reason: 'incomplete', left: left };
+    if (!satisfiesClues(g)) return { solved: false, reason: 'clues' };
+    for (i = 0; i < g.length; i++) {
+      var should = state.record.solution.charAt(i) === '#' ? ON : OFF;
+      if (g[i] !== should) return { solved: false, reason: 'differs' };
+    }
+    return { solved: true };
+  }
+
+  function cycle(i) {
+    state.entries[i] = state.entries[i] === UNKNOWN ? ON : state.entries[i] === ON ? OFF : UNKNOWN;
+    paint();
+  }
+
+  function loadRecord(record) {
+    if (!record || typeof record !== 'object') throw new Error('no record');
+    var p = record.params || {};
+    var rows = p.rows, cols = p.cols;
+    if (!rows || !cols) throw new Error('record params name no shape');
+    if (record.solution.length !== rows * cols) throw new Error('record solution does not match its params');
+    var clues = decodeClues(record.puzzle);
+    if (clues.rowRuns.length !== rows) throw new Error('clues name ' + clues.rowRuns.length + ' rows, params say ' + rows);
+    if (clues.colRuns.length !== cols) throw new Error('clues name ' + clues.colRuns.length + ' columns, params say ' + cols);
+    state.record = record;
+    state.rows = rows;
+    state.cols = cols;
+    state.rowRuns = clues.rowRuns;
+    state.colRuns = clues.colRuns;
+    state.entries = new Array(rows * cols).fill(UNKNOWN);
+    state.showErrors = false;
+    var d = record.difficulty || {};
+    el.meta.innerHTML =
+      '<span>Grid <b>' + rows + '×' + cols + '</b></span>' +
+      '<span>Band <b>' + (d.band != null ? d.band : '?') + '</b></span>' +
+      '<span>Clues <b>' + record.clues + '</b></span>' +
+      '<span>Id <b>' + String(record.id || '').slice(0, 8) + '</b></span>';
+    render();
+    say('Click a cell to cycle it between filled, crossed out and empty.');
+  }
+
+  window.__LOAD_RECORD = loadRecord;
+
+  el.board.addEventListener('click', function (e) {
+    var b = e.target.closest ? e.target.closest('button.cell') : null;
+    if (!b) return;
+    cycle(Number(b.getAttribute('data-i')));
+  });
+
+  el.board.addEventListener('keydown', function (e) {
+    var b = e.target.closest ? e.target.closest('button.cell') : null;
+    if (!b || !state.cols) return;
+    var i = Number(b.getAttribute('data-i')), cols = state.cols;
+    var r = Math.floor(i / cols), c = i % cols, moved = -1;
+    var key = e.key.toLowerCase();
+    if (e.key === 'ArrowLeft' && c > 0) moved = i - 1;
+    else if (e.key === 'ArrowRight' && c < cols - 1) moved = i + 1;
+    else if (e.key === 'ArrowUp' && r > 0) moved = i - cols;
+    else if (e.key === 'ArrowDown' && r < state.rows - 1) moved = i + cols;
+    else if (key === 'f' || e.key === ' ') { state.entries[i] = ON; paint(); e.preventDefault(); return; }
+    else if (key === 'x') { state.entries[i] = OFF; paint(); e.preventDefault(); return; }
+    else if (e.key === 'Backspace' || e.key === 'Delete') { state.entries[i] = UNKNOWN; paint(); e.preventDefault(); return; }
+    if (moved >= 0) {
+      var next = el.board.querySelector('button.cell[data-i="' + moved + '"]');
+      if (next) next.focus();
+      e.preventDefault();
+    }
+  });
+
+  el.check.addEventListener('click', function () {
+    if (!state.record) return;
+    var r = checkSolution();
+    if (r.solved) { state.showErrors = false; paint(); say('Solved. Every row and every column matches its clue.', 'good'); return; }
+    if (r.reason === 'incomplete') { state.showErrors = false; paint(); say(r.left + ' cell' + (r.left === 1 ? '' : 's') + ' still undecided.', 'bad'); return; }
+    state.showErrors = true;
+    paint();
+    say('Not yet. The cells that disagree with the solution are outlined.', 'bad');
+  });
+
+  el.clear.addEventListener('click', function () {
+    if (!state.record) return;
+    state.entries = new Array(state.rows * state.cols).fill(UNKNOWN);
+    state.showErrors = false;
+    paint();
+    say('Cleared.');
+  });
+
+  el.reveal.addEventListener('click', function () {
+    if (!state.record) return;
+    for (var i = 0; i < state.entries.length; i++) {
+      state.entries[i] = state.record.solution.charAt(i) === '#' ? ON : OFF;
+    }
+    state.showErrors = false;
+    paint();
+    say('Solution revealed.');
+  });
+
+  function corpusPath(id, family, band) {
+    return '../../corpus/' + family + '/b' + band + '/' + id.slice(0, 2) + '/' + id + '.json';
+  }
+
+  function boot() {
+    var q = new URLSearchParams(location.search);
+    var id = q.get('id');
+    var band = q.get('band');
+    var family = q.get('family') || 'nonogram';
+    if (!id) { say('Open this page from the corpus index, or add ?id= to the address.'); return; }
+    if (!/^[0-9a-f]{16}$/.test(id)) { say('That is not a puzzle id.'); return; }
+    var tries = band ? [band] : ['1', '2', '3', '4', '5'];
+    (function attempt(k) {
+      if (k >= tries.length) { say('Could not find puzzle ' + id + '.'); return; }
+      fetch(corpusPath(id, family, tries[k]))
+        .then(function (r) { if (!r.ok) throw new Error('not found'); return r.json(); })
+        .then(function (rec) { loadRecord(rec); })
+        .catch(function () { attempt(k + 1); });
+    })(0);
+  }
+
+  // --- self-tests the gate runs ---------------------------------------------
+
+  window.__SELFTEST = function () {
+    var out = [];
+    function t(name, fn) {
+      try { var d = fn(); out.push({ name: name, pass: d === true || d === undefined, detail: d === true || d === undefined ? '' : String(d) }); }
+      catch (e) { out.push({ name: name, pass: false, detail: e.message }); }
+    }
+    t('a record is loaded', function () { return state.record ? true : 'no record loaded'; });
+    t('the grid renders one cell per square', function () {
+      var n = state.rows * state.cols;
+      var got = el.board.querySelectorAll('button.cell').length;
+      return got === n ? true : 'rendered ' + got + ' cells, expected ' + n;
+    });
+    t('every clue in the record is printed on the board', function () {
+      var k, th, n, want, got;
+      var rowStrips = el.board.querySelectorAll('th.rowclue');
+      if (rowStrips.length !== state.rows) return 'printed ' + rowStrips.length + ' row clues, expected ' + state.rows;
+      for (k = 0; k < rowStrips.length; k++) {
+        th = rowStrips[k];
+        n = Number(th.getAttribute('data-row'));
+        want = state.rowRuns[n].length ? state.rowRuns[n].join(' ') : '0';
+        got = th.textContent.replace(/\s+/g, ' ').trim();
+        if (got !== want) return 'row ' + n + ' shows "' + got + '", clue is "' + want + '"';
+      }
+      for (n = 0; n < state.cols; n++) {
+        var stack = el.board.querySelectorAll('th.colclue[data-col="' + n + '"]');
+        var parts = [];
+        for (k = 0; k < stack.length; k++) {
+          var txt = stack[k].textContent.trim();
+          if (txt) parts.push(txt);
+        }
+        want = state.colRuns[n].length ? state.colRuns[n].join(' ') : '0';
+        if (parts.join(' ') !== want) return 'column ' + n + ' shows "' + parts.join(' ') + '", clue is "' + want + '"';
+      }
+      return true;
+    });
+    t('the record solution matches every clue in the record', function () {
+      var g = new Array(state.rows * state.cols), i;
+      for (i = 0; i < g.length; i++) g[i] = state.record.solution.charAt(i) === '#' ? ON : OFF;
+      return satisfiesClues(g) ? true : 'the solution does not match its own clues';
+    });
+    t('the checker accepts the record solution', function () {
+      var keep = state.entries, keepErr = state.showErrors, i;
+      state.entries = new Array(state.rows * state.cols);
+      for (i = 0; i < state.entries.length; i++) state.entries[i] = state.record.solution.charAt(i) === '#' ? ON : OFF;
+      var r = checkSolution();
+      state.entries = keep; state.showErrors = keepErr; paint();
+      return r.solved === true ? true : 'checker rejected the record solution: ' + r.reason;
+    });
+    t('the checker rejects a board with one cell wrong', function () {
+      var keep = state.entries, keepErr = state.showErrors, i;
+      state.entries = new Array(state.rows * state.cols);
+      for (i = 0; i < state.entries.length; i++) state.entries[i] = state.record.solution.charAt(i) === '#' ? ON : OFF;
+      state.entries[0] = state.entries[0] === ON ? OFF : ON;
+      var r = checkSolution();
+      state.entries = keep; state.showErrors = keepErr; paint();
+      return r.solved === false ? true : 'checker accepted a board with a wrong cell';
+    });
+    t('the board fits the narrowest supported screen', function () {
+      var w = el.board.getBoundingClientRect().width;
+      if (w <= 0) return 'board has no width';
+      if (w > document.documentElement.clientWidth) return 'board is ' + Math.round(w) + 'px wide, viewport is ' + document.documentElement.clientWidth + 'px';
+      if (document.documentElement.scrollWidth > document.documentElement.clientWidth) return 'the page scrolls sideways';
+      return true;
+    });
+    t('every cell is large enough to read and to tap', function () {
+      var b = el.board.querySelector('button.cell');
+      if (!b) return 'no cells';
+      var r = b.getBoundingClientRect();
+      return r.width >= 12 && r.height >= 12 ? true : 'cells are ' + Math.round(r.width) + 'x' + Math.round(r.height) + 'px';
+    });
+    t('no clue is printed outside the board', function () {
+      var box = el.board.getBoundingClientRect();
+      var strips = el.board.querySelectorAll('th.rowclue, th.colclue');
+      for (var k = 0; k < strips.length; k++) {
+        var r = strips[k].getBoundingClientRect();
+        if (r.width === 0 && r.height === 0) continue;
+        if (r.left < box.left - 1 || r.right > box.right + 1) {
+          return 'a clue sits outside the board horizontally';
+        }
+        if (strips[k].scrollWidth > strips[k].clientWidth + 1) return 'a clue is clipped by its own cell';
+      }
+      return true;
+    });
+    return out;
+  };
+
+  boot();
+})();
+</script>
+</body>
+</html>

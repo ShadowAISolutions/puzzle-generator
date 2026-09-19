@@ -1,0 +1,17 @@
+{
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "A row asks for a run of 6 in a line 5 cells wide.",
+  "params": {
+    "cols": 5,
+    "rows": 5
+  },
+  "puzzle": "6,,,,|5,,,,",
+  "slug": "contradiction-run-too-long-5x5",
+  "source": "constructed"
+}

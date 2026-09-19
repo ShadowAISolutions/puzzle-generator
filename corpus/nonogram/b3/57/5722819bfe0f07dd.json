@@ -1,0 +1,37 @@
+{
+  "batch": "012",
+  "canonical_hash": "5722819bfe0f07dd2164443d1575cb63fbb6c4a2ab5ee757ffeacb940926c7fe",
+  "clues": 16,
+  "created_at": "2026-09-19T21:40:44.627Z",
+  "difficulty": {
+    "band": 3,
+    "max_search_depth": 0,
+    "score": 13,
+    "techniques": [
+      "overlap",
+      "shallow_contradiction"
+    ]
+  },
+  "family": "nonogram",
+  "family_version": 1,
+  "generator_version": "1.0.0",
+  "id": "5722819bfe0f07dd",
+  "params": {
+    "band_target": 3,
+    "climb_steps": 300,
+    "cols": 8,
+    "density": 0.48,
+    "rows": 5,
+    "smooth": 0
+  },
+  "puzzle": "21,31,21,1,3|,2,21,21,3,1,,2",
+  "seed": "012|156-nonogram-b3-5x8-none-40|25",
+  "solution": ".##..#...###...#...##..#....#.....###...",
+  "solver_version": "1.0.0",
+  "uniqueness": {
+    "method": "exhaustive-count-to-2",
+    "nodes_searched": 5,
+    "reference_checked": true,
+    "verdict": "unique"
+  }
+}

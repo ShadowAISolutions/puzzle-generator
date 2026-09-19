@@ -1,0 +1,20 @@
+{
+  "expect": {
+    "band": 2,
+    "reference": "confirmed",
+    "solution": "#..#.##.#..###.#...#..#.#",
+    "techniques": [
+      "overlap",
+      "line_solve"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated 5x5 instance with a unique solution, produced targeting band 2.",
+  "params": {
+    "cols": 5,
+    "rows": 5
+  },
+  "puzzle": "11,21,3,11,11|21,2,11,3,2",
+  "slug": "unique-5x5-b2",
+  "source": "generated"
+}

@@ -1,0 +1,22 @@
+{
+  "expect": {
+    "band": 4,
+    "reference": "confirmed",
+    "solution": "..#####.##...#..#.##......##.##....##...#....#.##.##.#..#....##..#.##...#..#..##.###.#...#....##.#....##..##...##.##.#...##....#.###...##.....#.",
+    "techniques": [
+      "overlap",
+      "line_solve",
+      "shallow_contradiction",
+      "deep_contradiction"
+    ],
+    "verdict": "unique"
+  },
+  "note": "A machine-generated 12x12 instance with a unique solution, produced targeting band 4.",
+  "params": {
+    "cols": 12,
+    "rows": 12
+  },
+  "puzzle": "52,112,221,1111,1211,212,1123,112,122,221,213,21|21,1121,1121,111111,2111,1121,312,123,12,1112,32,231",
+  "slug": "unique-12x12-b4",
+  "source": "generated"
+}

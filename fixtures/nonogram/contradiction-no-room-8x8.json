@@ -1,0 +1,17 @@
+{
+  "expect": {
+    "band": null,
+    "reference": "confirmed",
+    "solution": null,
+    "techniques": null,
+    "verdict": "unsolvable"
+  },
+  "note": "A row asking for 5 separate single cells in 8, which needs 9 cells once the gaps between them are counted.",
+  "params": {
+    "cols": 8,
+    "rows": 8
+  },
+  "puzzle": "11111,,,,,,,|1,1,1,1,1,,,",
+  "slug": "contradiction-no-room-8x8",
+  "source": "constructed"
+}
