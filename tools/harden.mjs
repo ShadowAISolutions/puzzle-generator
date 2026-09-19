@@ -186,6 +186,40 @@ function fuzzCase(rng, i) {
 function pass(name) { return { name, ok: true, checked: 0, failures: [], notes: {}, ms: 0 }; }
 function fail(p, detail) { p.ok = false; if (p.failures.length < 20) p.failures.push(detail); }
 
+// Where a pass gets its test material.
+//
+// Four of the seven passes build their own instances, and until 2026-09-19
+// every one of those instances was a string of digits and dots on a sudoku
+// shape. That made the suite unable to harden any family with another
+// encoding: the differential pass failed on every instance, the uniqueness
+// adversarial pass threw, and -- the dangerous part -- the fuzz pass reported
+// `pass` while testing nothing, because a solver for another family correctly
+// rejects fifteen malformed sudoku grids.
+//
+// A family may now supply its own. Each hook falls back to the sudoku
+// implementation above, so `sudoku-classic` draws exactly the instances it
+// always did, from the same seeds, in the same order.
+function instanceSource(S) {
+  return {
+    randomInstance: S.randomInstance ?? randomInstance,
+    minimalUniqueInstance: S.minimalUniqueInstance ?? minimalUniqueInstance,
+    fuzzCase: S.fuzzCase ?? fuzzCase,
+    // One-step weakenings of an instance, in a stable order: the mutation pass
+    // removes one unit of given information and demands that uniqueness break.
+    // For a sudoku that unit is a given; for another family it might be a
+    // merged pair of cages or a dropped constraint, which is why a family can
+    // override it.
+    weakenings: S.weakenings ?? ((inst) => {
+      const out = [];
+      for (let k = 0; k < inst.puzzle.length; k++) {
+        if (inst.puzzle[k] === '.') continue;
+        out.push({ at: k, puzzle: `${inst.puzzle.slice(0, k)}.${inst.puzzle.slice(k + 1)}` });
+      }
+      return out;
+    }),
+  };
+}
+
 function fixturesPass(S, dir) {
   const p = pass('fixtures');
   const t = Date.now();
@@ -238,13 +272,13 @@ function bandStabilityPass(S, dir) {
   return p;
 }
 
-function differentialPass(S, R, n) {
+function differentialPass(S, R, n, I) {
   const p = pass('differential');
   const t = Date.now();
   const rng = makeRng('harden|differential|1');
   const byKind = {};
   for (let i = 0; i < n; i++) {
-    const inst = randomInstance(rng);
+    const inst = I.randomInstance(rng);
     byKind[inst.kind] = (byKind[inst.kind] ?? 0) + 1;
     p.checked++;
     let mine, theirs;
@@ -265,7 +299,7 @@ function differentialPass(S, R, n) {
   return p;
 }
 
-function uniquenessAdversarialPass(S, R, n) {
+function uniquenessAdversarialPass(S, R, n, I) {
   const p = pass('uniqueness adversarial');
   const t = Date.now();
   const rng = makeRng('harden|uniqueness|2');
@@ -289,7 +323,7 @@ function uniquenessAdversarialPass(S, R, n) {
   // Minimal instances first: these are the ones where uniqueness is actually
   // at risk, because there is no spare clue holding the solution in place.
   for (let i = 0; i < Math.max(20, Math.floor(n / 8)); i++) {
-    const inst = minimalUniqueInstance(rng, S);
+    const inst = I.minimalUniqueInstance(rng, S);
     let v;
     try { v = S.classify(inst.puzzle, inst.params); } catch { continue; }
     if (v.verdict !== 'unique') { fail(p, `a grid dug to uniqueness-minimality classified as ${v.verdict}: ${inst.puzzle}`); continue; }
@@ -298,7 +332,7 @@ function uniquenessAdversarialPass(S, R, n) {
   }
 
   for (let i = 0; i < n; i++) {
-    const inst = randomInstance(rng);
+    const inst = I.randomInstance(rng);
     let v;
     try { v = S.classify(inst.puzzle, inst.params); } catch { continue; }
     if (v.verdict !== 'unique') continue;
@@ -311,7 +345,7 @@ function uniquenessAdversarialPass(S, R, n) {
   return p;
 }
 
-function mutationPass(S, R, n) {
+function mutationPass(S, R, n, I) {
   const p = pass('mutation');
   const t = Date.now();
   const rng = makeRng('harden|mutation|2');
@@ -321,12 +355,10 @@ function mutationPass(S, R, n) {
   // uniqueness, and both solvers must say so.
   const nMinimal = Math.max(12, Math.floor(n / 4));
   for (let i = 0; i < nMinimal; i++) {
-    const inst = minimalUniqueInstance(rng, S);
+    const inst = I.minimalUniqueInstance(rng, S);
     minimalChecked++;
-    const given = [];
-    for (let k = 0; k < inst.puzzle.length; k++) if (inst.puzzle[k] !== '.') given.push(k);
-    for (const at of given) {
-      const mutated = inst.puzzle.slice(0, at) + '.' + inst.puzzle.slice(at + 1);
+    const weaker = I.weakenings(inst);
+    for (const { puzzle: mutated } of weaker) {
       p.checked++; minimalRemovals++;
       let mine, theirs;
       try { mine = S.classify(mutated, inst.params).verdict; }
@@ -347,15 +379,15 @@ function mutationPass(S, R, n) {
   // dropped from an over-clued grid with the solution still forced.
   let instances = 0;
   for (let i = 0; i < n; i++) {
-    const inst = randomInstance(rng);
+    const inst = I.randomInstance(rng);
     let v;
     try { v = S.classify(inst.puzzle, inst.params); } catch { continue; }
     if (v.verdict !== 'unique') continue;
     instances++;
-    const given = [];
-    for (let k = 0; k < inst.puzzle.length; k++) if (inst.puzzle[k] !== '.') given.push(k);
-    for (const at of rng.shuffle(given.slice()).slice(0, Math.min(6, given.length))) {
-      const mutated = inst.puzzle.slice(0, at) + '.' + inst.puzzle.slice(at + 1);
+    // Shuffling the weakenings rather than the positions keeps the draw count,
+    // and therefore the seeded stream, exactly what it was.
+    const weaker = I.weakenings(inst);
+    for (const { puzzle: mutated } of rng.shuffle(weaker.slice()).slice(0, Math.min(6, weaker.length))) {
       p.checked++;
       let mine, theirs;
       try { mine = S.classify(mutated, inst.params).verdict; } catch (e) { if (e instanceof BudgetExceeded) continue; fail(p, `solver threw: ${e.message}`); continue; }
@@ -403,14 +435,14 @@ function determinismPass(S, family, dir) {
   return p;
 }
 
-function fuzzPass(S, n) {
+function fuzzPass(S, n, I) {
   const p = pass('fuzz');
   const t = Date.now();
   const rng = makeRng('harden|fuzz|1');
   const outcomes = {};
   let slowest = 0;
   for (let i = 0; i < n; i++) {
-    const c = fuzzCase(rng, i);
+    const c = I.fuzzCase(rng, i);
     p.checked++;
     const t0 = Date.now();
     let outcome;
@@ -503,6 +535,7 @@ function main() {
   const S = solverFor(family);
   const G = generatorFor(family);
   const R = referenceFor(family);
+  const I = instanceSource(S);
   const dir = path.join(ROOT, 'fixtures', family);
   if (!fs.existsSync(dir)) { console.error(`no fixtures at fixtures/${family}/`); process.exit(2); }
 
@@ -514,11 +547,11 @@ function main() {
 
   console.log(`harden ${family}${quick ? ' (quick)' : ''}:`);
   run(() => fixturesPass(S, dir));
-  run(() => differentialPass(S, R, nDiff));
-  run(() => uniquenessAdversarialPass(S, R, Math.max(200, Math.floor(nDiff / 2))));
-  run(() => mutationPass(S, R, Math.max(80, Math.floor(nDiff / 8))));
+  run(() => differentialPass(S, R, nDiff, I));
+  run(() => uniquenessAdversarialPass(S, R, Math.max(200, Math.floor(nDiff / 2)), I));
+  run(() => mutationPass(S, R, Math.max(80, Math.floor(nDiff / 8)), I));
   run(() => determinismPass(S, family, dir));
-  run(() => fuzzPass(S, nFuzz));
+  run(() => fuzzPass(S, nFuzz, I));
   run(() => bandStabilityPass(S, dir));
 
   const ok = passes.every((p) => p.ok);
