@@ -1,0 +1,3 @@
+# Keeps this directory present on a fresh branch.
+# The session loop moves claimed plans here; git does not track empty
+# directories, so without this file the first `git mv` of a batch fails.
