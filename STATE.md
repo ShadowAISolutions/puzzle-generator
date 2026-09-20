@@ -12,12 +12,20 @@ gated and merged as batch 012, and the loop stopped there.
 This overrides `CLAUDE.md`'s "do not stop between batches" and its session loop step 11, and it
 overrides them for the daily safety-net routine too — that routine exists to restart a **dead**
 loop, not a **stopped** one. A session that wakes up and finds this entry should not claim plans,
-should not generate, and should not open a pull request. It should say in the thread that the
-project is paused for re-evaluation and wait.
+should not generate, and should not open a pull request. It should confirm nothing is half-finished
+and wait — see the stand-down paragraph below for whether to say anything.
 
 `ASSESSMENT.md` at the repository root is what the re-evaluation is meant to be read from: what
 exists, whether the guarantee is worth anything, what a family actually costs, the three places
 the design fights the plan, and a ranked recommendation.
+
+**The safety-net routine will keep firing daily. Stand down quietly.** It fired at 09:09 UTC on
+2026-09-20 and was stood down: no PAUSE file, nothing in `queue/in-progress/`, no open pull
+request, corpus intact at 3,031 records. The owner was told once, in the thread, that the stop had
+held. **Do not tell them again on later wakes.** A daily "still stopped" message is noise, and
+noise is how a thread stops being worth reading. Run the checks, confirm nothing is half-finished,
+and end the turn without posting. Post only if something has actually changed — a half-merged
+batch, a red build on `main`, a `PAUSE` file, or the owner asking.
 
 **Only the owner lifts this.** When they do, delete this entry in the same commit that claims the
 next batch, and record what they decided under `## Decisions`.
